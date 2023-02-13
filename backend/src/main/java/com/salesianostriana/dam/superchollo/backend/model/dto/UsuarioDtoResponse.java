@@ -6,25 +6,26 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
 @AllArgsConstructor @NoArgsConstructor
 @Data
-@Builder
+@SuperBuilder
 public class UsuarioDtoResponse {
 
-    private String id;
+    protected String id;
 
-    private String username;
+    protected String username;
 
-    private String avatar;
+    protected String avatar;
 
-    private String fullName;
+    protected String fullName;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
-    private LocalDateTime fechaCreado;
+    protected LocalDateTime fechaCreado;
 
     public static UsuarioDtoResponse of(Usuario usuario) {
         return UsuarioDtoResponse

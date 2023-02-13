@@ -46,7 +46,6 @@ public class Producto {
 
     private String imagen;
 
-
     @ManyToOne
     @JoinColumn(name = "categoria_id", foreignKey = @ForeignKey(name = "FK_PRODUCTO_CATEGORIA"))
     private Categoria categoria;
@@ -62,6 +61,17 @@ public class Producto {
     @ManyToOne
     @JoinColumn(name = "autor_id", foreignKey = @ForeignKey(name = "FK_PRODUCTO_AUTOR"))
     private Usuario autor;
+
+    public void addRating(Rating rating) {
+        rating.setProducto(this);
+        this.valoraciones.add(rating);
+    }
+
+    public void removeRating(Rating rating) {
+        rating.setProducto(null);
+        this.valoraciones.remove(rating);
+    }
+
 
     @Override
     public int hashCode() {

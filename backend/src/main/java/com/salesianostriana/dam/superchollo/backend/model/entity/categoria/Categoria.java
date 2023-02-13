@@ -40,6 +40,16 @@ public class Categoria {
     @Builder.Default
     private List<Producto> productos = new ArrayList<>();
 
+    public void addProducto(Producto producto) {
+        producto.setCategoria(this);
+        this.productos.add(producto);
+    }
+
+    public void removeProducto(Producto producto) {
+        producto.setCategoria(null);
+        this.productos.remove(producto);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id);

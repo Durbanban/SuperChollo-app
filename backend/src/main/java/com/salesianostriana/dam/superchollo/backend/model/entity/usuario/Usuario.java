@@ -105,6 +105,27 @@ public class Usuario implements UserDetails {
     @Builder.Default
     private List<Supermercado> favoritos = new ArrayList<>();
 
+
+    public void addFavorito(Supermercado supermercado) {
+        supermercado.getSeguidores().add(this);
+        this.favoritos.add(supermercado);
+    }
+
+    public void removeFavorito(Supermercado supermercado) {
+        supermercado.getSeguidores().remove(this);
+        this.favoritos.remove(supermercado);
+    }
+
+    public void addPublicado(Producto publicado) {
+        publicado.setAutor(this);
+        this.publicados.add(publicado);
+    }
+
+    public void removePublicado(Producto publicado) {
+        publicado.setAutor(null);
+        this.publicados.remove(publicado);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(this.id);

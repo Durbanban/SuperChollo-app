@@ -56,6 +56,16 @@ public class Supermercado {
     @Builder.Default
     private List<Usuario> seguidores = new ArrayList<>();
 
+    public void addProducto(Producto producto) {
+        producto.getSupermercados().add(this);
+        this.productos.add(producto);
+    }
+
+    public void removeProducto(Producto producto) {
+        producto.getSupermercados().add(this);
+        this.productos.remove(producto);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id);

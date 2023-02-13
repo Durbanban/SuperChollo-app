@@ -77,5 +77,9 @@ public class UsuarioService {
             usuarioRepository.deleteById(id);
     }
 
+    public boolean passwordMatch(Usuario usuario, String clearPassword) {
+        return passwordEncoder.matches(clearPassword, usuario.getPassword());
+    }
+
 
 }

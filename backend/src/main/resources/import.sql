@@ -1,0 +1,4 @@
+INSERT INTO usuario (id, username, password, verify_password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES('8d7b892a-ab7b-11ed-afa1-0242ac120002', 'user', '1234', '1234', 'imagen', 'Usuario González', true, true, true, true, 'USER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO usuario (id, username, password, verify_password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES('b3f3bbca-ab7d-11ed-afa1-0242ac120002', 'admin', '5678', '5678', 'imagen', 'Administrador López', true, true, true, true, 'ADMIN', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+
