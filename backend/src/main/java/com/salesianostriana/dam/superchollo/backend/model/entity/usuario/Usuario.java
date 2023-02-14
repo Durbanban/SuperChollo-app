@@ -49,8 +49,6 @@ public class Usuario implements UserDetails {
 
     private String password;
 
-    private String verifyPassword;
-
     private String avatar;
 
     private String fullName;

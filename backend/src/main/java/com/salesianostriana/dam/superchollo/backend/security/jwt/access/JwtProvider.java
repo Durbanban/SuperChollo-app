@@ -1,4 +1,4 @@
-package com.salesianostriana.dam.superchollo.backend.security.jwt;
+package com.salesianostriana.dam.superchollo.backend.security.jwt.access;
 
 import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.Usuario;
 import io.jsonwebtoken.*;
@@ -28,7 +28,8 @@ public class JwtProvider {
     private String jwtSecret;
 
     @Value("${jwt.duration}")
-    private int jwtLifeInDays;
+//    private int jwtLifeInDays;
+    private int jwtLifeInMinutes;
 
     private JwtParser jwtParser;
 
@@ -53,7 +54,8 @@ public class JwtProvider {
                 Date.from(
                         LocalDateTime
                                 .now()
-                                .plusDays(jwtLifeInDays)
+                                //.plusDays(jwtLifeInDays)
+                                .plusMinutes(jwtLifeInMinutes)
                                 .atZone(ZoneId.systemDefault())
                                 .toInstant()
                 );

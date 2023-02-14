@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.superchollo.backend.security.config;
 
+import com.salesianostriana.dam.superchollo.backend.security.jwt.access.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -22,6 +25,12 @@ public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
+
+    private final AuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
+    private final AccessDeniedHandler jwtAccessDeniedHandler;
+
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
@@ -50,20 +59,20 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(null)
-                .accessDeniedHandler(null)
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .accessDeniedHandler(jwtAccessDeniedHandler)
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/auth/register/").hasRole("USER")
+                .antMatchers("/auth/user/").hasRole("USER")
                 .antMatchers("/auth/register/admin/").hasRole("ADMIN")
                 .anyRequest().authenticated();
 
 
 
-        //http.addFilterBefore(null, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
 
         http.headers().frameOptions().disable();
@@ -74,7 +83,7 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web -> web.ignoring().antMatchers("/h2-console/**"));
+        return (web -> web.ignoring().antMatchers("/h2-console/**", "/auth/register/", "/auth/login/"));
     }
 
 

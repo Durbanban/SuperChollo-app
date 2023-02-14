@@ -2,7 +2,11 @@ package com.salesianostriana.dam.superchollo.backend.controller;
 
 import com.salesianostriana.dam.superchollo.backend.model.dto.*;
 import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.Usuario;
-import com.salesianostriana.dam.superchollo.backend.security.jwt.JwtProvider;
+import com.salesianostriana.dam.superchollo.backend.security.jwt.access.JwtProvider;
+import com.salesianostriana.dam.superchollo.backend.security.jwt.refresh.RefreshToken;
+import com.salesianostriana.dam.superchollo.backend.security.jwt.refresh.RefreshTokenException;
+import com.salesianostriana.dam.superchollo.backend.security.jwt.refresh.RefreshTokenRequest;
+import com.salesianostriana.dam.superchollo.backend.service.RefreshTokenService;
 import com.salesianostriana.dam.superchollo.backend.service.usuario.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +22,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,6 +34,8 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
+
+    private final RefreshTokenService refreshTokenService;
 
     @PostMapping("/register/")
     public ResponseEntity<UsuarioDtoResponse> crearUsuarioConRolUser(@Valid @RequestBody UsuarioDtoCreateRequest dto) {
@@ -54,6 +62,7 @@ public class UsuarioController {
     }
     @PostMapping("/login/")
     public ResponseEntity<UsuarioJwtResponse> login(@RequestBody LoginRequest loginRequest) {
+
         Authentication authentication = authenticationManager
                                                     .authenticate(new UsernamePasswordAuthenticationToken(
                                                             loginRequest.getUsername(),
@@ -63,11 +72,16 @@ public class UsuarioController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtProvider.generateToken(authentication);
         Usuario usuario = (Usuario) authentication.getPrincipal();
-        return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioJwtResponse.of(usuario, token));
+
+        refreshTokenService.deleteByUsuario(usuario);
+        RefreshToken refreshToken = refreshTokenService.createRefreshToken(usuario);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(UsuarioJwtResponse.of(usuario, token, refreshToken.getToken()));
     }
 
     @PutMapping("/user/changePassword")
-    public ResponseEntity<UsuarioDtoResponse> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest,
+    public ResponseEntity<UsuarioDtoResponse> changePassword(@Valid @RequestBody ChangePasswordRequest changePasswordRequest,
                                                        @AuthenticationPrincipal Usuario loggedUser) {
 
         // Este código es mejorable.
@@ -89,6 +103,36 @@ public class UsuarioController {
         }
 
         return null;
+    }
+
+    @GetMapping("/user/")
+    public List<UsuarioDtoResponse> getAllUsers() {
+        List<Usuario> users = usuarioService.findAll();
+        List<UsuarioDtoResponse> resultado = users.stream()
+                                                    .map(UsuarioDtoResponse::of)
+                                                    .collect(Collectors.toList());
+        return resultado;
+    }
+
+    @PostMapping("/refreshtoken")
+    public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+        String refreshToken = refreshTokenRequest.getRefreshToken();
+
+        return refreshTokenService.findByToken(refreshToken)
+                .map(refreshTokenService::verify)
+                .map(RefreshToken::getUsuario)
+                .map(user -> {
+                    String token = jwtProvider.generateToken((Authentication) user);
+                    refreshTokenService.deleteByUsuario(user);
+                    RefreshToken refreshToken2 = refreshTokenService.createRefreshToken(user);
+                    return ResponseEntity.status(HttpStatus.CREATED)
+                            .body(UsuarioJwtResponse.builder()
+                                    .token(token)
+                                    .refreshToken(refreshToken2.getToken())
+                                    .build());
+                })
+                .orElseThrow(() -> new RefreshTokenException("Refresh token not found"));
+
     }
 
 

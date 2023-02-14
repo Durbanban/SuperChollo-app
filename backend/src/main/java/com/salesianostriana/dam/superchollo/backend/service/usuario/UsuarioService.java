@@ -3,6 +3,7 @@ package com.salesianostriana.dam.superchollo.backend.service.usuario;
 import com.salesianostriana.dam.superchollo.backend.model.dto.UsuarioDtoCreateRequest;
 import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.Usuario;
 import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.UsuarioRole;
+import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.exception.EmptyUsuarioListException;
 import com.salesianostriana.dam.superchollo.backend.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,7 +26,6 @@ public class UsuarioService {
                 .builder()
                 .username(dto.getUsername())
                 .password(dto.getPassword())
-                .verifyPassword(dto.getVerifyPassword())
                 .avatar(dto.getAvatar())
                 .fullName(dto.getFullName())
                 .roles(roles)
@@ -39,10 +39,6 @@ public class UsuarioService {
 
     public Usuario crearUsuarioConRolAdmin(UsuarioDtoCreateRequest dto) {
         return crearUsuario(dto, EnumSet.of(UsuarioRole.ADMIN));
-    }
-
-    public List<Usuario> findAll() {
-        return usuarioRepository.findAll();
     }
 
     public Optional<Usuario> findById(UUID id) {
@@ -79,6 +75,14 @@ public class UsuarioService {
 
     public boolean passwordMatch(Usuario usuario, String clearPassword) {
         return passwordEncoder.matches(clearPassword, usuario.getPassword());
+    }
+
+    public List<Usuario> findAll() {
+        List<Usuario> users = usuarioRepository.findAll();
+        if(users.isEmpty()) {
+            throw new EmptyUsuarioListException();
+        }
+        return users;
     }
 
 
