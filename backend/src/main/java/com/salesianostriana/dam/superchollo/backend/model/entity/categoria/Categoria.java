@@ -16,6 +16,14 @@ import java.util.UUID;
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
 @Builder
+@NamedEntityGraphs(value = {
+        @NamedEntityGraph(
+                name = "categoria-con-productos",
+                attributeNodes = {
+                        @NamedAttributeNode("productos")
+                }
+        )
+})
 public class Categoria {
 
     @Id

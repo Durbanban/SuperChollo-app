@@ -1,4 +1,4 @@
-package com.salesianostriana.dam.superchollo.backend.model.dto;
+package com.salesianostriana.dam.superchollo.backend.model.dto.usuario;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.Usuario;
@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor @NoArgsConstructor
 @SuperBuilder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UsuarioJwtResponse extends UsuarioDtoResponse{
+public class UsuarioJwtResponse extends UsuarioDtoResponse {
 
     private String token;
     private String refreshToken;

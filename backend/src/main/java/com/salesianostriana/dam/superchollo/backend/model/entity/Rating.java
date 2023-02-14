@@ -17,10 +17,12 @@ import java.util.Objects;
 @Builder
 public class Rating {
 
-    public Rating(Usuario usuario, Producto producto, LocalDateTime fecha) {
+    public Rating(Usuario usuario, Producto producto, LocalDateTime fecha, int nota) {
         this.usuario = usuario;
         this.producto = producto;
         fechaRating = fecha;
+        this.nota = nota;
+
 
         ratingPK.setUsuarioId(this.usuario.getId());
         ratingPK.setProductoId(this.producto.getId());

@@ -26,6 +26,37 @@ import java.util.stream.Collectors;
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 @Builder
+@NamedEntityGraphs(value = {
+        @NamedEntityGraph(
+                name = "usuario-con-productos-valorados",
+                attributeNodes = {
+                        @NamedAttributeNode(
+                                value = "valorados",
+                                subgraph = "rating-con-producto"
+                        )
+                },
+                subgraphs = {
+                        @NamedSubgraph(
+                                name = "rating-con-producto",
+                                attributeNodes = {
+                                        @NamedAttributeNode("producto")
+                                }
+                        )
+                }
+        ),
+        @NamedEntityGraph(
+                name = "usuario-con-productos-publicados",
+                attributeNodes = {
+                        @NamedAttributeNode("publicados")
+                }
+        ),
+        @NamedEntityGraph(
+                name = "usuario-con-supermercados",
+                attributeNodes = {
+                        @NamedAttributeNode("favoritos")
+                }
+        )
+})
 public class Usuario implements UserDetails {
 
     @Id

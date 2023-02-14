@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SearchCriteriaExtractor {
+public interface SearchCriteriaExtractor {
 
     static List<SearchCriteria> extractorCriteria(String busqueda) {
 

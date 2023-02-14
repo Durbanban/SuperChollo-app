@@ -1,4 +1,4 @@
-package com.salesianostriana.dam.superchollo.backend.model.dto;
+package com.salesianostriana.dam.superchollo.backend.model.dto.login;
 
 
 import lombok.AllArgsConstructor;

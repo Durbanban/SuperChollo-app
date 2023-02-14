@@ -1,4 +1,4 @@
-package com.salesianostriana.dam.superchollo.backend.model.dto;
+package com.salesianostriana.dam.superchollo.backend.model.dto.usuario;
 
 import com.salesianostriana.dam.superchollo.backend.validation.annotation.PasswordsMatch;
 import lombok.AllArgsConstructor;

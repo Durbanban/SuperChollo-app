@@ -1,6 +1,6 @@
 package com.salesianostriana.dam.superchollo.backend.service.usuario;
 
-import com.salesianostriana.dam.superchollo.backend.model.dto.UsuarioDtoCreateRequest;
+import com.salesianostriana.dam.superchollo.backend.model.dto.usuario.UsuarioDtoCreateRequest;
 import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.Usuario;
 import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.UsuarioRole;
 import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.exception.EmptyUsuarioListException;

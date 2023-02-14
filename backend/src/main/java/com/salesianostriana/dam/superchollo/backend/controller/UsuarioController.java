@@ -1,6 +1,10 @@
 package com.salesianostriana.dam.superchollo.backend.controller;
 
 import com.salesianostriana.dam.superchollo.backend.model.dto.*;
+import com.salesianostriana.dam.superchollo.backend.model.dto.login.LoginRequest;
+import com.salesianostriana.dam.superchollo.backend.model.dto.usuario.UsuarioDtoCreateRequest;
+import com.salesianostriana.dam.superchollo.backend.model.dto.usuario.UsuarioDtoResponse;
+import com.salesianostriana.dam.superchollo.backend.model.dto.usuario.UsuarioJwtResponse;
 import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.Usuario;
 import com.salesianostriana.dam.superchollo.backend.security.jwt.access.JwtProvider;
 import com.salesianostriana.dam.superchollo.backend.security.jwt.refresh.RefreshToken;

@@ -16,6 +16,14 @@ import java.util.UUID;
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
 @Builder
+@NamedEntityGraphs(value = {
+        @NamedEntityGraph(
+                name = "supermercado-con-usuarios",
+                attributeNodes = {
+                        @NamedAttributeNode("seguidores")
+                }
+        )
+})
 public class Supermercado {
 
     @Id

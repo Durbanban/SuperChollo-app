@@ -1,13 +1,11 @@
-package com.salesianostriana.dam.superchollo.backend.model.dto;
+package com.salesianostriana.dam.superchollo.backend.model.dto.usuario;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.Usuario;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
