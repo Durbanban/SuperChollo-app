@@ -119,31 +119,34 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
                 ));
     }
 
-    @ExceptionHandler({IllegalFormatConversionException.class})
-    public ResponseEntity<?> handleIllegalFormatConversionException(IllegalFormatConversionException ex,
+    @ExceptionHandler({
+            IllegalFormatConversionException.class,
+            ClassCastException.class
+    })
+    public ResponseEntity<?> handleIllegalFormatConversionException(RuntimeException ex,
                                                                     HttpServletRequest request) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 ApiErrorImpl
                         .builder()
-                        .status(HttpStatus.NOT_FOUND)
-                        .message("No se encontró el recurso")
+                        .status(HttpStatus.BAD_REQUEST)
+                        .message("Error en los datos")
                         .path(((ServletWebRequest) request).getRequest().getRequestURI())
                         .build()
         );
     }
 
-    @ExceptionHandler({ClassCastException.class})
+    /*@ExceptionHandler({ClassCastException.class})
     public ResponseEntity<?> handleClassCastException(ClassCastException ex,
                                                                     HttpServletRequest request) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 ApiErrorImpl
                         .builder()
-                        .status(HttpStatus.NOT_FOUND)
-                        .message("No se encontró el recurso")
+                        .status(HttpStatus.BAD_REQUEST)
+                        .message("Error en los datos")
                         .path(((ServletWebRequest) request).getRequest().getRequestURI())
                         .build()
         );
-    }
+    }*/
 
 
 

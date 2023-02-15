@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.superchollo.backend.model.dto.categoria;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.salesianostriana.dam.superchollo.backend.model.dto.producto.ProductoDtoResponse;
 import com.salesianostriana.dam.superchollo.backend.model.entity.categoria.Categoria;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 @Data
 @AllArgsConstructor @NoArgsConstructor
 @Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CategoriaDtoResponse {
 
     @JsonView({

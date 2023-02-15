@@ -86,9 +86,6 @@ public class UsuarioService {
         return users;
     }
 
-    public void deleteRefreshToken(Usuario usuario) {
-
-    }
 
 
 }

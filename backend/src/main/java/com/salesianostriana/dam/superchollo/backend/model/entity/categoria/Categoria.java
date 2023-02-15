@@ -5,6 +5,7 @@ import com.salesianostriana.dam.superchollo.backend.validation.annotation.ValidC
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import java.util.UUID;
 public class Categoria {
 
     @Id
+    @Type(type = "uuid-char")
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
             name = "UUID",

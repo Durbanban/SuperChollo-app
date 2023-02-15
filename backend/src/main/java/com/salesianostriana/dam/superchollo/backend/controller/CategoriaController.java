@@ -2,6 +2,7 @@ package com.salesianostriana.dam.superchollo.backend.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.salesianostriana.dam.superchollo.backend.model.dto.PageDto;
+import com.salesianostriana.dam.superchollo.backend.model.dto.categoria.CategoriaDtoCreateRequest;
 import com.salesianostriana.dam.superchollo.backend.model.dto.categoria.CategoriaDtoResponse;
 import com.salesianostriana.dam.superchollo.backend.model.entity.categoria.Categoria;
 import com.salesianostriana.dam.superchollo.backend.model.entity.categoria.exception.EmptyCategoriaListException;
@@ -13,14 +14,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/categoria")
+@Validated
 public class CategoriaController {
 
     private final CategoriaService categoriaService;
@@ -50,4 +57,19 @@ public class CategoriaController {
         CategoriaDtoResponse resultado = CategoriaDtoResponse.of(categoriaService.findById(id));
         return resultado;
     }
+
+    @PostMapping("/")
+    @JsonView(View.CategoriaView.GeneralCategoriaView.class)
+    public ResponseEntity<CategoriaDtoResponse> createCategoria(@Valid @RequestBody CategoriaDtoCreateRequest dto) {
+
+        Categoria categoria = categoriaService.add(dto);
+
+        URI createdURI = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(categoria.getId()).toUri();
+
+        return ResponseEntity.created(createdURI).body(CategoriaDtoResponse.of(categoria));
+    }
+
 }

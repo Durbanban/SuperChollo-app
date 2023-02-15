@@ -1,5 +1,6 @@
 package com.salesianostriana.dam.superchollo.backend.model.dto.usuario;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.salesianostriana.dam.superchollo.backend.validation.annotation.PasswordsMatch;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
         verifyPasswordField = "verifyPassword",
         message = "{usuarioDtoCreateRequest.passwordsNotMatch}"
 )
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UsuarioDtoCreateRequest {
 
     private String username;

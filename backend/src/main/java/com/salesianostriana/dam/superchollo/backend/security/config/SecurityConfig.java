@@ -4,8 +4,10 @@ import com.salesianostriana.dam.superchollo.backend.security.jwt.access.JwtAuthe
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -56,7 +58,34 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
+        /*http
+                .cors(Customizer.withDefaults())
+                .csrf().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .accessDeniedHandler(jwtAccessDeniedHandler)
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .antMatcher("/auth/**")
+                    .authorizeRequests()
+                        .antMatchers("/auth/register/admin/", "/auth/user/").hasRole("ADMIN")
+                .and()
+                .antMatcher("/categoria/**")
+                    .authorizeRequests()
+                        .antMatchers(HttpMethod.POST, "/categoria/").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.DELETE, "/categoria/**").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.PUT, "/categoria/**").hasRole("ADMIN")
+                .and()
+                .antMatcher("/supermercado/**")
+                    .authorizeRequests()
+                    .antMatchers(HttpMethod.POST, "/supermercado/").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.DELETE, "/supermercado/**").hasRole("ADMIN")
+                    .antMatchers(HttpMethod.PUT, "/supermercado/**").hasRole("ADMIN")
+                    .anyRequest().authenticated();*/
         http
+                .cors(Customizer.withDefaults())
                 .csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
@@ -66,9 +95,16 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/auth/user/", "/categoria/**").hasRole("USER")
-                .antMatchers("/auth/register/admin/").hasRole("ADMIN")
+                .antMatchers("/auth/register/admin/", "/auth/user/").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/categoria/").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/categoria/").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/categoria/").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/supermercado/").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/supermercado/").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/supermercado/").hasRole("ADMIN")
                 .anyRequest().authenticated();
+
+
 
 
 
