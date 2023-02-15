@@ -28,6 +28,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
+import java.util.IllegalFormatConversionException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -116,6 +117,32 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
                         ex.getMessage(),
                         request.getRequestURI()
                 ));
+    }
+
+    @ExceptionHandler({IllegalFormatConversionException.class})
+    public ResponseEntity<?> handleIllegalFormatConversionException(IllegalFormatConversionException ex,
+                                                                    HttpServletRequest request) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                ApiErrorImpl
+                        .builder()
+                        .status(HttpStatus.NOT_FOUND)
+                        .message("No se encontró el recurso")
+                        .path(((ServletWebRequest) request).getRequest().getRequestURI())
+                        .build()
+        );
+    }
+
+    @ExceptionHandler({ClassCastException.class})
+    public ResponseEntity<?> handleClassCastException(ClassCastException ex,
+                                                                    HttpServletRequest request) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                ApiErrorImpl
+                        .builder()
+                        .status(HttpStatus.NOT_FOUND)
+                        .message("No se encontró el recurso")
+                        .path(((ServletWebRequest) request).getRequest().getRequestURI())
+                        .build()
+        );
     }
 
 

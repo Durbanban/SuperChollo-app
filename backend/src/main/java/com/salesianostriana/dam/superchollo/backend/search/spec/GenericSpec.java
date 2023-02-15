@@ -21,6 +21,9 @@ public class GenericSpec<T> implements Specification {
 
     @Override
     public Predicate toPredicate(Root root, CriteriaQuery query, CriteriaBuilder criteriaBuilder) {
+
+        //TODO Convertir a Case Insensitive los criterios de búsqueda de String
+
         Class tipo = root.get(searchCriteria.getKey()).getJavaType();
         String clave = searchCriteria.getKey();
         String operador = searchCriteria.getOperator();

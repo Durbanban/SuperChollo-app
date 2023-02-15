@@ -1,6 +1,8 @@
 package com.salesianostriana.dam.superchollo.backend.model.dto.producto;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.salesianostriana.dam.superchollo.backend.model.entity.producto.Producto;
+import com.salesianostriana.dam.superchollo.backend.view.View;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor @NoArgsConstructor
 @Builder
+@JsonView(View.CategoriaView.DetailedCategoriaView.class)
 public class ProductoDtoResponse {
 
     private String id;

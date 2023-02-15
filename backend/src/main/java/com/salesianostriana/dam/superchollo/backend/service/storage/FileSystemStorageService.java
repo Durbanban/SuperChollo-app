@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 @Service
 public class FileSystemStorageService implements StorageService{
 
-    @Value("{storage.location}")
+    @Value("${storage.location}")
     private String storageLocation;
 
     private Path rootLocation;
@@ -76,7 +76,7 @@ public class FileSystemStorageService implements StorageService{
         String newFileName = filename;
 
         while(Files.exists(rootLocation.resolve(newFileName))) {
-            // Se genera uno nuevo
+
             String extension = StringUtils.getFilenameExtension(newFileName);
             String name = newFileName.replace("." + extension, "");
 
@@ -90,7 +90,14 @@ public class FileSystemStorageService implements StorageService{
 
     @Override
     public Stream<Path> loadAll() {
-        return null;
+
+        try {
+            return Files.walk(rootLocation, 1)
+                    .filter(path -> !path.equals(rootLocation))
+                    .map(rootLocation::relativize);
+        } catch (IOException ex) {
+            throw new StorageException("Error al leer todos los archivos", ex);
+        }
     }
 
     @Override

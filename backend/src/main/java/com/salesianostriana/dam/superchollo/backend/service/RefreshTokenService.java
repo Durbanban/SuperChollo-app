@@ -4,6 +4,7 @@ import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.Usuario
 import com.salesianostriana.dam.superchollo.backend.repository.RefreshTokenRepository;
 import com.salesianostriana.dam.superchollo.backend.security.jwt.refresh.RefreshToken;
 import com.salesianostriana.dam.superchollo.backend.security.jwt.refresh.RefreshTokenException;
+import com.salesianostriana.dam.superchollo.backend.security.jwt.refresh.RefreshTokenNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

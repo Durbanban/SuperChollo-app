@@ -139,5 +139,15 @@ public class UsuarioController {
 
     }
 
+    @PostMapping("/logout/")
+    public ResponseEntity<?> logout(@AuthenticationPrincipal Usuario logueado) {
+
+        refreshTokenService.deleteByUsuario(logueado);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+
+    }
+
 
 }

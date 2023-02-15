@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.superchollo.backend.service;
 
 import com.salesianostriana.dam.superchollo.backend.model.entity.categoria.Categoria;
+import com.salesianostriana.dam.superchollo.backend.model.entity.categoria.exception.CategoriaNotFoundException;
 import com.salesianostriana.dam.superchollo.backend.model.entity.categoria.exception.EmptyCategoriaListException;
 import com.salesianostriana.dam.superchollo.backend.repository.CategoriaRepository;
 import com.salesianostriana.dam.superchollo.backend.search.spec.CategoriaSpecBuilder;
@@ -12,6 +13,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -28,5 +30,9 @@ public class CategoriaService {
         CategoriaSpecBuilder specBuilder = new CategoriaSpecBuilder(criterios);
         Specification<Categoria> spec = specBuilder.build();
         return categoriaRepository.findAll(spec, pageable);
+    }
+
+    public Categoria findById(UUID id) {
+        return categoriaRepository.findById(id).orElseThrow(() -> new CategoriaNotFoundException(id));
     }
 }
