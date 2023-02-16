@@ -10,6 +10,6 @@ public class CategoriaNotFoundException extends EntityNotFoundException {
     }
 
     public CategoriaNotFoundException(UUID id) {
-        super(String.format("La categoría con id %d no ha sido encontrada", id));
+        super(String.format("La categoría con id %s no ha sido encontrada", id.toString()));
     }
 }

@@ -1,11 +1,10 @@
-package com.salesianostriana.dam.superchollo.backend.model.entity;
+package com.salesianostriana.dam.superchollo.backend.model.entity.supermercado;
 
 import com.salesianostriana.dam.superchollo.backend.model.entity.producto.Producto;
 import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.Usuario;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -59,6 +58,7 @@ public class Supermercado {
             )
     )
     @Builder.Default
+    @ToString.Exclude
     private List<Producto> productos = new ArrayList<>();
 
     @ManyToMany(mappedBy = "favoritos", fetch = FetchType.LAZY)
@@ -74,6 +74,7 @@ public class Supermercado {
         producto.getSupermercados().remove(this);
         this.productos.remove(producto);
     }
+
 
     @Override
     public int hashCode() {

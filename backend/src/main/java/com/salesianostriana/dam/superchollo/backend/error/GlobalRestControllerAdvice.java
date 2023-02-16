@@ -3,6 +3,14 @@ package com.salesianostriana.dam.superchollo.backend.error;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.salesianostriana.dam.superchollo.backend.error.model.impl.ApiErrorImpl;
 import com.salesianostriana.dam.superchollo.backend.error.model.impl.ApiValidationSubError;
+import com.salesianostriana.dam.superchollo.backend.model.entity.categoria.exception.CategoriaNotFoundException;
+import com.salesianostriana.dam.superchollo.backend.model.entity.categoria.exception.EmptyCategoriaListException;
+import com.salesianostriana.dam.superchollo.backend.model.entity.producto.exception.EmptyProductoListException;
+import com.salesianostriana.dam.superchollo.backend.model.entity.producto.exception.ProductoNotFoundException;
+import com.salesianostriana.dam.superchollo.backend.model.entity.supermercado.exception.EmptySupermercadoListException;
+import com.salesianostriana.dam.superchollo.backend.model.entity.supermercado.exception.SupermercadoNotFoundException;
+import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.exception.EmptyUsuarioListException;
+import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.exception.UsuarioNotFoundException;
 import com.salesianostriana.dam.superchollo.backend.security.error.JwtTokenException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -80,7 +88,16 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
                 );
     }
 
-    @ExceptionHandler({})
+    @ExceptionHandler({
+            CategoriaNotFoundException.class,
+            EmptyCategoriaListException.class,
+            ProductoNotFoundException.class,
+            EmptyProductoListException.class,
+            UsuarioNotFoundException.class,
+            EmptyUsuarioListException.class,
+            SupermercadoNotFoundException.class,
+            EmptySupermercadoListException.class
+    })
     public ResponseEntity<?> handleNotFoundException(EntityNotFoundException ex, WebRequest request) {
 
         return buildApiError(ex, request, HttpStatus.NOT_FOUND);
@@ -118,38 +135,6 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
                         request.getRequestURI()
                 ));
     }
-
-   /* @ExceptionHandler({
-            IllegalFormatConversionException.class,
-            ClassCastException.class
-    })
-    public ResponseEntity<?> handleIllegalFormatConversionException(RuntimeException ex,
-                                                                    HttpServletRequest request) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                ApiErrorImpl
-                        .builder()
-                        .status(HttpStatus.BAD_REQUEST)
-                        .message("Error en los datos")
-                        .path(((ServletWebRequest) request).getRequest().getRequestURI())
-                        .build()
-        );
-    }*/
-
-    /*@ExceptionHandler({ClassCastException.class})
-    public ResponseEntity<?> handleClassCastException(ClassCastException ex,
-                                                                    HttpServletRequest request) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                ApiErrorImpl
-                        .builder()
-                        .status(HttpStatus.BAD_REQUEST)
-                        .message("Error en los datos")
-                        .path(((ServletWebRequest) request).getRequest().getRequestURI())
-                        .build()
-        );
-    }*/
-
-
-
 
 
     private final ResponseEntity<Object> buildApiError(Exception ex, WebRequest request, HttpStatus status) {

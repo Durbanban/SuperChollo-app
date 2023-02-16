@@ -23,13 +23,7 @@ public interface ProductoRepository extends JpaRepository<Producto, UUID>, JpaSp
             """)
     void deleteAllProductosfromSupermercadosByCategoria(UUID id);*/
 
-    /*@Query("""
-            SELECT p
-            FROM Producto p
-            LEFT JOIN catalogo c ON p.id = c.producto_id
-            WHERE c.supermercado_id = :id
-            """)
-    List<Producto> getAllProductsFromSupermarket(UUID id);*/
+
 
     @Query("""
             SELECT p
@@ -37,4 +31,8 @@ public interface ProductoRepository extends JpaRepository<Producto, UUID>, JpaSp
             WHERE s.id = :id
             """)
     List<Producto> getAllProductos(@Param("id") UUID id);
+
+    boolean existsByNombre(String nombre);
+
+
 }

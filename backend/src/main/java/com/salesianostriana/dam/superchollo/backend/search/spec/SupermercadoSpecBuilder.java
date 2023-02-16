@@ -1,6 +1,6 @@
 package com.salesianostriana.dam.superchollo.backend.search.spec;
 
-import com.salesianostriana.dam.superchollo.backend.model.entity.Supermercado;
+import com.salesianostriana.dam.superchollo.backend.model.entity.supermercado.Supermercado;
 import com.salesianostriana.dam.superchollo.backend.search.util.SearchCriteria;
 
 import java.util.List;

@@ -5,6 +5,7 @@ import com.salesianostriana.dam.superchollo.backend.model.dto.usuario.UsuarioJwt
 import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.Usuario;
 import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.UsuarioRole;
 import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.exception.EmptyUsuarioListException;
+import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.exception.UsuarioNotFoundException;
 import com.salesianostriana.dam.superchollo.backend.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -84,6 +85,15 @@ public class UsuarioService {
             throw new EmptyUsuarioListException();
         }
         return users;
+    }
+
+
+    public Usuario findByIdConProductos(UUID id) {
+        return usuarioRepository.findByPublicados(id).orElseThrow(() -> new UsuarioNotFoundException(id));
+    }
+
+    public Usuario add(Usuario usuario) {
+        return usuarioRepository.save(usuario);
     }
 
 

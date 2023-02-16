@@ -12,34 +12,53 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor @NoArgsConstructor
 @Builder
-@JsonView(View.CategoriaView.DetailedCategoriaView.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductoDtoResponse {
 
     @JsonView({
-            View.ProductoView.GeneralProductoView.class
+            View.ProductoView.GeneralProductoView.class,
+            View.ProductoView.DetailedProductoView.class,
+            View.CategoriaView.DetailedCategoriaView.class
     })
     private String id;
 
     @JsonView({
-            View.ProductoView.GeneralProductoView.class
+            View.ProductoView.GeneralProductoView.class,
+            View.ProductoView.DetailedProductoView.class,
+            View.CategoriaView.DetailedCategoriaView.class
     })
     private String generico;
 
     @JsonView({
-            View.ProductoView.GeneralProductoView.class
+            View.ProductoView.GeneralProductoView.class,
+            View.ProductoView.DetailedProductoView.class,
+            View.CategoriaView.DetailedCategoriaView.class
     })
     private String nombre;
 
     @JsonView({
-            View.ProductoView.GeneralProductoView.class
+            View.ProductoView.GeneralProductoView.class,
+            View.ProductoView.DetailedProductoView.class,
+            View.CategoriaView.DetailedCategoriaView.class
     })
     private double precio;
 
+    @JsonView({
+            View.ProductoView.DetailedProductoView.class,
+            View.CategoriaView.DetailedCategoriaView.class
+    })
     private String imagen;
 
+    @JsonView({
+            View.ProductoView.DetailedProductoView.class,
+            View.CategoriaView.DetailedCategoriaView.class
+    })
     private String categoria;
 
+    @JsonView({
+            View.ProductoView.DetailedProductoView.class,
+            View.CategoriaView.DetailedCategoriaView.class
+    })
     private String autor;
 
     public static ProductoDtoResponse of(Producto producto) {

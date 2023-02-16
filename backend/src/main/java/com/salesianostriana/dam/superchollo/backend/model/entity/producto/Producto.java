@@ -1,13 +1,12 @@
 package com.salesianostriana.dam.superchollo.backend.model.entity.producto;
 
 import com.salesianostriana.dam.superchollo.backend.model.entity.Rating;
-import com.salesianostriana.dam.superchollo.backend.model.entity.Supermercado;
+import com.salesianostriana.dam.superchollo.backend.model.entity.supermercado.Supermercado;
 import com.salesianostriana.dam.superchollo.backend.model.entity.categoria.Categoria;
 import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.Usuario;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -53,6 +52,7 @@ public class Producto {
 
     @ManyToMany(mappedBy = "productos", fetch = FetchType.LAZY)
     @Builder.Default
+    @ToString.Exclude
     private List<Supermercado> supermercados = new ArrayList<>();
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
@@ -94,7 +94,7 @@ public class Producto {
         return id.equals(producto.id);
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Producto {" +
                 "id = " + id + ", " +
@@ -103,5 +103,5 @@ public class Producto {
                 "Precio = " + precio + ", " +
                 "Categoria = " + categoria.getNombre() +
                 "Autor = " + autor.getUsername() + "}";
-    }
+    }*/
 }

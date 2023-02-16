@@ -1,5 +1,5 @@
 -- password 1234
-INSERT INTO usuario (id, username, password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('89a8725e-ebd8-40fa-9caa-105b742c4ea0', 'user', '{bcrypt}$2a$12$7bG1Ds4qfiK.uyxjtSjtnu7Lhn2ruuk1EZPFMB7T9jBjDFO2xw.yq', 'imagen', 'Usuario González', true, true, true, true, 'USER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO usuario (id, username, password, avatar, full_name  , account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('89a8725e-ebd8-40fa-9caa-105b742c4ea0', 'user', '{bcrypt}$2a$12$7bG1Ds4qfiK.uyxjtSjtnu7Lhn2ruuk1EZPFMB7T9jBjDFO2xw.yq', 'imagen', 'Usuario González', true, true, true, true, 'USER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- password 12345678
 INSERT INTO usuario (id, username, password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('6f705ab2-6ff9-4068-87f8-4c4932c8d73f', 'ramoncin23', '{bcrypt}$2a$12$jIVXp55gD0dyoJzgYlltYOwVJoJ3WEy/VvvIqR97lmE4LVaUjF9ry', 'imagen', 'Ramón Villanueva', true, true, true, true, 'USER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
@@ -7,10 +7,10 @@ INSERT INTO usuario (id, username, password, avatar, full_name, account_non_expi
 -- password 5678
 INSERT INTO usuario (id, username, password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('7117fd18-7be7-4c60-88c6-c4fa9897d013', 'admin', '{bcrypt}$2a$12$MgkQqpKgw6NbbCy1Sz3EPOkQ31CGEovKyvV2Voxr0apdtuEEzPmk.', 'imagen', 'Administrador López', true, true, true, true, 'ADMIN', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
-INSERT INTO categoria (id, nombre) VALUES ('24261a63-5dd3-4f81-a0a4-3dc929f74ebe', 'CARNICERIA');
-INSERT INTO categoria (id, nombre) VALUES ('0231a8be-af6a-487e-bd21-bd98c0caad39', 'CHARCUTERIA');
+INSERT INTO categoria (id, nombre) VALUES ('24261a63-5dd3-4f81-a0a4-3dc929f74ebe', 'CARNICERÍA');
+INSERT INTO categoria (id, nombre) VALUES ('0231a8be-af6a-487e-bd21-bd98c0caad39', 'CHARCUTERÍA');
 INSERT INTO categoria (id, nombre) VALUES ('8c37d098-af20-4ec8-ba75-a697a48d48de', 'CONSUMIBLES');
-INSERT INTO categoria (id, nombre) VALUES ('8c28d654-eb8b-4e9d-a86d-a132662b143e', 'LACTEOS');
+INSERT INTO categoria (id, nombre) VALUES ('8c28d654-eb8b-4e9d-a86d-a132662b143e', 'LÁCTEOS');
 INSERT INTO categoria (id, nombre) VALUES ('a54b27e6-3208-40d0-b909-d282b4f0d58f', 'PASTA');
 
 INSERT INTO producto (id, generico, imagen, nombre, precio, autor_id, categoria_id) VALUES ('e0a31674-c439-4c1b-83b3-77236a762cf7', 'FIAMBREPAVO', 'imagen_fiambrepavo.jpg', 'Pavo 200 gr ALDI', 1.99, '89a8725e-ebd8-40fa-9caa-105b742c4ea0', '0231a8be-af6a-487e-bd21-bd98c0caad39');
@@ -37,13 +37,13 @@ INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('08c0fd
 INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('92ccf1ad-131d-4993-ae16-50c5f52d6522', '6f705ab2-6ff9-4068-87f8-4c4932c8d73f', CURRENT_TIMESTAMP, 6);
 INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('2624030c-d07d-4eff-b351-54139076fad3', '6f705ab2-6ff9-4068-87f8-4c4932c8d73f', CURRENT_TIMESTAMP, 8);
 
-INSERT INTO supermercado (id, address, nombre) VALUES ('b7b86f11-ccec-46fd-b3d4-dd1cb3268e6a', 'Calle Virgen de Loreto, 35', 'LIDL');
-INSERT INTO supermercado (id, address, nombre) VALUES ('d8e99345-5b31-43a0-96ca-1f059c5ffbd9', 'Calle Salado, s/n', 'Mercadona');
-INSERT INTO supermercado (id, address, nombre) VALUES ('f223e31f-3f6c-497d-ae30-bd59f7d39928', 'Calle Virgen de Montserrat, 9', 'MAS');
-INSERT INTO supermercado (id, address, nombre) VALUES ('3ff87f82-177f-40fa-978c-8df7b41a757f', 'Calle Santa Fe, 3-5-7', 'MAS');
-INSERT INTO supermercado (id, address, nombre) VALUES ('2b4072df-a6ca-440d-ad44-74c6c49570eb', 'Avenida de la República Argentina, 27', 'DIA');
-INSERT INTO supermercado (id, address, nombre) VALUES ('caec4dc0-761a-4ae1-9904-a3560a40faa9', 'Calle Evangelista, 50', 'El Jamón');
-INSERT INTO supermercado (id, address, nombre) VALUES ('33eed5ae-ed92-484e-9578-b50407af4b82', 'Calle Virgen de Setefilla, 3', 'ALDI')
+INSERT INTO supermercado (id, address, nombre) VALUES ('b7b86f11-ccec-46fd-b3d4-dd1cb3268e6a', 'Calle Virgen de Loreto 35', 'LIDL');
+INSERT INTO supermercado (id, address, nombre) VALUES ('d8e99345-5b31-43a0-96ca-1f059c5ffbd9', 'Calle Salado s/n', 'Mercadona');
+INSERT INTO supermercado (id, address, nombre) VALUES ('f223e31f-3f6c-497d-ae30-bd59f7d39928', 'Calle Virgen de Montserrat 9', 'MAS');
+INSERT INTO supermercado (id, address, nombre) VALUES ('3ff87f82-177f-40fa-978c-8df7b41a757f', 'Calle Santa Fe 3-5-7', 'MAS');
+INSERT INTO supermercado (id, address, nombre) VALUES ('2b4072df-a6ca-440d-ad44-74c6c49570eb', 'Avenida de la República Argentina 27', 'DIA');
+INSERT INTO supermercado (id, address, nombre) VALUES ('caec4dc0-761a-4ae1-9904-a3560a40faa9', 'Calle Evangelista 50', 'El Jamón');
+INSERT INTO supermercado (id, address, nombre) VALUES ('33eed5ae-ed92-484e-9578-b50407af4b82', 'Calle Virgen de Setefilla 3', 'ALDI');
 
 INSERT INTO preferido (usuario_id, supermercado_id) VALUES ('89a8725e-ebd8-40fa-9caa-105b742c4ea0', 'b7b86f11-ccec-46fd-b3d4-dd1cb3268e6a');
 INSERT INTO preferido (usuario_id, supermercado_id) VALUES ('89a8725e-ebd8-40fa-9caa-105b742c4ea0', '3ff87f82-177f-40fa-978c-8df7b41a757f');
