@@ -22,7 +22,6 @@ import java.util.UUID;
 public class Producto {
 
     @Id
-    @Type(type = "uuid-char")
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
             name = "UUID",
@@ -56,7 +55,7 @@ public class Producto {
     @Builder.Default
     private List<Supermercado> supermercados = new ArrayList<>();
 
-    @OneToMany(mappedBy = "producto", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @Builder.Default
     private List<Rating> valoraciones = new ArrayList<>();
 
@@ -73,6 +72,13 @@ public class Producto {
         rating.setProducto(null);
         this.valoraciones.remove(rating);
     }
+
+    @PreRemove
+    public void removeSupermercados() {
+        this.supermercados.stream().forEach(s -> s.removeProducto(this));
+    }
+
+
 
 
     @Override

@@ -96,12 +96,9 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/auth/register/admin/", "/auth/user/").hasRole("ADMIN")
-                .antMatchers(HttpMethod.POST, "/categoria/").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/categoria/").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/categoria/").hasRole("ADMIN")
-                .antMatchers(HttpMethod.POST, "/supermercado/").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/supermercado/").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/supermercado/").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/categoria/", "/supermercado/").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/categoria/**", "/supermercado/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/categoria/**", "/supermercado/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
 
 

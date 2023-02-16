@@ -9,4 +9,6 @@ import java.util.UUID;
 public interface CategoriaRepository extends JpaRepository<Categoria, UUID>, JpaSpecificationExecutor<Categoria> {
 
     boolean existsByNombre(String nombre);
+
+    Categoria findByNombre(String nombre);
 }

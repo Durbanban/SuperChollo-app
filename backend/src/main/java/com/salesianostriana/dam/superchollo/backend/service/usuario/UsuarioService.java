@@ -26,7 +26,7 @@ public class UsuarioService {
         Usuario usuario = Usuario
                 .builder()
                 .username(dto.getUsername())
-                .password(dto.getPassword())
+                .password(passwordEncoder.encode(dto.getPassword()))
                 .avatar(dto.getAvatar())
                 .fullName(dto.getFullName())
                 .roles(roles)

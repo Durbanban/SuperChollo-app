@@ -119,7 +119,7 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
                 ));
     }
 
-    @ExceptionHandler({
+   /* @ExceptionHandler({
             IllegalFormatConversionException.class,
             ClassCastException.class
     })
@@ -133,7 +133,7 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
                         .path(((ServletWebRequest) request).getRequest().getRequestURI())
                         .build()
         );
-    }
+    }*/
 
     /*@ExceptionHandler({ClassCastException.class})
     public ResponseEntity<?> handleClassCastException(ClassCastException ex,

@@ -72,4 +72,17 @@ public class CategoriaController {
         return ResponseEntity.created(createdURI).body(CategoriaDtoResponse.of(categoria));
     }
 
+    @PutMapping("/{id}")
+    @JsonView(View.CategoriaView.GeneralCategoriaView.class)
+    public CategoriaDtoResponse editCategoria(@PathVariable UUID id, @Valid @RequestBody CategoriaDtoCreateRequest dto) {
+
+        return CategoriaDtoResponse.of(categoriaService.edit(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteCategoria(@PathVariable UUID id) {
+        categoriaService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

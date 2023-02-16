@@ -12,36 +12,26 @@ import java.util.List;
 @Getter @Setter
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonView({
+        View.CategoriaView.GeneralCategoriaView.class,
+        View.CategoriaView.DetailedCategoriaView.class,
+        View.ProductoView.GeneralProductoView.class
+})
 public class PageDto<T> {
 
-    @JsonView({
-            View.CategoriaView.GeneralCategoriaView.class,
-            View.CategoriaView.DetailedCategoriaView.class
-    })
+
     private List<T> contenido;
 
-    @JsonView({
-            View.CategoriaView.GeneralCategoriaView.class,
-            View.CategoriaView.DetailedCategoriaView.class
-    })
+
     private int paginasTotales;
 
-    @JsonView({
-            View.CategoriaView.GeneralCategoriaView.class,
-            View.CategoriaView.DetailedCategoriaView.class
-    })
+
     private long elementosTotales;
 
-    @JsonView({
-            View.CategoriaView.GeneralCategoriaView.class,
-            View.CategoriaView.DetailedCategoriaView.class
-    })
+
     private int paginaAnterior;
 
-    @JsonView({
-            View.CategoriaView.GeneralCategoriaView.class,
-            View.CategoriaView.DetailedCategoriaView.class
-    })
+
     private int paginaSiguiente;
 
 

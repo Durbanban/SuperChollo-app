@@ -28,7 +28,6 @@ import java.util.UUID;
 public class Categoria {
 
     @Id
-    @Type(type = "uuid-char")
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
             name = "UUID",
@@ -59,6 +58,13 @@ public class Categoria {
         producto.setCategoria(null);
         this.productos.remove(producto);
     }
+
+    @PreRemove
+    public void setNullCategoria() {
+        this.getProductos().forEach(p -> p.setCategoria(null));
+    }
+
+
 
     @Override
     public int hashCode() {

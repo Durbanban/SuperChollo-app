@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.UUID;
 
 public interface SupermercadoRepository extends JpaRepository<Supermercado, UUID>, JpaSpecificationExecutor<Supermercado> {
+
+    Supermercado findByAddress(String address);
 }

@@ -28,7 +28,6 @@ import java.util.UUID;
 public class Supermercado {
 
     @Id
-    @Type(type = "uuid-char")
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
             name = "UUID",
@@ -72,7 +71,7 @@ public class Supermercado {
     }
 
     public void removeProducto(Producto producto) {
-        producto.getSupermercados().add(this);
+        producto.getSupermercados().remove(this);
         this.productos.remove(producto);
     }
 

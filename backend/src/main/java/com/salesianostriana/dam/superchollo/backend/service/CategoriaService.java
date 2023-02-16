@@ -45,7 +45,25 @@ public class CategoriaService {
         return categoriaRepository.save(categoria);
     }
 
+    public Categoria edit(UUID id, CategoriaDtoCreateRequest dto) {
+        return categoriaRepository.findById(id).map(cat -> {
+            cat.setNombre(dto.getNombre());
+            return categoriaRepository.save(cat);
+        }).orElseThrow(() -> new CategoriaNotFoundException(id));
+    }
+
+    public void deleteById(UUID id) {
+        if(categoriaRepository.existsById(id)) {
+            Categoria borrada = findById(id);
+            categoriaRepository.delete(borrada);
+        }
+    }
+
     public boolean categoriaExists(String nombre) {
         return categoriaRepository.existsByNombre(nombre);
+    }
+
+    public Categoria findCategoriaByNombre(String nombre) {
+        return categoriaRepository.findByNombre(nombre);
     }
 }

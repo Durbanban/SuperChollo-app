@@ -61,7 +61,6 @@ import java.util.stream.Collectors;
 public class Usuario implements UserDetails {
 
     @Id
-    @Type(type = "uuid-char")
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
             name = "UUID",

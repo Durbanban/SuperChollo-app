@@ -16,12 +16,24 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductoDtoResponse {
 
+    @JsonView({
+            View.ProductoView.GeneralProductoView.class
+    })
     private String id;
 
+    @JsonView({
+            View.ProductoView.GeneralProductoView.class
+    })
     private String generico;
 
+    @JsonView({
+            View.ProductoView.GeneralProductoView.class
+    })
     private String nombre;
 
+    @JsonView({
+            View.ProductoView.GeneralProductoView.class
+    })
     private double precio;
 
     private String imagen;
