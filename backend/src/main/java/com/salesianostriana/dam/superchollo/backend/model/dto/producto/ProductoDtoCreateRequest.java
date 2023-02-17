@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.salesianostriana.dam.superchollo.backend.validation.annotation.UniqueCategoria;
 import com.salesianostriana.dam.superchollo.backend.validation.annotation.UniqueProductName;
 import com.salesianostriana.dam.superchollo.backend.validation.annotation.ValidAddresses;
+import com.salesianostriana.dam.superchollo.backend.validation.annotation.ValidCategoria;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,10 +29,8 @@ public class ProductoDtoCreateRequest {
     @Min(value = 0, message = "{productoDtoCreateRequest.min}")
     private double precio;
 
-    private String imagen;
-
     @NotBlank
-    @UniqueCategoria(message = "{categoriaDtoCreateRequest.uniquecategoria}")
+    @ValidCategoria(message = "{productoDtoCreateRequest.validcategoria}")
     private String categoria;
 
     @NotBlank

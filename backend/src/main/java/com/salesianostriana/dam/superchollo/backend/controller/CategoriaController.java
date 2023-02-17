@@ -3,6 +3,7 @@ package com.salesianostriana.dam.superchollo.backend.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.salesianostriana.dam.superchollo.backend.model.dto.PageDto;
 import com.salesianostriana.dam.superchollo.backend.model.dto.categoria.CategoriaDtoCreateRequest;
+import com.salesianostriana.dam.superchollo.backend.model.dto.categoria.CategoriaDtoEditRequest;
 import com.salesianostriana.dam.superchollo.backend.model.dto.categoria.CategoriaDtoResponse;
 import com.salesianostriana.dam.superchollo.backend.model.entity.categoria.Categoria;
 import com.salesianostriana.dam.superchollo.backend.model.entity.categoria.exception.EmptyCategoriaListException;
@@ -74,7 +75,7 @@ public class CategoriaController {
 
     @PutMapping("/{id}")
     @JsonView(View.CategoriaView.GeneralCategoriaView.class)
-    public CategoriaDtoResponse editCategoria(@PathVariable UUID id, @Valid @RequestBody CategoriaDtoCreateRequest dto) {
+    public CategoriaDtoResponse editCategoria(@PathVariable UUID id, @Valid @RequestBody CategoriaDtoEditRequest dto) {
 
         return CategoriaDtoResponse.of(categoriaService.edit(id, dto));
     }

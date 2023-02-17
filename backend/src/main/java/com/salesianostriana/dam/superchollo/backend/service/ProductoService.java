@@ -13,13 +13,16 @@ import com.salesianostriana.dam.superchollo.backend.repository.ProductoRepositor
 import com.salesianostriana.dam.superchollo.backend.repository.SupermercadoRepository;
 import com.salesianostriana.dam.superchollo.backend.search.spec.ProductoSpecBuilder;
 import com.salesianostriana.dam.superchollo.backend.search.util.SearchCriteria;
+import com.salesianostriana.dam.superchollo.backend.service.storage.StorageService;
 import com.salesianostriana.dam.superchollo.backend.service.usuario.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -40,6 +43,8 @@ public class ProductoService {
 
     private final SupermercadoService supermercadoService;
 
+    private final StorageService storageService;
+
     public Page<Producto> findAll(List<SearchCriteria> criterios, Pageable pageable) {
         List<Producto> lista = productoRepository.findAll();
         if(lista.isEmpty()) {
@@ -55,7 +60,10 @@ public class ProductoService {
         return productoRepository.findById(id).orElseThrow(() -> new ProductoNotFoundException(id));
     }
 
-    public Producto add(ProductoDtoCreateRequest dto, Usuario usuario) {
+    @Transactional
+    public Producto add(ProductoDtoCreateRequest dto, Usuario usuario, MultipartFile file) {
+
+        String filename = storageService.store(file);
         Categoria categoria = categoriaService.findCategoriaByNombre(dto.getCategoria());
         List<String> listaSupermercados = Arrays.stream(dto.getSupermercados().split(", ")).toList();
         List<Supermercado> supers = listaSupermercados
@@ -71,7 +79,7 @@ public class ProductoService {
                 .generico(dto.getGenerico())
                 .nombre(dto.getNombre())
                 .precio(dto.getPrecio())
-                .imagen(dto.getImagen())
+                .imagen(filename)
                 .build();
 
         List<Supermercado> guardados = supers.stream().map(supermercado -> {
@@ -107,10 +115,22 @@ public class ProductoService {
             producto.setGenerico(dto.getGenerico());
             producto.setNombre(dto.getNombre());
             producto.setPrecio(dto.getPrecio());
-            producto.setImagen(dto.getImagen());
             return producto;
         }).orElseThrow(() -> new ProductoNotFoundException());
 
+    }
+
+    public Producto editImagen(UUID id, MultipartFile file) {
+
+        Producto producto = productoRepository.findById(id).orElseThrow(() -> new ProductoNotFoundException(id));
+
+        storageService.deleteFile(producto.getImagen());
+
+        String filename = storageService.store(file);
+
+        producto.setImagen(filename);
+
+        return productoRepository.save(producto);
     }
 
 

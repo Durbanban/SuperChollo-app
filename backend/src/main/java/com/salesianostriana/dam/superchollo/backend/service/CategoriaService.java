@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.superchollo.backend.service;
 
 import com.salesianostriana.dam.superchollo.backend.model.dto.categoria.CategoriaDtoCreateRequest;
+import com.salesianostriana.dam.superchollo.backend.model.dto.categoria.CategoriaDtoEditRequest;
 import com.salesianostriana.dam.superchollo.backend.model.entity.categoria.Categoria;
 import com.salesianostriana.dam.superchollo.backend.model.entity.categoria.exception.CategoriaNotFoundException;
 import com.salesianostriana.dam.superchollo.backend.model.entity.categoria.exception.EmptyCategoriaListException;
@@ -42,10 +43,11 @@ public class CategoriaService {
                                     .builder()
                                     .nombre(dto.getNombre())
                                     .build();
+
         return categoriaRepository.save(categoria);
     }
 
-    public Categoria edit(UUID id, CategoriaDtoCreateRequest dto) {
+    public Categoria edit(UUID id, CategoriaDtoEditRequest dto) {
         return categoriaRepository.findById(id).map(cat -> {
             cat.setNombre(dto.getNombre());
             return categoriaRepository.save(cat);

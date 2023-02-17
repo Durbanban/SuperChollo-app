@@ -1,7 +1,9 @@
 package com.salesianostriana.dam.superchollo.backend.model.dto.usuario;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.Usuario;
+import com.salesianostriana.dam.superchollo.backend.view.View;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,10 +18,19 @@ public class UsuarioDtoResponse {
 
     protected String id;
 
+    @JsonView({
+            View.SupermercadoView.DetailedSupermercadoView.class
+    })
     protected String username;
 
+    @JsonView({
+            View.SupermercadoView.DetailedSupermercadoView.class
+    })
     protected String avatar;
 
+    @JsonView({
+            View.SupermercadoView.DetailedSupermercadoView.class
+    })
     protected String fullName;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")

@@ -15,7 +15,10 @@ import java.util.List;
 @JsonView({
         View.CategoriaView.GeneralCategoriaView.class,
         View.CategoriaView.DetailedCategoriaView.class,
-        View.ProductoView.GeneralProductoView.class
+        View.ProductoView.GeneralProductoView.class,
+        View.ProductoView.DetailedProductoView.class,
+        View.SupermercadoView.GeneralSupermercadoView.class,
+        View.SupermercadoView.DetailedSupermercadoView.class
 })
 public class PageDto<T> {
 

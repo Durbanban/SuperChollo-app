@@ -81,7 +81,7 @@ public class FileSystemStorageService implements StorageService{
             String name = newFileName.replace("." + extension, "");
 
             String suffix = Long.toString(System.currentTimeMillis());
-            suffix.substring(suffix.length()-6);
+            suffix.substring(suffix.length()-13);
 
             newFileName = name + "_" + suffix + "." + extension;
         }

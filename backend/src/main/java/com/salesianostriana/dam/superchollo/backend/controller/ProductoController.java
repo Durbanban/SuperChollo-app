@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -35,8 +36,6 @@ import java.util.stream.Collectors;
 public class ProductoController {
 
     private final ProductoService productoService;
-
-    private final ProductoRepository productoRepository;
 
     @GetMapping("/supermercado/{id}")
     @JsonView(View.ProductoView.DetailedProductoView.class)
@@ -75,9 +74,10 @@ public class ProductoController {
 
     @PostMapping("/")
     @JsonView(View.ProductoView.DetailedProductoView.class)
-    public ResponseEntity<ProductoDtoResponse> createProducto(@Valid @RequestBody ProductoDtoCreateRequest dto,
-                                                              @AuthenticationPrincipal Usuario logueado) {
-        Producto producto = productoService.add(dto, logueado);
+    public ResponseEntity<ProductoDtoResponse> createProducto(@Valid @RequestPart("producto") ProductoDtoCreateRequest dto,
+                                                              @AuthenticationPrincipal Usuario logueado,
+                                                              @RequestPart("file") MultipartFile file) {
+        Producto producto = productoService.add(dto, logueado, file);
 
         URI createdURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -87,13 +87,25 @@ public class ProductoController {
         return ResponseEntity.created(createdURI).body(ProductoDtoResponse.of(producto));
 
     }
-    @PreAuthorize("@productoRepository.findById(#id).autor == authentication.principal.getId().toString()")
-    @PutMapping("/{id}")
+@PreAuthorize("hasRole('ADMIN') or (@productoRepository.findById(#id).orElse(new com.salesianostriana.dam.superchollo.backend.model.entity.producto.Producto()).autor.username == authentication.principal.username)")
+@PutMapping("/{id}")
     @JsonView(View.ProductoView.DetailedProductoView.class)
     public ProductoDtoResponse editProducto(@PathVariable UUID id,
                                             @Valid @RequestBody ProductoDtoEditRequest dto) {
         return ProductoDtoResponse.of(productoService.edit(id, dto));
     }
+
+@PreAuthorize("hasRole('ADMIN') or (@productoRepository.findById(#id).orElse(new com.salesianostriana.dam.superchollo.backend.model.entity.producto.Producto()).autor.username == authentication.principal.username)")
+@PutMapping("/imagen/{id}")
+    @JsonView(View.ProductoView.DetailedProductoView.class)
+    public ProductoDtoResponse editImagenProducto(@PathVariable UUID id,
+                                                  @RequestPart("file") MultipartFile file) {
+
+        return ProductoDtoResponse.of(productoService.editImagen(id, file));
+    }
+
+
+
 
 
 

@@ -59,7 +59,7 @@ public class Producto {
     @Builder.Default
     private List<Rating> valoraciones = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "autor_id", foreignKey = @ForeignKey(name = "FK_PRODUCTO_AUTOR"))
     private Usuario autor;
 
@@ -74,7 +74,7 @@ public class Producto {
     }
 
     @PreRemove
-    public void removeSupermercados() {
+    public void removeSupermercadosAndRatings() {
         this.supermercados.stream().forEach(s -> s.removeProducto(this));
     }
 

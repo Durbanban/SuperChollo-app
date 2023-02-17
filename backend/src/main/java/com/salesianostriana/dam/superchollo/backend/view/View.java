@@ -13,4 +13,10 @@ public class View {
         public static interface GeneralProductoView {}
         public static interface DetailedProductoView {}
     }
+
+    public static interface SupermercadoView {
+        public static interface GeneralSupermercadoView{}
+
+        public static interface DetailedSupermercadoView{}
+    }
 }

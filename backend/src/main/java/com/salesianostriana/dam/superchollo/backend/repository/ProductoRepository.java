@@ -14,11 +14,10 @@ public interface ProductoRepository extends JpaRepository<Producto, UUID>, JpaSp
 
     /*@Modifying
     @Query("""
-            DELETE FROM catalogo c
-            WHERE c.producto_id IN (SELECT p
+            DELETE FROM Producto p
+            WHERE p.id IN (SELECT p.id
                                     FROM Producto p
-                                    LEFT JOIN Categoria cat ON p.categoria_id = cat.id
-                                    WHERE cat.id = :id
+                                    WHERE p.categoria.id = :id
                                         )
             """)
     void deleteAllProductosfromSupermercadosByCategoria(UUID id);*/

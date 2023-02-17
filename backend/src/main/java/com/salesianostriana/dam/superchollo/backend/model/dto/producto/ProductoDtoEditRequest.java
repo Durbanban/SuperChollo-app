@@ -24,5 +24,4 @@ public class ProductoDtoEditRequest {
     @Min(value = 0, message = "{productoDtoCreateRequest.min}")
     private double precio;
 
-    private String imagen;
 }
