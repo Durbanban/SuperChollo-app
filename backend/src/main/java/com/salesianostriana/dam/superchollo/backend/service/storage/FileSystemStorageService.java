@@ -29,6 +29,10 @@ public class FileSystemStorageService implements StorageService{
 
     private Path rootLocation;
 
+    public Path getRootLocation() {
+        return this.rootLocation;
+    }
+
     @PostConstruct
     @Override
     public void init() {

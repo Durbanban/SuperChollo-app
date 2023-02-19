@@ -1,6 +1,7 @@
 package com.salesianostriana.dam.superchollo.backend.controller;
 
 import com.salesianostriana.dam.superchollo.backend.model.dto.FileDtoResponse;
+import com.salesianostriana.dam.superchollo.backend.service.storage.FileSystemStorageService;
 import com.salesianostriana.dam.superchollo.backend.service.storage.StorageService;
 import com.salesianostriana.dam.superchollo.backend.utils.resource.MediaTypeUrlResource;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ import java.net.URI;
 @RequestMapping("/file")
 public class FileController {
 
-    private final StorageService storageService;
+    private final FileSystemStorageService storageService;
 
     @PostMapping("/upload/")
     public ResponseEntity<?> upload(@RequestPart("file") MultipartFile file) {

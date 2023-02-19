@@ -4,6 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'producto_detalles.g.dart';
 
+
 @JsonSerializable(explicitToJson: true, disallowUnrecognizedKeys: true)
 class ProductoDetails {
     ProductoDetails({
@@ -15,6 +16,7 @@ class ProductoDetails {
         this.categoria,
         this.autor,
         this.supermercados,
+        this.valoraciones,
     });
 
     String? id;
@@ -25,7 +27,7 @@ class ProductoDetails {
     String? categoria;
     String? autor;
     List<Pertenece>? supermercados;
-
+    List<Valoracion>? valoraciones;
 
     factory ProductoDetails.fromJson(Map<String, dynamic> data) => _$ProductoDetailsFromJson(data);
 
@@ -47,6 +49,22 @@ class Pertenece {
     factory Pertenece.fromJson(Map<String, dynamic> data) => _$PerteneceFromJson(data);
 
     Map<String, dynamic> toJson() => _$PerteneceToJson(this);
+}
 
+@JsonSerializable(disallowUnrecognizedKeys: true)
+class Valoracion {
+    Valoracion({
+        this.usuario,
+        this.fecha,
+        this.nota,
+    });
+
+    String? usuario;
+    String? fecha;
+    int? nota;
+
+    factory Valoracion.fromJson(Map<String, dynamic> data) => _$ValoracionFromJson(data);
+
+    Map<String, dynamic> toJson() => _$ValoracionToJson(this);
 }
 

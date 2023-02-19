@@ -24,7 +24,5 @@ public class UsuarioDtoCreateRequest {
 
     private String verifyPassword;
 
-    private String avatar;
-
     private String fullName;
 }

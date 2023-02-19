@@ -17,7 +17,8 @@ ProductoDetails _$ProductoDetailsFromJson(Map<String, dynamic> json) {
       'imagen',
       'categoria',
       'autor',
-      'supermercados'
+      'supermercados',
+      'valoraciones'
     ],
   );
   return ProductoDetails(
@@ -30,6 +31,9 @@ ProductoDetails _$ProductoDetailsFromJson(Map<String, dynamic> json) {
     autor: json['autor'] as String?,
     supermercados: (json['supermercados'] as List<dynamic>?)
         ?.map((e) => Pertenece.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    valoraciones: (json['valoraciones'] as List<dynamic>?)
+        ?.map((e) => Valoracion.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
 }
@@ -44,6 +48,7 @@ Map<String, dynamic> _$ProductoDetailsToJson(ProductoDetails instance) =>
       'categoria': instance.categoria,
       'autor': instance.autor,
       'supermercados': instance.supermercados?.map((e) => e.toJson()).toList(),
+      'valoraciones': instance.valoraciones?.map((e) => e.toJson()).toList(),
     };
 
 Pertenece _$PerteneceFromJson(Map<String, dynamic> json) {
@@ -62,4 +67,23 @@ Map<String, dynamic> _$PerteneceToJson(Pertenece instance) => <String, dynamic>{
       'id': instance.id,
       'nombre': instance.nombre,
       'address': instance.address,
+    };
+
+Valoracion _$ValoracionFromJson(Map<String, dynamic> json) {
+  $checkKeys(
+    json,
+    allowedKeys: const ['usuario', 'fecha', 'nota'],
+  );
+  return Valoracion(
+    usuario: json['usuario'] as String?,
+    fecha: json['fecha'] as String?,
+    nota: json['nota'] as int?,
+  );
+}
+
+Map<String, dynamic> _$ValoracionToJson(Valoracion instance) =>
+    <String, dynamic>{
+      'usuario': instance.usuario,
+      'fecha': instance.fecha,
+      'nota': instance.nota,
     };

@@ -12,6 +12,7 @@ INSERT INTO categoria (id, nombre) VALUES ('0231a8be-af6a-487e-bd21-bd98c0caad39
 INSERT INTO categoria (id, nombre) VALUES ('8c37d098-af20-4ec8-ba75-a697a48d48de', 'Consumibles');
 INSERT INTO categoria (id, nombre) VALUES ('8c28d654-eb8b-4e9d-a86d-a132662b143e', 'Lácteos');
 INSERT INTO categoria (id, nombre) VALUES ('a54b27e6-3208-40d0-b909-d282b4f0d58f', 'Pasta');
+INSERT INTO categoria (id, nombre) VALUES ('eefcf70d-5bbe-479a-a61b-1f5df283341d', 'Otros')
 
 INSERT INTO producto (id, generico, imagen, nombre, precio, autor_id, categoria_id) VALUES ('e0a31674-c439-4c1b-83b3-77236a762cf7', 'FiambrePavo', 'imagen_fiambrepavo.jpg', 'Pavo 200 gr ALDI', 1.99, '89a8725e-ebd8-40fa-9caa-105b742c4ea0', '0231a8be-af6a-487e-bd21-bd98c0caad39');
 INSERT INTO producto (id, generico, imagen, nombre, precio, autor_id, categoria_id) VALUES ('9b05f55a-7fb8-4f1f-ad5f-97f42bdd9032', 'FiambrePavo', 'imagen_fiambrepavo_456214.jpg', 'Pavo finas lonchas 200 gr Mercadona', 2.35, '89a8725e-ebd8-40fa-9caa-105b742c4ea0', '0231a8be-af6a-487e-bd21-bd98c0caad39');
@@ -36,6 +37,7 @@ INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('dfe188
 INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('08c0fd3a-fe17-454a-be1e-af29abbcec77', '6f705ab2-6ff9-4068-87f8-4c4932c8d73f', CURRENT_TIMESTAMP, 9);
 INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('92ccf1ad-131d-4993-ae16-50c5f52d6522', '6f705ab2-6ff9-4068-87f8-4c4932c8d73f', CURRENT_TIMESTAMP, 6);
 INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('2624030c-d07d-4eff-b351-54139076fad3', '6f705ab2-6ff9-4068-87f8-4c4932c8d73f', CURRENT_TIMESTAMP, 8);
+
 
 INSERT INTO supermercado (id, address, nombre) VALUES ('b7b86f11-ccec-46fd-b3d4-dd1cb3268e6a', 'Calle Virgen de Loreto 35', 'LIDL');
 INSERT INTO supermercado (id, address, nombre) VALUES ('d8e99345-5b31-43a0-96ca-1f059c5ffbd9', 'Calle Salado s/n', 'Mercadona');

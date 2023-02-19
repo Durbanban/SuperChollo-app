@@ -36,16 +36,20 @@ public class Rating {
     @JoinColumn(name = "usuario_id", foreignKey = @ForeignKey(name = "FK_RATING_USUARIO"))
     private Usuario usuario;
 
-    @ManyToOne
+    @ManyToOne()
     @MapsId("productoId")
     @JoinColumn(name = "producto_id", foreignKey = @ForeignKey(name = "FK_RATING_PRODUCTO"))
     private Producto producto;
 
-    @CreatedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy - HH:mm:ss")
     private LocalDateTime fechaRating;
 
     private int nota;
+
+    @PreRemove
+    public void removeUsuario() {
+        this.usuario = null;
+    }
 
     @Override
     public int hashCode() {

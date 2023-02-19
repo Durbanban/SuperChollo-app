@@ -21,7 +21,9 @@ import java.util.UUID;
         @NamedEntityGraph(
                 name = "categoria-con-productos",
                 attributeNodes = {
-                        @NamedAttributeNode("productos")
+                        @NamedAttributeNode(
+                                value = "productos"
+                        )
                 }
         )
 })
@@ -42,7 +44,6 @@ public class Categoria {
     @Column(columnDefinition = "uuid")
     private UUID id;
 
-    @ValidCategoria
     private String nombre;
 
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
@@ -60,8 +61,8 @@ public class Categoria {
     }
 
     @PreRemove
-    public void setNullCategoria() {
-        this.getProductos().forEach(p -> p.setCategoria(null));
+    public void removeProductos() {
+        this.productos.forEach(producto -> producto.setCategoria(null));
     }
 
 

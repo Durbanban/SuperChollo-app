@@ -7,17 +7,93 @@ import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.Usuario
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
 @Builder
+@NamedEntityGraphs(value = {
+        @NamedEntityGraph(
+                name = "producto-con-valoraciones",
+                attributeNodes = {
+                        @NamedAttributeNode(
+                                value = "valoraciones",
+                                subgraph = "rating-con-usuarios"
+                        )
+                },
+                subgraphs = {
+                        @NamedSubgraph(
+                                name = "rating-con-usuarios",
+                                attributeNodes = {
+                                        @NamedAttributeNode("usuario")
+                                }
+                        )
+                }
+        ),
+        @NamedEntityGraph(
+                name = "producto-con-supermercados",
+                attributeNodes = {
+                        @NamedAttributeNode(
+                                 value = "supermercados",
+                                subgraph = "supermercado-con-seguidores"
+                        )
+                }
+        ),
+        @NamedEntityGraph(
+                name = "producto-con-categoria",
+                attributeNodes = {
+                        @NamedAttributeNode(
+                                value = "categoria"
+                        )
+                }
+        ),
+        @NamedEntityGraph(
+                name = "producto-con-autor",
+                attributeNodes = {
+                        @NamedAttributeNode(
+                                value = "autor"
+                        )
+                }
+        ),
+        @NamedEntityGraph(
+                name = "producto-con-todo",
+                attributeNodes = {
+                        @NamedAttributeNode(
+                                value = "valoraciones",
+                                subgraph = "rating-con-usuarios"
+                        ),
+                        @NamedAttributeNode(
+                                value = "categoria"
+                        ),
+                        @NamedAttributeNode(
+                                value = "autor",
+                                subgraph = "autor-con-username"
+                        )
+                },
+                subgraphs = {
+                        @NamedSubgraph(
+                                name = "rating-con-usuarios",
+                                attributeNodes = {
+                                        @NamedAttributeNode("usuario")
+                                }
+                        ),
+                        @NamedSubgraph(
+                                name = "autor-con-username",
+                                attributeNodes = {
+                                        @NamedAttributeNode("username")
+                                }
+                        )
+                }
+        )
+})
 public class Producto {
 
     @Id
@@ -33,10 +109,8 @@ public class Producto {
             }
     )
     @Column(columnDefinition = "uuid")
+    @Type(type = "uuid-char")
     private UUID id;
-
-    /*@Convert(converter = EnumSetProductoGenericoConverter.class)
-    private EnumSet<ProductoNombreGenerico> genericos;*/
 
     private String generico;
 
@@ -59,7 +133,7 @@ public class Producto {
     @Builder.Default
     private List<Rating> valoraciones = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "autor_id", foreignKey = @ForeignKey(name = "FK_PRODUCTO_AUTOR"))
     private Usuario autor;
 
@@ -74,10 +148,14 @@ public class Producto {
     }
 
     @PreRemove
-    public void removeSupermercadosAndRatings() {
-        this.supermercados.stream().forEach(s -> s.removeProducto(this));
-    }
+    public void removeAllRatingsAndSupermercados() {
 
+        this.valoraciones.forEach(val -> val.setProducto(null));
+
+        this.supermercados.forEach(supermercado -> {
+            supermercado.getProductos().remove(this);
+        });
+    }
 
 
 
@@ -94,7 +172,7 @@ public class Producto {
         return id.equals(producto.id);
     }
 
-    /*@Override
+    @Override
     public String toString() {
         return "Producto {" +
                 "id = " + id + ", " +
@@ -103,5 +181,5 @@ public class Producto {
                 "Precio = " + precio + ", " +
                 "Categoria = " + categoria.getNombre() +
                 "Autor = " + autor.getUsername() + "}";
-    }*/
+    }
 }

@@ -19,7 +19,6 @@ import javax.validation.constraints.NotBlank;
 public class CategoriaDtoEditRequest {
 
     @NotBlank(message = "{categoriaDtoCreateRequest.notblank}")
-    @ValidCategoria(message = "{categoriaDtOEditRequest.validcategoria}")
     private String nombre;
 
 

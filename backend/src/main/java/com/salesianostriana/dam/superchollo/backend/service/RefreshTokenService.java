@@ -29,6 +29,7 @@ public class RefreshTokenService {
     }
 
     public RefreshToken createRefreshToken(Usuario usuario) {
+
         RefreshToken refreshToken = new RefreshToken();
 
         refreshToken.setUsuario(usuario);

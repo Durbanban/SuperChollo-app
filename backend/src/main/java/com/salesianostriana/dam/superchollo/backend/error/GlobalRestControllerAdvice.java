@@ -10,6 +10,7 @@ import com.salesianostriana.dam.superchollo.backend.model.entity.producto.except
 import com.salesianostriana.dam.superchollo.backend.model.entity.supermercado.exception.EmptySupermercadoListException;
 import com.salesianostriana.dam.superchollo.backend.model.entity.supermercado.exception.SupermercadoNotFoundException;
 import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.exception.EmptyUsuarioListException;
+import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.exception.UserOldPasswordWrongException;
 import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.exception.UsuarioNotFoundException;
 import com.salesianostriana.dam.superchollo.backend.security.error.JwtTokenException;
 import lombok.AllArgsConstructor;
@@ -58,6 +59,8 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
         return buildApiError(ex, request, status);
     }
 
+
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<?> handleConstraintViolationException(ConstraintViolationException ex, WebRequest request) {
         return ResponseEntity
@@ -102,6 +105,14 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
 
         return buildApiError(ex, request, HttpStatus.NOT_FOUND);
 
+    }
+
+    @ExceptionHandler({
+            UserOldPasswordWrongException.class
+    })
+    public ResponseEntity<?> handleUserPasswordWrongException(RuntimeException ex, WebRequest request) {
+
+        return buildApiError(ex, request, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({ AuthenticationException.class })

@@ -14,14 +14,29 @@ public interface UsuarioRepository extends JpaRepository<Usuario, UUID>, JpaSpec
 
     Optional<Usuario> findFirstByUsername(String username);
 
-    @EntityGraph(value = "usuario-con-productos-publicados", type = EntityGraph.EntityGraphType.LOAD)
     @Query("""
             SELECT u
             FROM Usuario u
             WHERE u.id = :id
             """)
+    @EntityGraph(value = "usuario-con-productos-publicados", type = EntityGraph.EntityGraphType.LOAD)
     Optional<Usuario> findByPublicados(@Param("id") UUID id);
 
 
 
+    @Query("""
+            SELECT u
+            FROM Usuario u
+            WHERE u.id = :id
+            """)
+    @EntityGraph(value = "usuario-con-productos-valorados", type = EntityGraph.EntityGraphType.LOAD)
+    Optional<Usuario> findByValorados(@Param("id") UUID id);
+
+    @Query("""
+            SELECT u
+            FROM Usuario u
+            WHERE u.id = :id
+            """)
+    @EntityGraph(value = "usuario-con-supermercados", type = EntityGraph.EntityGraphType.LOAD)
+    Optional<Usuario> findByFavoritos(@Param("id") UUID id);
 }

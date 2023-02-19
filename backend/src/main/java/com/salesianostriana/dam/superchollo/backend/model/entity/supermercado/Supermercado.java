@@ -20,7 +20,17 @@ import java.util.UUID;
         @NamedEntityGraph(
                 name = "supermercado-con-usuarios",
                 attributeNodes = {
-                        @NamedAttributeNode("seguidores")
+                        @NamedAttributeNode(
+                                value ="seguidores"
+                        )
+                }
+        ),
+        @NamedEntityGraph(
+                name = "supermercado-con-productos",
+                attributeNodes = {
+                        @NamedAttributeNode(
+                                value = "productos"
+                        )
                 }
         )
 })
@@ -74,6 +84,20 @@ public class Supermercado {
         producto.getSupermercados().remove(this);
         this.productos.remove(producto);
     }
+
+    @PreRemove
+    public void removeAllProductosAndFavoritos() {
+
+        this.productos.forEach(producto -> {
+            producto.getSupermercados().remove(this);
+        });
+
+        this.seguidores.forEach(seguidor -> {
+            seguidor.getFavoritos().remove(this);
+        });
+
+    }
+
 
 
     @Override

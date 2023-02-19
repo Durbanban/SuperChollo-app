@@ -36,7 +36,7 @@ public class CategoriaController {
     @GetMapping("/")
     @JsonView(View.CategoriaView.GeneralCategoriaView.class)
     public PageDto<CategoriaDtoResponse> getAlLCategorias(@RequestParam(value = "search",
-            defaultValue = "") String search, @PageableDefault(size = 20, page = 0) Pageable pageable) {
+            defaultValue = "") String search, @PageableDefault(size = 10, page = 0) Pageable pageable) {
 
         List<SearchCriteria> params = SearchCriteriaExtractor.extractorCriteria(search);
 
@@ -55,7 +55,11 @@ public class CategoriaController {
     @GetMapping("/{id}")
     @JsonView(View.CategoriaView.DetailedCategoriaView.class)
     public CategoriaDtoResponse getCategoriaById(@PathVariable UUID id) {
-        CategoriaDtoResponse resultado = CategoriaDtoResponse.of(categoriaService.findById(id));
+
+        Categoria categoria = categoriaService.findByIdConTodo(id);
+
+        CategoriaDtoResponse resultado = CategoriaDtoResponse.of(categoria);
+
         return resultado;
     }
 

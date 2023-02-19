@@ -2,6 +2,7 @@ package com.salesianostriana.dam.superchollo.backend.model.dto.producto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.salesianostriana.dam.superchollo.backend.model.dto.rating.RatingDto;
 import com.salesianostriana.dam.superchollo.backend.model.dto.supermercado.SupermercadoDtoResponse;
 import com.salesianostriana.dam.superchollo.backend.model.entity.producto.Producto;
 import com.salesianostriana.dam.superchollo.backend.view.View;
@@ -10,13 +11,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor @NoArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class ProductoDtoResponse {
 
     @JsonView({
@@ -70,14 +72,25 @@ public class ProductoDtoResponse {
             View.SupermercadoView.GeneralSupermercadoView.class,
             View.ProductoView.DetailedProductoView.class
     })
-    private List<SupermercadoDtoResponse> supermercados;
+    @Builder.Default
+    private List<SupermercadoDtoResponse> supermercados = new ArrayList<>();
+
+
+    @JsonView(View.ProductoView.DetailedProductoView.class)
+    @Builder.Default
+    private List<RatingDto> valoraciones = new ArrayList<>();
 
     public static ProductoDtoResponse of(Producto producto) {
 
-        List<SupermercadoDtoResponse> lista = producto.getSupermercados().
-                                                        stream().
-                                                        map(SupermercadoDtoResponse::of)
-                                                        .collect(Collectors.toList());
+        List<SupermercadoDtoResponse> listaSupermercados = producto.getSupermercados().
+                                                                                stream().
+                                                                                map(SupermercadoDtoResponse::of)
+                                                                                .toList();
+
+        List<RatingDto> listaValoraciones = producto.getValoraciones()
+                                                                .stream()
+                                                                .map(RatingDto::of)
+                                                                .toList();
 
         return ProductoDtoResponse
                 .builder()
@@ -88,12 +101,19 @@ public class ProductoDtoResponse {
                 .imagen(producto.getImagen())
                 .categoria(producto.getCategoria().getNombre())
                 .autor(producto.getAutor().getUsername())
-                .supermercados(lista)
+                .supermercados(listaSupermercados)
+                .valoraciones(listaValoraciones)
                 .build();
     }
 
     public static ProductoDtoResponse supermercadoDetails(Producto producto) {
 
+        List<RatingDto> listaValoraciones = producto.getValoraciones()
+                                                                .stream()
+                                                                .map(RatingDto::of)
+                                                                .toList();
+
+
         return ProductoDtoResponse
                 .builder()
                 .id(producto.getId().toString())
@@ -103,6 +123,7 @@ public class ProductoDtoResponse {
                 .imagen(producto.getImagen())
                 .categoria(producto.getCategoria().getNombre())
                 .autor(producto.getAutor().getUsername())
+                .valoraciones(listaValoraciones)
                 .build();
     }
 

@@ -3,6 +3,7 @@ package com.salesianostriana.dam.superchollo.backend.security.jwt.refresh;
 import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.Usuario;
 import lombok.*;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -23,7 +24,7 @@ public class RefreshToken {
 
     @MapsId
     @OneToOne
-    @JoinColumn(columnDefinition = "uuid")
+    @JoinColumn(columnDefinition = "uuid", name = "usuario_id")
     private Usuario usuario;
 
     @NaturalId

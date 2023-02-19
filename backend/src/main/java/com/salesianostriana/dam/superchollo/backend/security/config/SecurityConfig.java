@@ -20,10 +20,12 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableTransactionManagement(order = 0)
+@EnableGlobalMethodSecurity(prePostEnabled = true, order = 1)
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -71,14 +73,12 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.DELETE, "/auth/user/**").authenticated()
                 .antMatchers("/auth/register/admin/", "/auth/user/").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/categoria/", "/supermercado/").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/categoria/**", "/supermercado/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/categoria/**", "/supermercado/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
-
-
-
 
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

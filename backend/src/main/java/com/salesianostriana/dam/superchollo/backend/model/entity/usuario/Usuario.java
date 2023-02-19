@@ -9,6 +9,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -47,7 +48,9 @@ import java.util.stream.Collectors;
         @NamedEntityGraph(
                 name = "usuario-con-productos-publicados",
                 attributeNodes = {
-                        @NamedAttributeNode("publicados")
+                        @NamedAttributeNode(
+                                value = "publicados"
+                        )
                 }
         ),
         @NamedEntityGraph(
@@ -72,6 +75,7 @@ public class Usuario implements UserDetails {
             }
     )
     @Column(columnDefinition = "uuid")
+    @Type(type = "uuid-char")
     private UUID id;
 
     @NaturalId
@@ -115,7 +119,7 @@ public class Usuario implements UserDetails {
     @Builder.Default
     private List<Rating> valorados = new ArrayList<>();
 
-    @OneToMany(mappedBy = "autor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "autor", fetch = FetchType.LAZY, orphanRemoval = true)
     @Builder.Default
     private List<Producto> publicados = new ArrayList<>();
 
@@ -176,6 +180,15 @@ public class Usuario implements UserDetails {
                 .map(role -> "ROLE_" + role)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+    }
+
+    @PreRemove
+    public void removeAutorAndValoradosAndFavoritos() {
+        this.valorados.forEach(val -> val.getProducto().removeRating(val));
+        this.publicados.forEach(producto -> producto.setAutor(null));
+        this.favoritos.forEach(supermercado -> {
+            supermercado.getSeguidores().remove(this);
+        });
     }
 
     @Override
