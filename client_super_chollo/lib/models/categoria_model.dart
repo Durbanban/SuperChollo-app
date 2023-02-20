@@ -2,7 +2,7 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
-part 'categoria.g.dart';
+part 'categoria_model.g.dart';
 
 @JsonSerializable(explicitToJson: true, disallowUnrecognizedKeys: true)
 class CategoriaResponse {

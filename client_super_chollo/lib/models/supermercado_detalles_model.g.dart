@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'supermercado_detalles.dart';
+part of 'supermercado_detalles_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

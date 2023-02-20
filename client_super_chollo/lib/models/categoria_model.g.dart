@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'supermercado.dart';
+part of 'categoria_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-SupermercadoResponse _$SupermercadoResponseFromJson(Map<String, dynamic> json) {
+CategoriaResponse _$CategoriaResponseFromJson(Map<String, dynamic> json) {
   $checkKeys(
     json,
     allowedKeys: const [
@@ -17,9 +17,9 @@ SupermercadoResponse _$SupermercadoResponseFromJson(Map<String, dynamic> json) {
       'paginaSiguiente'
     ],
   );
-  return SupermercadoResponse(
+  return CategoriaResponse(
     contenido: (json['contenido'] as List<dynamic>?)
-        ?.map((e) => Supermercado.fromJson(e as Map<String, dynamic>))
+        ?.map((e) => Categoria.fromJson(e as Map<String, dynamic>))
         .toList(),
     paginasTotales: json['paginasTotales'] as int?,
     elementosTotales: json['elementosTotales'] as int?,
@@ -28,8 +28,7 @@ SupermercadoResponse _$SupermercadoResponseFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$SupermercadoResponseToJson(
-        SupermercadoResponse instance) =>
+Map<String, dynamic> _$CategoriaResponseToJson(CategoriaResponse instance) =>
     <String, dynamic>{
       'contenido': instance.contenido?.map((e) => e.toJson()).toList(),
       'paginasTotales': instance.paginasTotales,
@@ -38,21 +37,18 @@ Map<String, dynamic> _$SupermercadoResponseToJson(
       'paginaSiguiente': instance.paginaSiguiente,
     };
 
-Supermercado _$SupermercadoFromJson(Map<String, dynamic> json) {
+Categoria _$CategoriaFromJson(Map<String, dynamic> json) {
   $checkKeys(
     json,
-    allowedKeys: const ['id', 'nombre', 'address'],
+    allowedKeys: const ['id', 'nombre'],
   );
-  return Supermercado(
+  return Categoria(
     id: json['id'] as String?,
     nombre: json['nombre'] as String?,
-    address: json['address'] as String?,
   );
 }
 
-Map<String, dynamic> _$SupermercadoToJson(Supermercado instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$CategoriaToJson(Categoria instance) => <String, dynamic>{
       'id': instance.id,
       'nombre': instance.nombre,
-      'address': instance.address,
     };

@@ -1,7 +1,7 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
-part 'producto.g.dart';
+part 'producto_model.g.dart';
 
 @JsonSerializable(explicitToJson: true, disallowUnrecognizedKeys: true)
 class ProductoResponse {

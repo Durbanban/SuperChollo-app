@@ -2,7 +2,7 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
-part 'categoria_detalles.g.dart';
+part 'categoria_detalles_model.g.dart';
 
 @JsonSerializable(explicitToJson: true, disallowUnrecognizedKeys: true)
 class CategoriaDetails {
