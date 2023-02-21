@@ -11,6 +11,7 @@ class ProductoResponse {
         this.elementosTotales,
         this.paginaAnterior,
         this.paginaSiguiente,
+        this.paginaActual
     });
 
     List<Producto>? contenido;
@@ -18,6 +19,7 @@ class ProductoResponse {
     int? elementosTotales;
     int? paginaAnterior;
     int? paginaSiguiente;
+    int? paginaActual;
 
     factory ProductoResponse.fromJson(Map<String, dynamic> data) => _$ProductoResponseFromJson(data);
 
@@ -31,12 +33,14 @@ class Producto {
         this.generico,
         this.nombre,
         this.precio,
+        this.imagen
     });
 
     String? id;
     String? generico;
     String? nombre;
     double? precio;
+    String? imagen;
 
     factory Producto.fromJson(Map<String, dynamic> data) => _$ProductoFromJson(data);
 

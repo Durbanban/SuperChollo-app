@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:client_super_chollo/blocs/authentication/authentication.dart';
 import 'package:client_super_chollo/config/locator.dart';
 import 'package:client_super_chollo/services/services.dart';
-import '../models/models.dart';
+import 'package:client_super_chollo/models/models.dart';
+import 'package:client_super_chollo/widgets/widgets.dart';
 
 class HomePage extends StatelessWidget {
   final Usuario usuario;
@@ -28,6 +29,7 @@ class HomePage extends StatelessWidget {
                   fontSize: 24
                 ),
               ),
+              Image.network("http://localhost:8080/file/download/${usuario.avatar}"),
               const SizedBox(
                 height: 12,
               ),
@@ -52,6 +54,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigation(),
     );
   }
 }

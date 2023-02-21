@@ -14,7 +14,8 @@ ProductoResponse _$ProductoResponseFromJson(Map<String, dynamic> json) {
       'paginasTotales',
       'elementosTotales',
       'paginaAnterior',
-      'paginaSiguiente'
+      'paginaSiguiente',
+      'paginaActual'
     ],
   );
   return ProductoResponse(
@@ -25,6 +26,7 @@ ProductoResponse _$ProductoResponseFromJson(Map<String, dynamic> json) {
     elementosTotales: json['elementosTotales'] as int?,
     paginaAnterior: json['paginaAnterior'] as int?,
     paginaSiguiente: json['paginaSiguiente'] as int?,
+    paginaActual: json['paginaActual'] as int?,
   );
 }
 
@@ -35,18 +37,20 @@ Map<String, dynamic> _$ProductoResponseToJson(ProductoResponse instance) =>
       'elementosTotales': instance.elementosTotales,
       'paginaAnterior': instance.paginaAnterior,
       'paginaSiguiente': instance.paginaSiguiente,
+      'paginaActual': instance.paginaActual,
     };
 
 Producto _$ProductoFromJson(Map<String, dynamic> json) {
   $checkKeys(
     json,
-    allowedKeys: const ['id', 'generico', 'nombre', 'precio'],
+    allowedKeys: const ['id', 'generico', 'nombre', 'precio', 'imagen'],
   );
   return Producto(
     id: json['id'] as String?,
     generico: json['generico'] as String?,
     nombre: json['nombre'] as String?,
     precio: (json['precio'] as num?)?.toDouble(),
+    imagen: json['imagen'] as String?,
   );
 }
 
@@ -55,4 +59,5 @@ Map<String, dynamic> _$ProductoToJson(Producto instance) => <String, dynamic>{
       'generico': instance.generico,
       'nombre': instance.nombre,
       'precio': instance.precio,
+      'imagen': instance.imagen,
     };
