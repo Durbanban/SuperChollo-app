@@ -36,9 +36,16 @@ class JwtAuthenticationService extends AuthenticationService {
   @override
   Future<Usuario?> getCurrentUser() async {
     String? token = _localStorageService.getFromDisk("user_token");
+    String? refreshToken = _localStorageService.getFromDisk("user_refresh_token");
     if(token != null) {
       UsuarioResponse response = await _usuarioRepository.me();
       return response;
+    }else if(token == null && refreshToken != null) {
+      print("Token actualizado");
+      signInWithRefreshToken(refreshToken);
+      UsuarioResponse respuesta = await _usuarioRepository.me();
+      return respuesta;
+
     }
     return null;
   }
@@ -51,9 +58,13 @@ class JwtAuthenticationService extends AuthenticationService {
     return Usuario.fromLoginResponse(response);
   }
 
-  /*Future<Usuario> signInWithRefreshToken(String refreshToken) async {
-    // TODO HAY QUE HACER EL MÉTODO
-  }*/
+  Future<void> signInWithRefreshToken(String refreshToken) async {
+    RefreshTokenResponse respuesta = await _authenticationRepository.doRefreshToken(refreshToken);
+    await _localStorageService.deleteFromDisk('user_token');
+    await _localStorageService.deleteFromDisk('user_refresh_token');
+    await _localStorageService.saveToDisk('user_token', respuesta.token);
+    await _localStorageService.saveToDisk('user_refresh_token', respuesta.refreshToken);
+  }
 
   @override
   Future<void> signOut() async {
