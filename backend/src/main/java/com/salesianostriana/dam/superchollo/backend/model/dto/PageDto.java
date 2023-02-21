@@ -37,11 +37,16 @@ public class PageDto<T> {
 
     private int paginaSiguiente;
 
+    private int paginaActual;
+
 
     public PageDto (Page<T> page) {
 
         this.contenido = page.getContent();
         this.paginasTotales = page.getTotalPages();
         this.elementosTotales = page.getTotalElements();
+        this.paginaAnterior = page.getPageable().getPageNumber() == 0 ? 0 : page.getPageable().getPageNumber() - 1;
+        this.paginaActual = page.getPageable().getPageNumber();
+        this.paginaSiguiente = page.getPageable().getPageNumber() + 1;
     }
 }

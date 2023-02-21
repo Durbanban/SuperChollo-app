@@ -54,7 +54,8 @@ public class ProductoDtoResponse {
     private double precio;
 
     @JsonView({
-            View.ProductoView.DetailedProductoView.class,
+            View.ProductoView.GeneralProductoView.class,
+            View.ProductoView.DetailedProductoView.class
     })
     private String imagen;
 
