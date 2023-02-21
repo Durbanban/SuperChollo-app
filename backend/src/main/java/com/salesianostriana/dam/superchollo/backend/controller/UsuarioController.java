@@ -117,7 +117,8 @@ public class UsuarioController {
         return resultado;
     }
 
-    @PostMapping("/refreshtoken")
+    @Transactional
+    @PostMapping("/refreshtoken/")
     public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
         String refreshToken = refreshTokenRequest.getRefreshToken();
 
@@ -125,7 +126,7 @@ public class UsuarioController {
                 .map(refreshTokenService::verify)
                 .map(RefreshToken::getUsuario)
                 .map(user -> {
-                    String token = jwtProvider.generateToken((Authentication) user);
+                    String token = jwtProvider.generateToken(user);
                     refreshTokenService.deleteByUsuario(user);
                     RefreshToken refreshToken2 = refreshTokenService.createRefreshToken(user);
                     return ResponseEntity.status(HttpStatus.CREATED)

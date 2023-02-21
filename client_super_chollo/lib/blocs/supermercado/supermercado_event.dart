@@ -1,4 +1,4 @@
-part of 'supermercado_bloc.dart';
+import 'package:equatable/equatable.dart';
 
 abstract class SupermercadoEvent extends Equatable {
   const SupermercadoEvent();

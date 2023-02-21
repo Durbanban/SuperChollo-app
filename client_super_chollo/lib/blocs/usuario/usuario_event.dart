@@ -1,4 +1,4 @@
-part of 'usuario_bloc.dart';
+import 'package:equatable/equatable.dart';
 
 abstract class UsuarioEvent extends Equatable {
   const UsuarioEvent();

@@ -1,4 +1,5 @@
-part of 'categoria_bloc.dart';
+import 'package:equatable/equatable.dart';
+
 
 abstract class CategoriaEvent extends Equatable {
   const CategoriaEvent();

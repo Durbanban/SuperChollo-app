@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-part 'supermercado_event.dart';
-part 'supermercado_state.dart';
+import 'supermercado_event.dart';
+import 'supermercado_state.dart';
 
 class SupermercadoBloc extends Bloc<SupermercadoEvent, SupermercadoState> {
   SupermercadoBloc() : super(SupermercadoInitial()) {

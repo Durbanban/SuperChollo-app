@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.tomcat.util.http.fileupload.impl.InvalidContentTypeException;
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,11 +32,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.IllegalFormatConversionException;
 import java.util.List;
@@ -115,36 +118,61 @@ public class GlobalRestControllerAdvice extends ResponseEntityExceptionHandler {
         return buildApiError(ex, request, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler({
+            ClassCastException.class
+    })
+    public ResponseEntity<?> handleClassCastException(RuntimeException ex, WebRequest request) {
+
+        return buildApiError(ex, request, HttpStatus.BAD_REQUEST);
+
+    }
+
+    @ExceptionHandler({
+            InvalidContentTypeException.class
+    })
+    public ResponseEntity<?> handleInvalidContentTypeException(IOException ex, WebRequest request) {
+
+        return buildApiError(ex, request, HttpStatus.BAD_REQUEST);
+
+    }
+
+    @ExceptionHandler({
+            MultipartException.class
+    })
+    public ResponseEntity<?> handleMultipartException(RuntimeException ex, WebRequest request) {
+
+        return buildApiError(ex, request, HttpStatus.BAD_REQUEST);
+
+    }
+
     @ExceptionHandler({ AuthenticationException.class })
-    public ResponseEntity<?> handleAuthenticationException(AuthenticationException ex, HttpServletRequest request) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .header("WWW-Authenticate", "Bearer")
-                .body(GlobalRestControllerAdvice.ErrorMessage.of(HttpStatus.UNAUTHORIZED, ex.getMessage(), request.getRequestURI()));
+    public ResponseEntity<?> handleAuthenticationException(AuthenticationException ex, WebRequest request) {
+
+        return buildApiError(ex, request, HttpStatus.UNAUTHORIZED);
+
 
     }
 
     @ExceptionHandler({ AccessDeniedException.class })
-    public ResponseEntity<?> handleAccessDeniedException(AccessDeniedException ex, HttpServletRequest request) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                .body(GlobalRestControllerAdvice.ErrorMessage.of(HttpStatus.FORBIDDEN, ex.getMessage(), request.getRequestURI()));
+    public ResponseEntity<?> handleAccessDeniedException(AccessDeniedException ex, WebRequest request) {
+
+        return buildApiError(ex, request, HttpStatus.FORBIDDEN);
 
     }
 
 
     @ExceptionHandler({JwtTokenException.class})
-    public ResponseEntity<?> handleTokenException(JwtTokenException ex, HttpServletRequest request) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                .body(GlobalRestControllerAdvice.ErrorMessage.of(HttpStatus.FORBIDDEN, ex.getMessage(), request.getRequestURI()));
+    public ResponseEntity<?> handleTokenException(JwtTokenException ex, WebRequest request) {
+
+        return buildApiError(ex, request, HttpStatus.FORBIDDEN);
+
     }
 
     @ExceptionHandler({UsernameNotFoundException.class})
-    public ResponseEntity<?> handleUserNotExistsException(UsernameNotFoundException ex, HttpServletRequest request) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(GlobalRestControllerAdvice.ErrorMessage.of(
-                        HttpStatus.UNAUTHORIZED,
-                        ex.getMessage(),
-                        request.getRequestURI()
-                ));
+    public ResponseEntity<?> handleUserNotExistsException(UsernameNotFoundException ex, WebRequest request) {
+
+        return buildApiError(ex, request, HttpStatus.UNAUTHORIZED);
+
     }
 
 

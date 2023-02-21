@@ -1,4 +1,4 @@
-part of 'producto_bloc.dart';
+import 'package:equatable/equatable.dart';
 
 abstract class ProductoState extends Equatable {
   const ProductoState();

@@ -50,6 +50,11 @@ public class JwtProvider {
 
         Usuario usuario = (Usuario) authentication.getPrincipal();
 
+        return generateToken(usuario);
+
+    }
+
+    public String generateToken(Usuario usuario) {
         Date tokenExpirationDateTime =
                 Date.from(
                         LocalDateTime

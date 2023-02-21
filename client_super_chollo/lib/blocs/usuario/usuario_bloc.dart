@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-part 'usuario_event.dart';
-part 'usuario_state.dart';
+import 'usuario_event.dart';
+import 'usuario_state.dart';
 
 class UsuarioBloc extends Bloc<UsuarioEvent, UsuarioState> {
   UsuarioBloc() : super(UsuarioInitial()) {
