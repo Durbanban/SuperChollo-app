@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 
-import 'package:client_super_chollo/models/login_model.dart';
 import 'package:client_super_chollo/models/models.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
@@ -27,12 +26,13 @@ class AuthenticationRepository {
 
   }
 
-  Future<dynamic> doLoginWithRefreshToken(String refreshToken) async {
+  Future<dynamic> doRefreshToken(String refreshToken) async {
 
     String url = "/auth/refreshtoken/";
 
     var respuesta = await _client.post(url, RefreshTokenRequest(refreshToken: refreshToken));
-    return LoginResponse.fromJson(jsonDecode(respuesta));
+    
+    return RefreshTokenResponse.fromJson(jsonDecode(respuesta));
 
   }
 

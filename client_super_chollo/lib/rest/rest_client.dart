@@ -165,9 +165,9 @@ class NotFoundException extends CustomException {
 class AuthorizationInterceptor implements InterceptorContract {
 
   late LocalStorageService _localStorageService;
+  late RestClient _restClient;
 
   AuthorizationInterceptor() {
-    //_localStorageService = getIt<LocalStorageService>();
     GetIt.I.getAsync<LocalStorageService>().then((value) => _localStorageService = value);
 
   }
@@ -177,8 +177,8 @@ class AuthorizationInterceptor implements InterceptorContract {
   Future<RequestData> interceptRequest({required RequestData data}) async {
 
     try {
-      var token = await _localStorageService.getFromDisk("user_token"); 
-      data.headers["Authorization"] = "Bearer " + token;  
+      var token = await _localStorageService.getFromDisk("user_token");
+      data.headers["Authorization"] = "Bearer " + token;
     } catch(e) {
       print(e);
     }
@@ -190,7 +190,16 @@ class AuthorizationInterceptor implements InterceptorContract {
   @override
   Future<ResponseData> interceptResponse({required ResponseData data}) async {
     
-    if (data.statusCode == 401 || data.statusCode == 403) {
+    if (data.statusCode == 401) {
+      if(await _localStorageService.getFromDisk("user_refresh_token") != null) {
+        await refreshToken();
+
+      }
+
+      Future.delayed(Duration(seconds: 1), () {
+        Navigator.of(GlobalContext.ctx).push<void>(MyApp.route());
+      });
+    }else if(data.statusCode == 403) {
       Future.delayed(Duration(seconds: 1), () {
         Navigator.of(GlobalContext.ctx).push<void>(MyApp.route());
       });
@@ -199,6 +208,25 @@ class AuthorizationInterceptor implements InterceptorContract {
     
     return Future.value(data);
   }
+
+  Future<void> refreshToken() async {
+      var refreshToken = await _localStorageService.getFromDisk("user_refresh_token");
+      var respuesta = await _restClient.post(ApiConstants.baseUrl + "/auth/refreshtoken/", {"refreshToken": refreshToken});
+      if(respuesta.statusCode == 201) {
+        await _localStorageService.deleteFromDisk("user_token");
+        await _localStorageService.deleteFromDisk("user_refresh_token");
+        await _localStorageService.saveToDisk("user_token", respuesta.data.token);
+        await _localStorageService.saveToDisk("user_refresh_token", respuesta.data.refreshToken);
+      }else {
+        await _localStorageService.deleteFromDisk("user_token");
+        await _localStorageService.deleteFromDisk("user_refresh_token");
+
+      }
+
+
+    }
+
+  
 
 }
 @Order(-10)
