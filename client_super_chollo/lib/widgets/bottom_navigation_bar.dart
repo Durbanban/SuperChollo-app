@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:client_super_chollo/pages/pages.dart';
 
 class BottomNavigation extends StatefulWidget {
-  final Usuario user;
 
-  const BottomNavigation({Key? key, required this.user}) : super(key: key);
+  const BottomNavigation({Key? key}) : super(key: key);
 
 
   @override
@@ -20,7 +19,7 @@ class _BottomNavigationState extends State {
 
   final List<Widget> _pages = [
 
-    const HomePage(key: key, usuario: user),
+    HomePage(),
     const ProductosPage(),
     const ProductosPage(),
     const ProductosPage(),
@@ -49,7 +48,7 @@ class _BottomNavigationState extends State {
           unselectedItemColor: Colors.black,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          items: [
+          items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Inicio"),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: "Mi perfil"),
             BottomNavigationBarItem(

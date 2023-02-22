@@ -42,6 +42,7 @@ public class Categoria {
             }
     )
     @Column(columnDefinition = "uuid")
+    @Type(type = "uuid-char")
     private UUID id;
 
     private String nombre;

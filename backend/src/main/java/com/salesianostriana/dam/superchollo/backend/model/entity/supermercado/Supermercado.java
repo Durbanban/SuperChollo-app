@@ -5,6 +5,7 @@ import com.salesianostriana.dam.superchollo.backend.model.entity.usuario.Usuario
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public class Supermercado {
             }
     )
     @Column(columnDefinition = "uuid")
+    @Type(type = "uuid-char")
     private UUID id;
 
     private String nombre;

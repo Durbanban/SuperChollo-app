@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -63,7 +64,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-                .cors(Customizer.withDefaults())
+                .cors(AbstractHttpConfigurer::disable)
                 .csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
@@ -74,6 +75,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.DELETE, "/auth/user/**").authenticated()
+                .antMatchers("/h2-console/**", "/auth/register/", "/auth/login/", "/file/download/**").permitAll()
                 .antMatchers("/auth/register/admin/", "/auth/user/").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/categoria/", "/supermercado/").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/categoria/**", "/supermercado/**").hasRole("ADMIN")

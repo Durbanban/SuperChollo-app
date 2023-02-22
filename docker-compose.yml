@@ -1,0 +1,41 @@
+
+services:
+
+  db:
+    image: 'postgres:14-alpine'
+    container_name: db
+    restart: always
+    environment:
+      - POSTGRES_DB=chollo
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5555:5432"
+
+  backend:
+    container_name: api
+    depends_on:
+      - db
+    restart: on-failure
+    build: ./backend/
+    ports:
+      - "6868:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+
+    stdin_open: true
+    tty: true
+
+
+
+  client:
+    container_name: client
+    image: 'dpage/pgadmin4'
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    depends_on:
+      - db
+    ports:
+      - "5050:80"
