@@ -45,7 +45,7 @@ class RestClient {
   var _httpClient;
 
   RestClient() {
-    _httpClient = InterceptedClient.build(interceptors: [HeadersApiInterceptor()]);
+    _httpClient = InterceptedClient.build(interceptors: [HeadersApiInterceptor()], retryPolicy: ExpiredTokenRetryPolicy());
   }
 
   RestClient.withInterceptors(List<InterceptorContract> interceptors) {
@@ -187,10 +187,12 @@ class AuthorizationInterceptor implements InterceptorContract {
 
   }
 
+  
+
   @override
   Future<ResponseData> interceptResponse({required ResponseData data}) async {
     
-    if (data.statusCode == 401) {
+    if (data.statusCode == 401 || data.statusCode == 403) {
       if(await _localStorageService.getFromDisk("user_refresh_token") != null) {
         await refreshToken();
 
@@ -227,6 +229,47 @@ class AuthorizationInterceptor implements InterceptorContract {
     }
 
   
+
+}
+
+class ExpiredTokenRetryPolicy extends RetryPolicy {
+
+  late LocalStorageService _localStorageService;
+  late RestClient _restClient;
+
+
+  
+  //Number of retry
+  @override
+  int maxRetryAttempts = 2;
+
+  @override
+  Future<bool> shouldAttemptRetryOnResponse(ResponseData response) async {
+    //This is where we need to update our token on 401 response
+    if (response.statusCode == 401) {
+      //Refresh your token here. Make refresh token method where you get new token from
+      //API and set it to your local data
+      
+      await refreshToken();  //Find bellow the code of this function
+      return true;
+    }
+    return false;
+  }
+
+  Future<void> refreshToken() async {
+    var refreshToken = await _localStorageService.getFromDisk("user_refresh_token");
+    var respuesta = await _restClient.post(ApiConstants.baseUrl + "/auth/refreshtoken/", {"refreshToken": refreshToken});
+    if(respuesta.statusCode == 201) {
+      await _localStorageService.deleteFromDisk("user_token");
+      await _localStorageService.deleteFromDisk("user_refresh_token");
+      await _localStorageService.saveToDisk("user_token", respuesta.data.token);
+      await _localStorageService.saveToDisk("user_refresh_token", respuesta.data.refreshToken);
+    }else {
+      await _localStorageService.deleteFromDisk("user_token");
+      await _localStorageService.deleteFromDisk("user_refresh_token");
+
+    }
+  }
 
 }
 @Order(-10)
