@@ -249,8 +249,6 @@ class ExpiredTokenRetryPolicy extends RetryPolicy {
     await _localStorageService.deleteFromDisk("user_refresh_token");
     await _localStorageService.saveToDisk("user_token", respuesta.data.token!);
     await _localStorageService.saveToDisk("user_refresh_token", respuesta.data.refreshToken!);
-    await _localStorageService.deleteFromDisk("user_token");
-    await _localStorageService.deleteFromDisk("user_refresh_token");
 
     
   }
