@@ -14,6 +14,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authBloc = BlocProvider.of<AuthenticationBloc>(context);
+    JwtAuthenticationService service = getIt<JwtAuthenticationService>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Home Page'),
@@ -44,11 +46,9 @@ class HomePage extends StatelessWidget {
                 },
               ),
               ElevatedButton(onPressed: () async {
-                print("Check");
-                JwtAuthenticationService service = getIt<JwtAuthenticationService>();
                 await service.getCurrentUser();
               }
-              , child: Text('Check')
+              , child: Text('Probar')
               )
             ],
           ),

@@ -5,11 +5,14 @@ import '../blocs/blocs.dart';
 import '../services/services.dart';
 
 class LoginPage extends StatelessWidget {
+
+  const LoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login')
+        title: const Text('Login')
       ),
       body: SafeArea(
           minimum: const EdgeInsets.all(16),
@@ -29,7 +32,7 @@ class LoginPage extends StatelessWidget {
                     Text(msg),
                     TextButton(
                       //textColor: Theme.of(context).primaryColor,
-                      child: Text('Retry'),
+                      child: const Text('Retry'),
                       onPressed: () {
                         authBloc.add(AppLoaded());
                       },
@@ -38,7 +41,7 @@ class LoginPage extends StatelessWidget {
                 ));
               }
               // return splash screen
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
                 ),
@@ -52,7 +55,6 @@ class LoginPage extends StatelessWidget {
 class _AuthForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //final authService = RepositoryProvider.of<AuthenticationService>(context);
     final authService = getIt<JwtAuthenticationService>();
     final authBloc = BlocProvider.of<AuthenticationBloc>(context);
 
@@ -100,7 +102,7 @@ class __SignInFormState extends State<_SignInForm> {
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
           if (state is LoginLoading) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -112,8 +114,8 @@ class __SignInFormState extends State<_SignInForm> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Email address',
+                    decoration: const InputDecoration(
+                      labelText: 'Nombre de usuario',
                       filled: true,
                       isDense: true,
                     ),
@@ -122,7 +124,7 @@ class __SignInFormState extends State<_SignInForm> {
                     autocorrect: false,
                     validator: (value) {
                       if (value == null) {
-                        return 'Email is required.';
+                        return 'El nombre de usuario es obligatorio';
                       }
                       return null;
                     },
@@ -132,7 +134,7 @@ class __SignInFormState extends State<_SignInForm> {
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'Password',
+                      labelText: 'Contraseña',
                       filled: true,
                       isDense: true,
                     ),
@@ -140,7 +142,7 @@ class __SignInFormState extends State<_SignInForm> {
                     controller: _passwordController,
                     validator: (value) {
                       if (value == null) {
-                        return 'Password is required.';
+                        return 'La contraseña es obligatoria.';
                       }
                       return null;
                     },
