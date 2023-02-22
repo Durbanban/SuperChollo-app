@@ -43,13 +43,6 @@ class MyApp extends StatelessWidget {
       authBloc..add(SessionExpiredEvent());
       return _instance;
     });
-    /*return MaterialPageRoute<void>(builder: (context) {
-      return BlocProvider<AuthenticationBloc>(create: (context) {
-        final authService = getIt<JwtAuthenticationService>();
-        return AuthenticationBloc(authService)..add(SessionExpiredEvent());
-      }, 
-      child: MyApp(),);
-    });*/
   }
 
   MyApp() {
@@ -60,7 +53,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     //GlobalContext.ctx = context;
     return MaterialApp(
-      title: 'Authentication Demo',
+      title: 'Super Chollo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
