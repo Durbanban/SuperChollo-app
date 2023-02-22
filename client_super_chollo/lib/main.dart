@@ -1,3 +1,4 @@
+import 'package:client_super_chollo/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:client_super_chollo/config/locator.dart';
@@ -63,8 +64,8 @@ class MyApp extends StatelessWidget {
           GlobalContext.ctx = context;
           if (state is AuthenticationAuthenticated) {
             // show home page
-            return HomePage(
-              usuario: state.usuario,
+            return BottomNavigation(
+              user: state.usuario,
             );
           }
           // otherwise show login page

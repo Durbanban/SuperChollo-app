@@ -1,7 +1,14 @@
+import 'package:client_super_chollo/models/models.dart';
+import 'package:client_super_chollo/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
+import 'package:client_super_chollo/pages/pages.dart';
+
 class BottomNavigation extends StatefulWidget {
-  const BottomNavigation({Key? key}) : super(key: key);
+  final Usuario user;
+
+  const BottomNavigation({Key? key, required this.user}) : super(key: key);
+
 
   @override
   _BottomNavigationState createState() =>
@@ -11,22 +18,14 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State {
   int _selectedTab = 0; 
 
-  List _pages = [
-    Center(
-      child: Text("Inicio"),
-    ),
-    Center(
-      child: Text("Mi perfil"),
-    ),
-    Center(
-      child: Text("Productos"),
-    ),
-    Center(
-      child: Text("Supermercados"),
-    ),
-    Center(
-      child: Text("Categorías"),
-    ),
+  final List<Widget> _pages = [
+
+    const HomePage(key: key, usuario: user),
+    const ProductosPage(),
+    const ProductosPage(),
+    const ProductosPage(),
+    const ProductosPage()
+    
   ];
 
   _changeTab(int index) {
@@ -38,7 +37,6 @@ class _BottomNavigationState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: _pages[_selectedTab],
       bottomNavigationBar: Theme(
         data: ThemeData(
