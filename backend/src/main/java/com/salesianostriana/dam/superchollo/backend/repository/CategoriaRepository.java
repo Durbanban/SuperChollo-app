@@ -17,7 +17,7 @@ public interface CategoriaRepository extends JpaRepository<Categoria, UUID>, Jpa
 
     boolean existsByNombre(String nombre);
 
-    Categoria findByNombre(String nombre);
+    Categoria findByNombreIgnoreCase(String nombre);
 
     @EntityGraph(value = "categoria-con-productos", type = EntityGraph.EntityGraphType.LOAD)
     Page<Categoria> findAll(Specification<Categoria> spec, Pageable pageable);

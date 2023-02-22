@@ -90,7 +90,7 @@ public class CategoriaService {
     }
 
     public Categoria findCategoriaByNombre(String nombre) {
-        return categoriaRepository.findByNombre(nombre);
+        return categoriaRepository.findByNombreIgnoreCase(nombre);
     }
 
     @Transactional
