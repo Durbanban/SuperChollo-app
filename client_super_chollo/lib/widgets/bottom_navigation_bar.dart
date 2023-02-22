@@ -9,7 +9,7 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State {
-  /*int _selectedTab = 0; 
+  int _selectedTab = 0; 
 
   List _pages = [
     Center(
@@ -33,7 +33,7 @@ class _BottomNavigationState extends State {
     setState(() {
       _selectedTab = index;
     });
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
