@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:client_super_chollo/config/locator.dart';
 import 'package:client_super_chollo/models/login_model.dart';
 import 'package:client_super_chollo/models/usuario_model.dart';
+import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:client_super_chollo/rest/rest.dart';
@@ -16,6 +17,8 @@ class UsuarioRepository {
   UsuarioRepository() {
 
     _client = getIt<RestAuthenticatedClient>();
+    //_client = GetIt.I.get<RestAuthenticatedClient>();
+
 
   }
 

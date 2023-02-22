@@ -165,7 +165,6 @@ class NotFoundException extends CustomException {
 class AuthorizationInterceptor implements InterceptorContract {
 
   late LocalStorageService _localStorageService;
-  late RestClient _restClient;
 
   AuthorizationInterceptor() {
     GetIt.I.getAsync<LocalStorageService>().then((value) => _localStorageService = value);
@@ -178,30 +177,22 @@ class AuthorizationInterceptor implements InterceptorContract {
 
     try {
       var token = await _localStorageService.getFromDisk("user_token");
+      data.headers.clear();
       data.headers["Authorization"] = "Bearer " + token;
     } catch(e) {
       print(e);
     }
 
-    return Future.value(data);
+    return data;
 
   }
 
   
 
-  @override
+  /*@override
   Future<ResponseData> interceptResponse({required ResponseData data}) async {
     
     if (data.statusCode == 401 || data.statusCode == 403) {
-      if(await _localStorageService.getFromDisk("user_refresh_token") != null) {
-        await refreshToken();
-
-      }
-
-      Future.delayed(Duration(seconds: 1), () {
-        Navigator.of(GlobalContext.ctx).push<void>(MyApp.route());
-      });
-    }else if(data.statusCode == 403) {
       Future.delayed(Duration(seconds: 1), () {
         Navigator.of(GlobalContext.ctx).push<void>(MyApp.route());
       });
@@ -209,26 +200,18 @@ class AuthorizationInterceptor implements InterceptorContract {
     
     
     return Future.value(data);
-  }
-
-  Future<void> refreshToken() async {
-      var refreshToken = await _localStorageService.getFromDisk("user_refresh_token");
-      var respuesta = await _restClient.post(ApiConstants.baseUrl + "/auth/refreshtoken/", {"refreshToken": refreshToken});
-      if(respuesta.statusCode == 201) {
-        await _localStorageService.deleteFromDisk("user_token");
-        await _localStorageService.deleteFromDisk("user_refresh_token");
-        await _localStorageService.saveToDisk("user_token", respuesta.data.token);
-        await _localStorageService.saveToDisk("user_refresh_token", respuesta.data.refreshToken);
-      }else {
-        await _localStorageService.deleteFromDisk("user_token");
-        await _localStorageService.deleteFromDisk("user_refresh_token");
-
-      }
-
-
+  }*/
+  @override
+  Future<ResponseData> interceptResponse({required ResponseData data}) async {
+     
+     if (data.statusCode == 401 || data.statusCode == 403) {
+      Future.delayed(Duration(seconds: 1), () {
+        Navigator.of(GlobalContext.ctx).push<void>(MyApp.route());
+      });
     }
-
-  
+    
+    return Future.value(data);
+  }
 
 }
 
@@ -250,25 +233,26 @@ class ExpiredTokenRetryPolicy extends RetryPolicy {
       //Refresh your token here. Make refresh token method where you get new token from
       //API and set it to your local data
       
-      await refreshToken();  //Find bellow the code of this function
+      await refreshToken();
       return true;
     }
     return false;
   }
 
   Future<void> refreshToken() async {
+
+    print("refrescando token");
+    
     var refreshToken = await _localStorageService.getFromDisk("user_refresh_token");
     var respuesta = await _restClient.post(ApiConstants.baseUrl + "/auth/refreshtoken/", {"refreshToken": refreshToken});
-    if(respuesta.statusCode == 201) {
-      await _localStorageService.deleteFromDisk("user_token");
-      await _localStorageService.deleteFromDisk("user_refresh_token");
-      await _localStorageService.saveToDisk("user_token", respuesta.data.token);
-      await _localStorageService.saveToDisk("user_refresh_token", respuesta.data.refreshToken);
-    }else {
-      await _localStorageService.deleteFromDisk("user_token");
-      await _localStorageService.deleteFromDisk("user_refresh_token");
+    await _localStorageService.deleteFromDisk("user_token");
+    await _localStorageService.deleteFromDisk("user_refresh_token");
+    await _localStorageService.saveToDisk("user_token", respuesta.data.token!);
+    await _localStorageService.saveToDisk("user_refresh_token", respuesta.data.refreshToken!);
+    await _localStorageService.deleteFromDisk("user_token");
+    await _localStorageService.deleteFromDisk("user_refresh_token");
 
-    }
+    
   }
 
 }
@@ -277,5 +261,7 @@ class ExpiredTokenRetryPolicy extends RetryPolicy {
 class RestAuthenticatedClient extends RestClient {
 
   RestAuthenticatedClient() : super.withInterceptors(List.of(<InterceptorContract>[AuthorizationInterceptor()]));
+
+  
 
 }

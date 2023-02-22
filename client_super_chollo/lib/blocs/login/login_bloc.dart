@@ -26,6 +26,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(LoginLoading());
     try {
       final usuario = await _authenticationService.signInWithEmailAndPassword(event.email, event.password);
+      
       if (usuario != null) {
         _authenticationBloc.add(UserLoggedIn(usuario: usuario));
         emit(LoginSuccess());
