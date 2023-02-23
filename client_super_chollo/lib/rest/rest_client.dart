@@ -15,7 +15,7 @@ import 'package:http/http.dart' as http;
 
 class ApiConstants {
 
-  static String baseUrl = "http://172.27.3.130:6868";
+  static String baseUrl = "http://192.168.1.129:6868";
   //static String baseUrl = "http://10.0.2.2:8080";
   
 
