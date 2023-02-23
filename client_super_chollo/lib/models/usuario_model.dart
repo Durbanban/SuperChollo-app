@@ -36,7 +36,7 @@ class Usuario {
 @JsonSerializable(disallowUnrecognizedKeys: true)
 class UsuarioResponse extends Usuario {
 
-  UsuarioResponse(id, username, avatar, fullName, fechaCreado) : super(id: id, username: username, fullName: fullName, fechaCreado: fechaCreado);
+  UsuarioResponse(id, username, avatar, fullName, fechaCreado) : super(id: id, username: username, avatar: avatar, fullName: fullName, fechaCreado: fechaCreado);
 
   factory UsuarioResponse.fromJson(Map<String, dynamic> data) => _$UsuarioResponseFromJson(data);
 

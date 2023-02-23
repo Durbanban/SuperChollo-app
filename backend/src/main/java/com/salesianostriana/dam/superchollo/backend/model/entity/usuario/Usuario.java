@@ -75,7 +75,6 @@ public class Usuario implements UserDetails {
             }
     )
     @Column(columnDefinition = "uuid")
-    @Type(type = "uuid-char")
     private UUID id;
 
     @NaturalId

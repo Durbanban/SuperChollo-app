@@ -22,11 +22,13 @@ EventTransformer<E> throttleDroppable<E>(Duration duration) {
 class ProductoBloc extends Bloc<ProductoEvent, ProductoState> {
 
   late final ProductoService _productoService;
+  late final AuthenticationService _authenticationService;
 
   ProductoBloc() : super(ProductoInitial()) {
 
     _productoService = getIt<ProductoService>();
-    
+    _authenticationService = getIt<JwtAuthenticationService>();
+
     on<ProductoFetched>(
       _onProductoFetched,
     );
@@ -51,7 +53,7 @@ class ProductoBloc extends Bloc<ProductoEvent, ProductoState> {
         status: ProductoStatus.success,
         productos: List.of(state.productos)..addAll(respuesta.contenido!),
         page: respuesta.paginaActual! + 1,
-        hasReachedMax: false,
+        hasReachedMax: respuesta.paginaActual! + 1 >= respuesta.paginasTotales!,
        ));
     }catch(_) {
       emitter(state.copyWith(status: ProductoStatus.failure));

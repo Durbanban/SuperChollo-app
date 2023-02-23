@@ -15,7 +15,7 @@ import 'package:http/http.dart' as http;
 
 class ApiConstants {
 
-  static String baseUrl = "http://localhost:8080";
+  static String baseUrl = "http://172.27.3.130:6868";
   //static String baseUrl = "http://10.0.2.2:8080";
   
 
@@ -104,7 +104,8 @@ class RestClient {
       case 204:
         return;
       case 400:
-        throw BadRequestException(utf8.decode(response.bodyBytes));
+        String message = jsonDecode(utf8.decode(response.bodyBytes))['message'];
+        throw BadRequestException(message);
       case 401:
         // Así sacamos el mensaje del JSON devuelto por el API
         String message = jsonDecode(utf8.decode(response.bodyBytes))['message'];

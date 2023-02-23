@@ -50,7 +50,6 @@ public class Supermercado {
             }
     )
     @Column(columnDefinition = "uuid")
-    @Type(type = "uuid-char")
     private UUID id;
 
     private String nombre;

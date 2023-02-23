@@ -28,7 +28,18 @@ class ProductoService {
     }else {
       throw Exception("No se pudo cargar los productos");
     }
-    
+
+  }
+
+  Future<ProductoDetails> getById(String id) async {
+
+    String? token = _localStorageService.getFromDisk("user_token");
+    if(token != null) {
+      ProductoDetails? respuesta = await _productoRepository.getById(id);
+      return respuesta;
+    }else {
+      throw Exception("No se encontró el producto");
+    }
 
   }
 

@@ -6,8 +6,9 @@ import 'package:client_super_chollo/models/models.dart';
 import 'package:client_super_chollo/services/services.dart';
 import 'package:equatable/equatable.dart';
 
-part 'home_event.dart';
-part 'home_state.dart';
+import 'home_event.dart';
+import 'home_state.dart';
+
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
@@ -19,7 +20,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   FutureOr<void> fetchUsuario(TraerUsuario event, Emitter<HomeState> emit) async {
-    emit(state.copyWith(status: HomeStatus.initial));
     try {
 
       final respuesta = await _authenticationService.getCurrentUser();

@@ -19,8 +19,8 @@ class _BottomNavigationState extends State {
 
   final List<Widget> _pages = [
 
-    HomePage(),
-    const ProductosPage(),
+    HomeScreen(),
+    ProductosPage(),
     const ProductosPage(),
     const ProductosPage(),
     const ProductosPage()
@@ -39,7 +39,7 @@ class _BottomNavigationState extends State {
       body: _pages[_selectedTab],
       bottomNavigationBar: Theme(
         data: ThemeData(
-          canvasColor: Colors.blueGrey,
+          canvasColor: Colors.red,
         ),
         child: BottomNavigationBar(
           currentIndex: _selectedTab,

@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:client_super_chollo/config/locator.dart';
 import '../blocs/blocs.dart';
 import '../services/services.dart';
+import 'package:client_super_chollo/rest/rest.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -111,9 +114,17 @@ class __SignInFormState extends State<_SignInForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
+                  SizedBox(
+                    width: 250,
+                    height: 250,
+                    child: Image.network( 
+                    "${ApiConstants.baseUrl}/file/download/logo_superchollo.png",
+                    fit: BoxFit.contain,
+                  ),
+                  ),
                   TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'Email address',
+                      labelText: 'Nombre de usuario',
                       filled: true,
                       isDense: true,
                     ),
@@ -122,7 +133,7 @@ class __SignInFormState extends State<_SignInForm> {
                     autocorrect: false,
                     validator: (value) {
                       if (value == null) {
-                        return 'Email is required.';
+                        return 'Nombre de usuario requerido';
                       }
                       return null;
                     },
@@ -132,7 +143,7 @@ class __SignInFormState extends State<_SignInForm> {
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'Password',
+                      labelText: 'Contraseña',
                       filled: true,
                       isDense: true,
                     ),
@@ -140,7 +151,7 @@ class __SignInFormState extends State<_SignInForm> {
                     controller: _passwordController,
                     validator: (value) {
                       if (value == null) {
-                        return 'Password is required.';
+                        return 'Contraseña requerida';
                       }
                       return null;
                     },
@@ -154,7 +165,7 @@ class __SignInFormState extends State<_SignInForm> {
                     //textColor: Colors.white,
                     //padding: const EdgeInsets.all(16),
                     //shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(8.0)),
-                    child: Text('LOG IN'),
+                    child: Text('ENTRAR'),
                     onPressed: state is LoginLoading ? () {} : _onLoginButtonPressed,
                   )
                 ],

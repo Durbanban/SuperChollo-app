@@ -30,13 +30,6 @@ INSERT INTO producto (id, generico, imagen, nombre, precio, autor_id, categoria_
 INSERT INTO producto (id, generico, imagen, nombre, precio, autor_id, categoria_id) VALUES ('412264be-ddb5-4b46-8f7a-c9139d0c423d', 'Chips', 'imagen_chips_651124.jpg', 'Pringles Sour cream & onion 190 gr', 2.90, '6f705ab2-6ff9-4068-87f8-4c4932c8d73f', '8c37d098-af20-4ec8-ba75-a697a48d48de');
 INSERT INTO producto (id, generico, imagen, nombre, precio, autor_id, categoria_id) VALUES ('92ccf1ad-131d-4993-ae16-50c5f52d6522', 'Macarrón', 'imagen_macarron.jpg', 'Macarrones Pasta Eliges 500 gr', 1.10, '89a8725e-ebd8-40fa-9caa-105b742c4ea0', 'a54b27e6-3208-40d0-b909-d282b4f0d58f');
 
-INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('e0a31674-c439-4c1b-83b3-77236a762cf7', '89a8725e-ebd8-40fa-9caa-105b742c4ea0', CURRENT_TIMESTAMP, 9);
-INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('e0a31674-c439-4c1b-83b3-77236a762cf7', '6f705ab2-6ff9-4068-87f8-4c4932c8d73f', CURRENT_TIMESTAMP, 10);
-INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('9b05f55a-7fb8-4f1f-ad5f-97f42bdd9032', '89a8725e-ebd8-40fa-9caa-105b742c4ea0', CURRENT_TIMESTAMP, 7);
-INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('dfe188cc-4027-402c-b9e2-ae0eeba16255', '89a8725e-ebd8-40fa-9caa-105b742c4ea0', CURRENT_TIMESTAMP, 7);
-INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('08c0fd3a-fe17-454a-be1e-af29abbcec77', '6f705ab2-6ff9-4068-87f8-4c4932c8d73f', CURRENT_TIMESTAMP, 9);
-INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('92ccf1ad-131d-4993-ae16-50c5f52d6522', '6f705ab2-6ff9-4068-87f8-4c4932c8d73f', CURRENT_TIMESTAMP, 6);
-INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('2624030c-d07d-4eff-b351-54139076fad3', '6f705ab2-6ff9-4068-87f8-4c4932c8d73f', CURRENT_TIMESTAMP, 8);
 
 
 INSERT INTO supermercado (id, address, nombre) VALUES ('b7b86f11-ccec-46fd-b3d4-dd1cb3268e6a', 'Calle Virgen de Loreto 35', 'LIDL');
@@ -108,6 +101,13 @@ INSERT INTO catalogo (supermercado_id, producto_id) VALUES ('33eed5ae-ed92-484e-
 
 
 
+INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('e0a31674-c439-4c1b-83b3-77236a762cf7', '89a8725e-ebd8-40fa-9caa-105b742c4ea0', CURRENT_TIMESTAMP, 9);
+INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('e0a31674-c439-4c1b-83b3-77236a762cf7', '6f705ab2-6ff9-4068-87f8-4c4932c8d73f', CURRENT_TIMESTAMP, 10);
+INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('9b05f55a-7fb8-4f1f-ad5f-97f42bdd9032', '89a8725e-ebd8-40fa-9caa-105b742c4ea0', CURRENT_TIMESTAMP, 7);
+INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('dfe188cc-4027-402c-b9e2-ae0eeba16255', '89a8725e-ebd8-40fa-9caa-105b742c4ea0', CURRENT_TIMESTAMP, 7);
+INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('08c0fd3a-fe17-454a-be1e-af29abbcec77', '6f705ab2-6ff9-4068-87f8-4c4932c8d73f', CURRENT_TIMESTAMP, 9);
+INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('92ccf1ad-131d-4993-ae16-50c5f52d6522', '6f705ab2-6ff9-4068-87f8-4c4932c8d73f', CURRENT_TIMESTAMP, 6);
+INSERT INTO rating (producto_id, usuario_id, fecha_rating, nota) VALUES ('2624030c-d07d-4eff-b351-54139076fad3', '6f705ab2-6ff9-4068-87f8-4c4932c8d73f', CURRENT_TIMESTAMP, 8);
 
 
 

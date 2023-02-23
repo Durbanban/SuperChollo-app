@@ -1,32 +1,26 @@
-import 'package:client_super_chollo/blocs/home/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:client_super_chollo/blocs/authentication/authentication.dart';
 import 'package:client_super_chollo/config/locator.dart';
 import 'package:client_super_chollo/services/services.dart';
 import 'package:client_super_chollo/models/models.dart';
 import 'package:client_super_chollo/widgets/widgets.dart';
-
+import 'package:client_super_chollo/blocs/blocs.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BlocProvider<HomeBloc>(
       create: (context) => HomeBloc()..add(TraerUsuario()),
-      child: HomePage(),
+      child: const HomePage(),
     );
   }
 }
 
 class HomePage extends StatelessWidget {
 
-  
-
-  HomePage({super.key}) {
-
-  }
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +28,7 @@ class HomePage extends StatelessWidget {
       builder: (context, state) {
         switch(state.status) {
           case HomeStatus.initial:
-            return Text("Cargando");
+            return Text("ESTADO INICIAL");
           case HomeStatus.success:
             return Scaffold(
           appBar: AppBar(
@@ -51,7 +45,7 @@ class HomePage extends StatelessWidget {
                       fontSize: 24
                     ),
                   ),
-                  Image.network("http://localhost:8080/file/download/${state.usuario!.avatar}"),
+                  Image.network("http://localhost:6868/file/download/${state.usuario!.avatar}"),
                   const SizedBox(
                     height: 12,
                   ),
@@ -65,8 +59,8 @@ class HomePage extends StatelessWidget {
                       context.read<AuthenticationBloc>().add(UserLoggedOut());
                     },
                   ),
+                  Spacer(),
                   ElevatedButton(onPressed: () async {
-                    print("Check");
                     JwtAuthenticationService service = getIt<JwtAuthenticationService>();
                     await service.getCurrentUser();
                   }

@@ -57,7 +57,8 @@ class MyApp extends StatelessWidget {
       title: 'Super Chollo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
+        primarySwatch: Colors.red,
+        secondaryHeaderColor: Colors.yellow
       ),
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {

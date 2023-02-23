@@ -109,7 +109,6 @@ public class Producto {
             }
     )
     @Column(columnDefinition = "uuid")
-    @Type(type = "uuid-char")
     private UUID id;
 
     private String generico;

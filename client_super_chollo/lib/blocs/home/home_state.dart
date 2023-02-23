@@ -1,5 +1,5 @@
-part of 'home_bloc.dart';
-
+import 'package:client_super_chollo/models/models.dart';
+import 'package:equatable/equatable.dart';
 
 
 enum HomeStatus {initial, success, failure}
@@ -26,7 +26,7 @@ class HomeState extends Equatable {
   }
   
   @override
-  List<Object> get props => [];
+  List<Object> get props => [status, usuario!];
 }
 
 class HomeInitial extends HomeState {}

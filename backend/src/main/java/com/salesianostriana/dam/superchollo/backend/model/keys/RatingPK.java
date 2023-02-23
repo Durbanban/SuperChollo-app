@@ -16,10 +16,8 @@ import java.util.UUID;
 public class RatingPK implements Serializable {
 
     @Column(columnDefinition = "uuid")
-    @Type(type = "uuid-char")
     private UUID usuarioId;
 
     @Column(columnDefinition = "uuid")
-    @Type(type = "uuid-char")
     private UUID productoId;
 }
