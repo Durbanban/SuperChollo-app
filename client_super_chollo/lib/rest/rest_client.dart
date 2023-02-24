@@ -202,6 +202,48 @@ class AuthorizationInterceptor implements InterceptorContract {
   }
 
 }
+
+class ExpiredTokenRetryPolicy extends RetryPolicy {
+
+  late LocalStorageService _localStorageService;
+  late RestClient _restClient;
+
+
+  
+  //Number of retry
+  @override
+  int maxRetryAttempts = 2;
+
+  @override
+  Future<bool> shouldAttemptRetryOnResponse(ResponseData response) async {
+    //This is where we need to update our token on 401 response
+    if (response.statusCode == 401) {
+      //Refresh your token here. Make refresh token method where you get new token from
+      //API and set it to your local data
+      
+      await refreshToken();
+      return true;
+    }
+    return false;
+  }
+
+  Future<void> refreshToken() async {
+
+    print("refrescando token");
+    
+    var refreshToken = await _localStorageService.getFromDisk("user_refresh_token");
+    var respuesta = await _restClient.post(ApiConstants.baseUrl + "/auth/refreshtoken/", {"refreshToken": refreshToken});
+    await _localStorageService.deleteFromDisk("user_token");
+    await _localStorageService.deleteFromDisk("user_refresh_token");
+    await _localStorageService.saveToDisk("user_token", respuesta.data.token!);
+    await _localStorageService.saveToDisk("user_refresh_token", respuesta.data.refreshToken!);
+
+    
+  }
+
+}
+
+
 @Order(-10)
 @singleton
 class RestAuthenticatedClient extends RestClient {
