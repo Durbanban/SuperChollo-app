@@ -75,7 +75,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.DELETE, "/auth/user/**").authenticated()
-                .antMatchers("/h2-console/**", "/auth/register/", "/auth/login/", "/file/download/**").permitAll()
+                .antMatchers("/h2-console/**", "/auth/register/", "/auth/login/", "/file/download/**", "/refreshtoken/").permitAll()
                 .antMatchers("/auth/register/admin/", "/auth/user/").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/categoria/", "/supermercado/").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/categoria/**", "/supermercado/**").hasRole("ADMIN")

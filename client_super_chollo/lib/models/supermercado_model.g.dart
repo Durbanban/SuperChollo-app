@@ -14,7 +14,8 @@ SupermercadoResponse _$SupermercadoResponseFromJson(Map<String, dynamic> json) {
       'paginasTotales',
       'elementosTotales',
       'paginaAnterior',
-      'paginaSiguiente'
+      'paginaSiguiente',
+      'paginaActual'
     ],
   );
   return SupermercadoResponse(
@@ -25,6 +26,7 @@ SupermercadoResponse _$SupermercadoResponseFromJson(Map<String, dynamic> json) {
     elementosTotales: json['elementosTotales'] as int?,
     paginaAnterior: json['paginaAnterior'] as int?,
     paginaSiguiente: json['paginaSiguiente'] as int?,
+    paginaActual: json['paginaActual'] as int?,
   );
 }
 
@@ -36,6 +38,7 @@ Map<String, dynamic> _$SupermercadoResponseToJson(
       'elementosTotales': instance.elementosTotales,
       'paginaAnterior': instance.paginaAnterior,
       'paginaSiguiente': instance.paginaSiguiente,
+      'paginaActual': instance.paginaActual,
     };
 
 Supermercado _$SupermercadoFromJson(Map<String, dynamic> json) {

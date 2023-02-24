@@ -1,5 +1,6 @@
 import 'package:client_super_chollo/models/models.dart';
 import 'package:client_super_chollo/pages/home_page.dart';
+import 'package:client_super_chollo/pages/supermercado_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:client_super_chollo/pages/pages.dart';
@@ -19,10 +20,10 @@ class _BottomNavigationState extends State {
 
   final List<Widget> _pages = [
 
-    HomeScreen(),
-    ProductosPage(),
+    const HomeScreen(),
     const ProductosPage(),
     const ProductosPage(),
+    const SupermercadoPage(),
     const ProductosPage()
     
   ];
