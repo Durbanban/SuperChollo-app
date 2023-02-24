@@ -15,6 +15,7 @@ abstract class AuthenticationService {
   Future<Usuario?> getCurrentUser();
   Future<Usuario> signInWithEmailAndPassword(String email, String password);
   Future<void> signOut();
+  Future<void> signInWithRefreshToken(String refreshToken);
 }
 
 
@@ -41,10 +42,10 @@ class JwtAuthenticationService extends AuthenticationService {
       UsuarioResponse response = await _usuarioRepository.me();
       return response;
     }else if(token == null && refreshToken != null) {
-      print("Token actualizado");
-      signInWithRefreshToken(refreshToken);
-      UsuarioResponse respuesta = await _usuarioRepository.me();
-      return respuesta;
+       print("Token actualizado");
+       signInWithRefreshToken(refreshToken);
+       UsuarioResponse respuesta = await _usuarioRepository.me();
+       return respuesta;
 
     }
     return null;
@@ -57,14 +58,15 @@ class JwtAuthenticationService extends AuthenticationService {
     await _localStorageService.saveToDisk('user_refresh_token', response.refreshToken);
     return Usuario.fromLoginResponse(response);
   }
-
-  Future<void> signInWithRefreshToken(String refreshToken) async {
-    RefreshTokenResponse respuesta = await _authenticationRepository.doRefreshToken(refreshToken);
-    await _localStorageService.deleteFromDisk('user_token');
-    await _localStorageService.deleteFromDisk('user_refresh_token');
-    await _localStorageService.saveToDisk('user_token', respuesta.token);
-    await _localStorageService.saveToDisk('user_refresh_token', respuesta.refreshToken);
-  }
+  
+@override
+Future<void> signInWithRefreshToken(String refreshToken) async {
+  RefreshTokenResponse respuesta = await _authenticationRepository.doRefreshToken(refreshToken);
+  await _localStorageService.deleteFromDisk('user_token');
+  await _localStorageService.deleteFromDisk('user_refresh_token');
+  await _localStorageService.saveToDisk('user_token', respuesta.token);
+  await _localStorageService.saveToDisk('user_refresh_token', respuesta.refreshToken);
+}
 
   @override
   Future<void> signOut() async {

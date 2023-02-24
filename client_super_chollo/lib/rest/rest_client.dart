@@ -45,7 +45,7 @@ class RestClient {
   var _httpClient;
 
   RestClient() {
-    _httpClient = InterceptedClient.build(interceptors: [HeadersApiInterceptor()]);
+    _httpClient = InterceptedClient.build(interceptors: [HeadersApiInterceptor()], retryPolicy: ExpiredTokenRetryPolicy());
   }
 
   RestClient.withInterceptors(List<InterceptorContract> interceptors) {
