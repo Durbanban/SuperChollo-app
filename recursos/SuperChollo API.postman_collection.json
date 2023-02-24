@@ -1,0 +1,879 @@
+{
+	"info": {
+		"_postman_id": "0ecaef45-dcb7-4109-be98-901dd95f9043",
+		"name": "SuperChollo API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23783919"
+	},
+	"item": [
+		{
+			"name": "AUTH",
+			"item": [
+				{
+					"name": "nuevo usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Aniba/OneDrive/Escritorio/Locuelo.png"
+								},
+								{
+									"key": "usuario",
+									"type": "file",
+									"src": "/C:/Users/Aniba/OneDrive/Escritorio/nuevo_user.json"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/register/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "nuevo administrador",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Aniba/OneDrive/Escritorio/administrador.png"
+								},
+								{
+									"key": "usuario",
+									"type": "file",
+									"src": "/C:/Users/Aniba/OneDrive/Escritorio/nuevo_admin.json"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/register/admin/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"register",
+								"admin",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", json.token);\r",
+									"pm.collectionVariables.set(\"refresh_token\", json.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"user\",\r\n    \"password\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/auth/logout/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"logout",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login con admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", json.token);\r",
+									"pm.collectionVariables.set(\"refresh_token\", json.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"5678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshToken\": \"e5a1f4a3-b61d-4830-a32b-53e54954eaf6\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/refreshtoken/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"refreshtoken",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categoria",
+			"item": [
+				{
+					"name": "get all categorias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/categoria/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"categoria",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get categoria by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/categoria/0231a8be-af6a-487e-bd21-bd98c0caad39",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"categoria",
+								"0231a8be-af6a-487e-bd21-bd98c0caad39"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "nueva categoría",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Bebidas\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/categoria/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"categoria",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editar categoría",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Chuches\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/categoria/c0a80186-8669-13b4-8186-69e51d750001",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"categoria",
+								"c0a80186-8669-13b4-8186-69e51d750001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "borrar categoría",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/categoria/0231a8be-af6a-487e-bd21-bd98c0caad39",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"categoria",
+								"0231a8be-af6a-487e-bd21-bd98c0caad39"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "File",
+			"item": [
+				{
+					"name": "upload",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/durban.vicar22/Desktop/logo_superchollo.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/file/upload/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"file",
+								"upload",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get file",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/file/download/logo_superchollo.png",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"file",
+								"download",
+								"logo_superchollo.png"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/auth/user/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get me",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/auth/me/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"me",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cambiar contraseña",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPassword\": \"1234\",\r\n    \"newPassword\": \"lala\",\r\n    \"verifyPassword\": \"lala\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/user/changePassword/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"user",
+								"changePassword",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "borrar usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/auth/user/89a8725e-ebd8-40fa-9caa-105b742c4ea0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"user",
+								"89a8725e-ebd8-40fa-9caa-105b742c4ea0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cambiar avatar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/durban.vicar22/Desktop/administrador.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/user/editAvatar/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"user",
+								"editAvatar",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Producto",
+			"item": [
+				{
+					"name": "get all productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/producto/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"producto",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get producto by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/producto/e0a31674-c439-4c1b-83b3-77236a762cf7",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"producto",
+								"e0a31674-c439-4c1b-83b3-77236a762cf7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "nuevo producto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/durban.vicar22/Desktop/pechuga_de_pavo_reducida_en_sal_realvalle_lidl.jpg"
+								},
+								{
+									"key": "producto",
+									"type": "file",
+									"src": "/C:/Users/durban.vicar22/Desktop/nuevo_producto.json"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/producto/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"producto",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editar imagen producto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/durban.vicar22/Desktop/pechuga_de_pavo_reducida_en_sal_realvalle_lidl.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/producto/imagen/2624030c-d07d-4eff-b351-54139076fad3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"producto",
+								"imagen",
+								"2624030c-d07d-4eff-b351-54139076fad3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editar producto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"generico\": \"FiambrePavo\",\r\n    \"nombre\": \"Pavo Realvalle 250 gr\",\r\n    \"precio\": 3.49\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/producto/e0a31674-c439-4c1b-83b3-77236a762cf7",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"producto",
+								"e0a31674-c439-4c1b-83b3-77236a762cf7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "valorar producto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nota\": 6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/producto/valorar/e161158b-77c3-4079-b499-89a9fff84406",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"producto",
+								"valorar",
+								"e161158b-77c3-4079-b499-89a9fff84406"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "borrar producto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/producto/2624030c-d07d-4eff-b351-54139076fad3",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"producto",
+								"2624030c-d07d-4eff-b351-54139076fad3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Supermercado",
+			"item": [
+				{
+					"name": "get all supermercados",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/supermercado/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"supermercado",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get supermercado by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/supermercado/b7b86f11-ccec-46fd-b3d4-dd1cb3268e6a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"supermercado",
+								"b7b86f11-ccec-46fd-b3d4-dd1cb3268e6a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "nuevo supermercado",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"LIDL\",\r\n    \"address\": \"Calle Evangelista 53\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/supermercado/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"supermercado",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "editar supermercado",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Mercadona\",\r\n    \"address\": \"Calle Condes de Bustillo 17\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/supermercado/d8e99345-5b31-43a0-96ca-1f059c5ffbd9",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"supermercado",
+								"d8e99345-5b31-43a0-96ca-1f059c5ffbd9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get productos de un supermercado",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/supermercado/33eed5ae-ed92-484e-9578-b50407af4b82/catalogo/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"supermercado",
+								"33eed5ae-ed92-484e-9578-b50407af4b82",
+								"catalogo",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "marcar favorito",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/supermercado/b7b86f11-ccec-46fd-b3d4-dd1cb3268e6a/favorito/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"supermercado",
+								"b7b86f11-ccec-46fd-b3d4-dd1cb3268e6a",
+								"favorito",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "borrar supermercado",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/supermercado/b7b86f11-ccec-46fd-b3d4-dd1cb3268e6a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"supermercado",
+								"b7b86f11-ccec-46fd-b3d4-dd1cb3268e6a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "refresh_token",
+			"value": ""
+		}
+	]
+}
