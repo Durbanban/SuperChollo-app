@@ -19,3 +19,9 @@ ipconfig
 
 ### Y acto seguido copiar la dirección ipv4 en la base url del rest client en flutter
 
+### Usuarios preestablecidos para manejar la aplicación:
+
+#### - Usuario --> user // Contraseña --> 1234 (ROL USER)
+#### - Usuario --> admin // Contraseña --> 5678 (ROL ADMIN)
+
+
