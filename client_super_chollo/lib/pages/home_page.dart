@@ -45,7 +45,7 @@ class HomePage extends StatelessWidget {
                       fontSize: 24
                     ),
                   ),
-                  Image.network("http://localhost:6868/file/download/${state.usuario!.avatar}"),
+                  Image.network("http://localhost:8080/file/download/${state.usuario!.avatar}"),
                   const SizedBox(
                     height: 12,
                   ),
