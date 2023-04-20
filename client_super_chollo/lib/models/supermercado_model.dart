@@ -12,6 +12,7 @@ class SupermercadoResponse {
         this.elementosTotales,
         this.paginaAnterior,
         this.paginaSiguiente,
+        this.paginaActual
     });
 
     List<Supermercado>? contenido;
@@ -19,6 +20,7 @@ class SupermercadoResponse {
     int? elementosTotales;
     int? paginaAnterior;
     int? paginaSiguiente;
+    int? paginaActual;
 
     factory SupermercadoResponse.fromJson(Map<String, dynamic> data) => _$SupermercadoResponseFromJson(data);
 

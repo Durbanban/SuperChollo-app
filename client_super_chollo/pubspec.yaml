@@ -23,6 +23,7 @@ dependencies:
   http_interceptor: ^1.0.1
   shared_preferences: ^2.0.17
   json_annotation: ^4.8.0
+  get_ip_address: ^0.0.5
   flutter:
     sdk: flutter
 

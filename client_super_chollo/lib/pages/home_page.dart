@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
           case HomeStatus.success:
             return Scaffold(
           appBar: AppBar(
-            title: Text('Home Page'),
+            title: Text('Inicio'),
           ),
           body: SafeArea(
             minimum: const EdgeInsets.all(16),
@@ -60,19 +60,13 @@ class HomePage extends StatelessWidget {
                     },
                   ),
                   Spacer(),
-                  ElevatedButton(onPressed: () async {
-                    JwtAuthenticationService service = getIt<JwtAuthenticationService>();
-                    await service.getCurrentUser();
-                  }
-                  , child: Text('Check')
-                  )
                 ],
               ),
             ),
           ),
         );
           case HomeStatus.failure:
-            return Text("FALLOOOOOO");
+            return Text("Fallo al cargar el usuario");
         }
       },
     );   

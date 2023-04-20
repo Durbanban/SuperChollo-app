@@ -19,12 +19,19 @@ class DetallesProductoBloc extends Bloc<DetallesProductoEvent, DetallesProductoS
     on<fetchDetailsProducto>(onFetchDetailsProducto);
   }
 
-  FutureOr<void> onFetchDetailsProducto(fetchDetailsProducto event, Emitter<DetallesProductoState> emit) async {
+  FutureOr<void> onFetchDetailsProducto(fetchDetailsProducto evento, Emitter<DetallesProductoState> emitter) async {
 
     try {
+      if(state.status == DetallesProductoStatus.initial) {
+        final respuesta = await _productoService.getById(evento.productoId);
+        return emitter(state.copyWith(
+          status: DetallesProductoStatus.success,
+          producto: respuesta
+        ));
 
+      }
     }catch(_) {
-      
+      emitter(state.copyWith(status: DetallesProductoStatus.failure));
     }
 
   }

@@ -11,9 +11,9 @@ import 'producto_event.dart';
 import 'producto_state.dart';
 
 
-const throttleDuration = Duration(milliseconds: 100);
+const throttleDurationProduct = Duration(milliseconds: 100);
 
-EventTransformer<E> throttleDroppable<E>(Duration duration) {
+EventTransformer<E> throttleDroppableProduct<E>(Duration duration) {
   return (events, mapper) {
     return droppable<E>().call(events.throttle(duration), mapper);
   };

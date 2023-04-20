@@ -61,7 +61,6 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     Emitter<AuthenticationState> emit,
   ) async {
     //emit(AuthenticationFailure(message: 'An unknown error occurred: ${e.toString()}'));
-    print("sesión expirada");
     await _authenticationService.signOut();
     emit(SessionExpiredState());
   }

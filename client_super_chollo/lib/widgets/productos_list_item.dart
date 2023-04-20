@@ -1,10 +1,13 @@
 
 
+import 'package:client_super_chollo/pages/detalles_producto_page.dart';
 import 'package:flutter/material.dart';
 import 'package:client_super_chollo/models/models.dart';
 import 'package:client_super_chollo/rest/rest.dart';
 
 class ProductoListItem extends StatelessWidget {
+
+
 
   const ProductoListItem({super.key, required this.producto});
 
@@ -21,7 +24,18 @@ class ProductoListItem extends StatelessWidget {
         ),
         title: Text('${producto.nombre}'),
         subtitle: Text('${producto.precio} €'),
-        trailing: Text('${producto.generico}'),
+        trailing: ElevatedButton(
+          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return DetallesProductoPage(id: producto.id!);
+          }))
+          ,
+          style: ElevatedButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50)
+            )
+          ),
+          child: const Icon(Icons.search)
+        )
       ),
     );
   }
