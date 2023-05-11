@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:client_super_chollo/models/models.dart';
+import 'package:client_super_chollo/services/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
@@ -13,9 +14,11 @@ import 'package:client_super_chollo/rest/rest.dart';
 class AuthenticationRepository {
 
   late RestClient _client;
+  late LocalStorageService _localStorageService;
 
   AuthenticationRepository() {
     _client = GetIt.I.get<RestClient>();
+    GetIt.I.getAsync<LocalStorageService>().then((value) => _localStorageService = value);
   }
 
   Future<dynamic> doLogin(String username, String password) async {
@@ -30,7 +33,9 @@ class AuthenticationRepository {
 
     String url = "/auth/refreshtoken/";
 
-    var respuesta = await _client.post(url, RefreshTokenRequest(refreshToken: refreshToken));
+    var refreshToken = await _localStorageService.getFromDisk("user_refresh_token");
+
+    var respuesta = await _client.post(url, refreshToken);
     
     return RefreshTokenResponse.fromJson(jsonDecode(respuesta));
 
