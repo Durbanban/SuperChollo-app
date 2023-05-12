@@ -6,6 +6,7 @@ import com.salesianostriana.dam.superchollo.backend.security.jwt.refresh.Refresh
 import com.salesianostriana.dam.superchollo.backend.security.jwt.refresh.RefreshTokenException;
 import com.salesianostriana.dam.superchollo.backend.security.jwt.refresh.RefreshTokenNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
+@Log
 @Service
 @RequiredArgsConstructor
 public class RefreshTokenService {
@@ -39,6 +41,7 @@ public class RefreshTokenService {
 
         refreshToken = refreshTokenRepository.save(refreshToken);
 
+        log.info("Se ha generado un nuevo token de refresco %s".formatted(refreshToken.toString()));
 
         return refreshToken;
     }

@@ -8,8 +8,10 @@ import 'package:client_super_chollo/pages/pages.dart';
 
 
 
-void main() {
+void main() async {
   setupAsyncDependencies();
+  //LocalStorageService s = LocalStorageService.getInstance();
+  //getIt.registerLazySingleton(s);
   configureDependencies();
 
   

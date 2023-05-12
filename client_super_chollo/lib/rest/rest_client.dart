@@ -51,7 +51,7 @@ class RestClient {
   RestClient.withInterceptors(List<InterceptorContract> interceptors) {
     // El interceptor con los encabezados sobre JSON se añade si no está incluido en la lista
     if (interceptors.where((element) => element is HeadersApiInterceptor).isEmpty) interceptors..add(HeadersApiInterceptor());
-    _httpClient = InterceptedClient.build(interceptors: interceptors);
+    _httpClient = InterceptedClient.build(interceptors: interceptors, retryPolicy: ExpiredTokenRetryPolicy());
   }
 
   //final _httpClient = http.Client();
@@ -217,6 +217,7 @@ class ExpiredTokenRetryPolicy extends RetryPolicy {
   @override
   Future<bool> shouldAttemptRetryOnResponse(ResponseData response) async {
     //This is where we need to update our token on 401 response
+    print(response.body);
     if (response.statusCode == 401) {
       //Refresh your token here. Make refresh token method where you get new token from
       //API and set it to your local data

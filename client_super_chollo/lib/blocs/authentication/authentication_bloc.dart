@@ -25,7 +25,7 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   ) async {
       emit(AuthenticationLoading());
       try {
-        await Future.delayed(Duration(milliseconds: 500)); // a simulated delay
+        await Future.delayed(Duration(milliseconds: 2500)); // a simulated delay
         final usuarioActual = await _authenticationService.getCurrentUser();
 
         if (usuarioActual != null) {
