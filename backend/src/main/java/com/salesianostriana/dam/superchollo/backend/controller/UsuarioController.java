@@ -119,7 +119,7 @@ public class UsuarioController {
 
     @Transactional
     @PostMapping("/refreshtoken/")
-    public ResponseEntity<?> refreshToken(@RequestBody RefreshTokenRequest refreshTokenRequest) {
+    public ResponseEntity<?> refreshToken(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
         String refreshToken = refreshTokenRequest.getRefreshToken();
 
         return refreshTokenService.findByToken(refreshToken)

@@ -29,18 +29,6 @@ class AuthenticationRepository {
 
   }
 
-  Future<dynamic> doRefreshToken(String refreshToken) async {
-
-    String url = "/auth/refreshtoken/";
-
-    var refreshToken = await _localStorageService.getFromDisk("user_refresh_token");
-
-    var respuesta = await _client.post(url, refreshToken);
-    
-    return RefreshTokenResponse.fromJson(jsonDecode(respuesta));
-
-  }
-
 
 
 

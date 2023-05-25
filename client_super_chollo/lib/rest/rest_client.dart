@@ -3,6 +3,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:client_super_chollo/models/refresh_token_model.dart';
 import 'package:flutter/material.dart';
 import 'package:client_super_chollo/config/locator.dart';
 import 'package:client_super_chollo/main.dart';
@@ -45,7 +46,7 @@ class RestClient {
   var _httpClient;
 
   RestClient() {
-    _httpClient = InterceptedClient.build(interceptors: [HeadersApiInterceptor()], retryPolicy: ExpiredTokenRetryPolicy());
+    _httpClient = InterceptedClient.build(interceptors: [HeadersApiInterceptor()]);
   }
 
   RestClient.withInterceptors(List<InterceptorContract> interceptors) {
@@ -154,7 +155,7 @@ class AuthenticationException extends CustomException {
 
 
 class UnauthorizedException extends CustomException {
-  UnauthorizedException([message]) : super(message,"");
+  UnauthorizedException([message]) : super(message,"Su token de refresco ha expirado. Por favor, inicie sesión");
 }
 
 class NotFoundException extends CustomException {
@@ -206,7 +207,11 @@ class AuthorizationInterceptor implements InterceptorContract {
 class ExpiredTokenRetryPolicy extends RetryPolicy {
 
   late LocalStorageService _localStorageService;
-  late RestClient _restClient;
+
+  ExpiredTokenRetryPolicy() {
+    GetIt.I.getAsync<LocalStorageService>().then((value) => _localStorageService = value);
+
+  }
 
 
   
@@ -217,29 +222,60 @@ class ExpiredTokenRetryPolicy extends RetryPolicy {
   @override
   Future<bool> shouldAttemptRetryOnResponse(ResponseData response) async {
     //This is where we need to update our token on 401 response
-    print(response.body);
+    bool continueRetry = false;
+    print("El código de la respuesta que le llega al método shouldAttemptRetryOnResponse es: ${response.statusCode} a las ${DateTime.now()}");
     if (response.statusCode == 401) {
       //Refresh your token here. Make refresh token method where you get new token from
       //API and set it to your local data
       
-      await refreshToken();
-      return true;
+      continueRetry = await refreshToken();
     }
-    return false;
+    return continueRetry;
   }
 
-  Future<void> refreshToken() async {
+  Future<bool> refreshToken() async {
+
+    String nuevoToken;
+    String nuevoRefreshToken;
+    RefreshTokenResponse pareja;
+    bool isTokenRefreshed = false;
+    //TODO Hacer la redirección a la pantalla de login, falla en ese punto, el refresh token se hace bien, pero cuando expira no redirecciona.
 
     print("refrescando token");
     
     var refreshToken = await _localStorageService.getFromDisk("user_refresh_token");
-    var respuesta = await _restClient.post(ApiConstants.baseUrl + "/auth/refreshtoken/", {"refreshToken": refreshToken});
-    await _localStorageService.deleteFromDisk("user_token");
-    await _localStorageService.deleteFromDisk("user_refresh_token");
-    await _localStorageService.saveToDisk("user_token", respuesta.data.token!);
-    await _localStorageService.saveToDisk("user_refresh_token", respuesta.data.refreshToken!);
+    ResponseData respuesta = await RestClient().post(("/auth/refreshtoken/"), RefreshTokenRequest(refreshToken: refreshToken));
+    print(respuesta.statusCode);
+    if(respuesta.statusCode == 403) {
+      print("La respuesta que ha llegado de la petición de refresh token es 403");
+    }else {
+      pareja = RefreshTokenResponse.fromJson(jsonDecode(respuesta as String));
+      nuevoToken = pareja.token!;
+      nuevoRefreshToken = pareja.refreshToken!;
+      await _localStorageService.deleteFromDisk("user_token");
+      await _localStorageService.deleteFromDisk("user_refresh_token");
+      await _localStorageService.saveToDisk("user_token", nuevoToken);
+      await _localStorageService.saveToDisk("user_refresh_token", nuevoRefreshToken);
+      isTokenRefreshed = true;
+      
+    }
+    return isTokenRefreshed;
 
-    
+  }
+
+  Future<dynamic> peticionPost(String url, dynamic body) async{
+    try {
+
+        Uri uri = Uri.parse(ApiConstants.baseUrl + url);
+        final response = await http.Client().post(uri, headers: {'ContentType': 'application/json'}, body: jsonEncode(body));
+        return response;
+
+    /*} on SocketException catch(ex) {
+      throw FetchDataException('No internet connection: ${ex.message}');
+    }*/
+    } on Exception catch(ex) {
+      throw ex;
+    }
   }
 
 }

@@ -68,6 +68,9 @@ class MyApp extends StatelessWidget {
           if (state is AuthenticationAuthenticated) {
             // show home page
             return BottomNavigation();
+          }else if(state is AuthenticationNotAuthenticated) {
+            print("NO ESTÁ AUTENTICADO");
+            return LoginPage();
           }
           // otherwise show login page
           return LoginPage();

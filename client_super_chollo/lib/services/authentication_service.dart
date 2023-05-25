@@ -15,7 +15,7 @@ abstract class AuthenticationService {
   Future<Usuario?> getCurrentUser();
   Future<Usuario> signInWithEmailAndPassword(String email, String password);
   Future<void> signOut();
-  Future<void> signInWithRefreshToken(String refreshToken);
+  // Future<void> signInWithRefreshToken(String refreshToken);
 }
 
 
@@ -36,19 +36,8 @@ class JwtAuthenticationService extends AuthenticationService {
 
   @override
   Future<Usuario?> getCurrentUser() async {
-    String? token = _localStorageService.getFromDisk("user_token");
-    String? refreshToken = _localStorageService.getFromDisk("user_refresh_token");
-    if(token != null) {
-      UsuarioResponse response = await _usuarioRepository.me();
-      return response;
-    }else if(token == null && refreshToken != null) {
-       print("Token actualizado");
-       signInWithRefreshToken(refreshToken);
-       UsuarioResponse respuesta = await _usuarioRepository.me();
-       return respuesta;
-
-    }
-    return null;
+    UsuarioResponse response = await _usuarioRepository.me();
+    return response;
   }
 
   @override
@@ -59,14 +48,14 @@ class JwtAuthenticationService extends AuthenticationService {
     return Usuario.fromLoginResponse(response);
   }
   
-@override
-Future<void> signInWithRefreshToken(String refreshToken) async {
-  RefreshTokenResponse respuesta = await _authenticationRepository.doRefreshToken(refreshToken);
-  await _localStorageService.deleteFromDisk('user_token');
-  await _localStorageService.deleteFromDisk('user_refresh_token');
-  await _localStorageService.saveToDisk('user_token', respuesta.token);
-  await _localStorageService.saveToDisk('user_refresh_token', respuesta.refreshToken);
-}
+// @override
+// Future<void> signInWithRefreshToken(String refreshToken) async {
+//   RefreshTokenResponse respuesta = await _authenticationRepository.doRefreshToken(refreshToken);
+//   await _localStorageService.deleteFromDisk('user_token');
+//   await _localStorageService.deleteFromDisk('user_refresh_token');
+//   await _localStorageService.saveToDisk('user_token', respuesta.token);
+//   await _localStorageService.saveToDisk('user_refresh_token', respuesta.refreshToken);
+// }
 
   @override
   Future<void> signOut() async {
