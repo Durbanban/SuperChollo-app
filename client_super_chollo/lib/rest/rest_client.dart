@@ -242,23 +242,29 @@ class ExpiredTokenRetryPolicy extends RetryPolicy {
     //TODO Hacer la redirección a la pantalla de login, falla en ese punto, el refresh token se hace bien, pero cuando expira no redirecciona.
 
     print("refrescando token");
+
+    try {
+
+    }on UnauthorizedException catch(ex) {
+      print("EL CÓDIGO DE RESPUESTA DEL REFRESCO DE TOKEN ES: 403");
+      print(ex);
+      Navigator.of(GlobalContext.ctx).push<void>(MyApp.route());
+
+    }
     
     var refreshToken = await _localStorageService.getFromDisk("user_refresh_token");
-    ResponseData respuesta = await RestClient().post(("/auth/refreshtoken/"), RefreshTokenRequest(refreshToken: refreshToken));
-    print(respuesta.statusCode);
-    if(respuesta.statusCode == 403) {
-      print("La respuesta que ha llegado de la petición de refresh token es 403");
-    }else {
-      pareja = RefreshTokenResponse.fromJson(jsonDecode(respuesta as String));
-      nuevoToken = pareja.token!;
-      nuevoRefreshToken = pareja.refreshToken!;
-      await _localStorageService.deleteFromDisk("user_token");
-      await _localStorageService.deleteFromDisk("user_refresh_token");
-      await _localStorageService.saveToDisk("user_token", nuevoToken);
-      await _localStorageService.saveToDisk("user_refresh_token", nuevoRefreshToken);
-      isTokenRefreshed = true;
+    var respuesta = await RestClient().post(("/auth/refreshtoken/"), RefreshTokenRequest(refreshToken: refreshToken));
+    print(respuesta);
+    pareja = RefreshTokenResponse.fromJson(jsonDecode(respuesta as String));
+    nuevoToken = pareja.token!;
+    nuevoRefreshToken = pareja.refreshToken!;
+    await _localStorageService.deleteFromDisk("user_token");
+    await _localStorageService.deleteFromDisk("user_refresh_token");
+    await _localStorageService.saveToDisk("user_token", nuevoToken);
+    await _localStorageService.saveToDisk("user_refresh_token", nuevoRefreshToken);
+    isTokenRefreshed = true;
       
-    }
+    
     return isTokenRefreshed;
 
   }
