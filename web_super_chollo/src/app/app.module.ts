@@ -11,6 +11,9 @@ import { LoginComponent } from './components/public/login/login.component';
 import { NotFoundComponent } from './components/public/not-found/not-found.component';
 import { HomeComponent } from './components/private/home/home.component';
 import { ManagementComponent } from './components/private/management/management.component';
+import { NavbarComponent } from './components/layout/navbar/navbar.component';
+import { GuardService } from './services/guard.service';
+import { authInterceptorProviders } from './interceptor/http.interceptor.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,8 @@ import { ManagementComponent } from './components/private/management/management.
     LoginComponent,
     NotFoundComponent,
     HomeComponent,
-    ManagementComponent
+    ManagementComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +32,8 @@ import { ManagementComponent } from './components/private/management/management.
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [authInterceptorProviders,
+    GuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginRequest } from 'src/app/interfaces/login.interface';
 import { AuthService } from 'src/app/services/auth.service';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private commonService: CommonService
   ) { }
 
   ngOnInit(): void {
@@ -32,8 +34,12 @@ export class LoginComponent implements OnInit {
       if(respuesta) {
         localStorage.setItem("token", respuesta.token);
         localStorage.setItem("refresh_token", respuesta.refreshToken);
+        localStorage.setItem("user_rol", respuesta.roles);
         this.router.navigate(["home"]);
       }
+    },
+    error => {
+      this.commonService.mostrarAlerta("Usuario y/o contraseña incorrectos", "Error");
     });
   }
 

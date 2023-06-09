@@ -14,6 +14,7 @@ export interface LoginResponse {
     avatar: string
     fullName: string
     fechaCreado: string
+    roles: string
     token: string
     refreshToken: string
   }

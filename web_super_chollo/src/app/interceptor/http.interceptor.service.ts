@@ -1,4 +1,4 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, catchError, throwError } from 'rxjs';
@@ -52,4 +52,10 @@ export class HttpinterceptorService implements HttpInterceptor {
 
   }
 
+  
+
 }
+
+export const authInterceptorProviders = [
+  { provide: HTTP_INTERCEPTORS, useClass: HttpinterceptorService, multi: true }
+];
