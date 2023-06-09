@@ -22,6 +22,7 @@ public class UsuarioJwtResponse extends UsuarioDtoResponse {
         fullName = usuarioDtoResponse.getFullName();
         avatar = usuarioDtoResponse.getAvatar();
         fechaCreado = usuarioDtoResponse.getFechaCreado();
+        roles = usuarioDtoResponse.getRoles();
     }
 
     public static UsuarioJwtResponse of(Usuario usuario, String token, String refreshToken) {
