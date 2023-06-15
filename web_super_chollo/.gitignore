@@ -1,0 +1,43 @@
+# Dependency directories
+/node_modules
+/dist
+
+# Environment variables
+.env
+.env.*
+
+# Log files
+*.log
+
+# Build artifacts
+/dist
+/*.js
+/*.js.map
+/*.css
+/*.css.map
+
+# IDE-specific files
+.idea
+.vscode
+*.sublime-*
+*.swp
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Package-lock files
+package-lock.json
+yarn.lock
+
+# Angular generated files
+/src/environments/environment.ts
+/src/environments/environment.prod.ts
+
+# Testing files
+/coverage
+/e2e/*.js
+/e2e/*.map
+
+# Angular cache
+.angular/cache
