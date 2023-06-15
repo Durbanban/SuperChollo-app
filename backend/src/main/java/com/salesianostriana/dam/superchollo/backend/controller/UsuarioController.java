@@ -28,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -56,6 +56,14 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioDtoResponse.of(usuario));
     }
 
+    @PostMapping("/register/premium/")
+    public ResponseEntity<UsuarioDtoResponse> crearUsuarioConRolPremium(@Valid @RequestPart("usuario") UsuarioDtoCreateRequest dto,
+                                                                        @RequestPart("file") MultipartFile file) {
+        Usuario usuario = usuarioService.crearUsuarioconRolesUserAndPremium(dto, file);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioDtoResponse.of(usuario));
+    }
+
     @PostMapping("/register/admin/")
     public ResponseEntity<UsuarioDtoResponse> crearUsuarioConRolAdmin(@Valid @RequestPart("usuario") UsuarioDtoCreateRequest dto,
                                                                       @RequestPart("file") MultipartFile file) {
@@ -72,7 +80,6 @@ public class UsuarioController {
         return UsuarioDtoResponse.of(usuarioService.editAvatar(logueado, file));
 
     }
-
 
     @Transactional
     @PostMapping("/login/")

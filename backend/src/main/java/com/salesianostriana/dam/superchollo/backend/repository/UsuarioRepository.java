@@ -14,6 +14,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, UUID>, JpaSpec
 
     Optional<Usuario> findFirstByUsername(String username);
 
+    boolean existsByUsername(String username);
+
     @Query("""
             SELECT u
             FROM Usuario u

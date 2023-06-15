@@ -1,18 +1,86 @@
+-- username user
 -- password 1234
 INSERT INTO usuario (id, username, password, avatar, full_name  , account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('89a8725e-ebd8-40fa-9caa-105b742c4ea0', 'user', '{bcrypt}$2a$12$7bG1Ds4qfiK.uyxjtSjtnu7Lhn2ruuk1EZPFMB7T9jBjDFO2xw.yq', 'user.png', 'Usuario González', true, true, true, true, 'USER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+-- username ramoncin23
 -- password 12345678
 INSERT INTO usuario (id, username, password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('6f705ab2-6ff9-4068-87f8-4c4932c8d73f', 'ramoncin23', '{bcrypt}$2a$12$jIVXp55gD0dyoJzgYlltYOwVJoJ3WEy/VvvIqR97lmE4LVaUjF9ry', 'imagen', 'Ramón Villanueva', true, true, true, true, 'USER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+-- username admin
 -- password 5678
 INSERT INTO usuario (id, username, password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('7117fd18-7be7-4c60-88c6-c4fa9897d013', 'admin', '{bcrypt}$2a$12$MgkQqpKgw6NbbCy1Sz3EPOkQ31CGEovKyvV2Voxr0apdtuEEzPmk.', 'administrador.png', 'Administrador López', true, true, true, true, 'ADMIN', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- username juanito89
+-- password abcd
+INSERT INTO usuario (id, username, password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('c7891d53-4ff7-41d2-9ef5-fffa51f47e15', 'juanito89', '{bcrypt}$2a$12$OZONvZrqY14ojaVxNNOAzuPRQJ4O71mvRW5STt3eS6bwxnV53C3bq', 'juanito89.jpg', 'Juanito Pérez', true, true, true, true, 'USER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- username pedrito45 (PREMIUM)
+-- password password123
+INSERT INTO usuario (id, username, password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('6d3a1f2c-383a-4db0-8d7d-614eefcd7529', 'pedrito45', '{bcrypt}$2a$12$4g7nRULJx9QsHgiOlHbfXu3N2k9qiTGTI/rp8Y4uvQQWLkqNvZV7y', 'pedrito45.png', 'Pedrito Martínez', true, true, true, true, 'USER, PREMIUM', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- username luisa71
+-- password securepass
+INSERT INTO usuario (id, username, password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('d4633c2e-9c67-4c77-97f1-5ac58e31943e', 'luisa71', '{bcrypt]$2a$12$9sN6nDj0GXYgltYGZrGS..MxuiC0ZBjFsNlf2k4hiy3irF7bMnyEq', 'luisa71.jpg', 'Luisa González', true, true, true, true, 'USER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- username ana78
+-- password 9876
+INSERT INTO usuario (id, username, password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('f4e246b2-6f25-4c2b-97d4-6151e6c69c31', 'ana78', '{bcrypt}$2a$12$HzHpqkRlllY7.Y/8KrF9vexOANoJhihJPT3/hjQSqAUnpID0HGHfC', 'ana78.jpg', 'Ana García', true, true, true, true, 'USER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- username carlos32 (PREMIUM)
+-- password testpass
+INSERT INTO usuario (id, username, password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('75ad59c2-1d6c-4e6b-b3a2-9ab3649d2f76', 'carlos32', '{bcrypt}$2a$12$vIvbmw/yWzj53s7gV/tcyuzopWPeKY7MIazs0z8RbKcK52VkKCms.', 'carlos32.png', 'Carlos López', true, true, true, true, 'USER, PREMIUM', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- username maria09
+-- password p@ssw0rd
+INSERT INTO usuario (id, username, password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('9365c0be-31b0-45ce-9150-82bb55f8758b', 'maria09', '{bcrypt}$2a$12$miklxSnZRHkciD0J0Uhfw.Wkq2qzHngzjyMEUStFuecBzPTJO8Xmm', 'maria09.jpg', 'María Martínez', true, true, true, true, 'USER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- username javier56
+-- password securepassword
+INSERT INTO usuario (id, username, password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('0d93742e-1b25-4f43-8eb0-4ad45c6b9687', 'javier56', '{bcrypt}$2a$12$5..ea/ZayhxhPXN1QeXPk.lozBvkLtKEMV8/Z31BFLdzbLCbx27BG', 'javier56.png', 'Javier Rodríguez', true, true, true, true, 'USER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- username laura21
+-- password 123abc
+INSERT INTO usuario (id, username, password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('ba6dbbd1-44fd-48c2-b72d-034ddcb71201', 'laura21', '{bcrypt}$2a$12$omKquMe1lwte1boEcJqjUOWDMXIYfVv/Bm8GdxosSwoKmy.KqmxeS', 'laura21.jpg', 'Laura Pérez', true, true, true, true, 'USER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- username daniel87
+-- password 456pass
+INSERT INTO usuario (id, username, password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('a326ee0c-2e4c-41b6-aab1-7b3e616c4d63', 'daniel87', '{bcrypt}$2a$12$hXlglA22FUyy8tYCCFcwrOUrh8zwAgSWZxFd7iYfTxZZ.9gZQq7Si', 'daniel87.png', 'Daniel Sánchez', true, true, true, true, 'USER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- username lucia12
+-- password securepass123
+INSERT INTO usuario (id, username, password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('d91d1021-9d9a-4f5e-9520-6e2e6d209a4a', 'lucia12', '{bcrypt}$2a$12$IWsf0QxkpzgxxhsK61aS0.0kBZdzkpTqY.rpjKX5Bwzc7hZ0ycUi.', 'lucia12.jpg', 'Lucía Fernández', true, true, true, true, 'USER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- username pablo93
+-- password 7890pass
+INSERT INTO usuario (id, username, password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('0723d883-b8c5-4d29-8851-50ef50015aae', 'pablo93', '{bcrypt}$2a$12$UnbEVFJAhdQOvDkOQdWpxe9NsgGxc1WAgn5aF1tiSqF4ki8N1.dia', 'pablo93.png', 'Pablo González', true, true, true, true, 'USER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- username isabel14 (PREMIUM)
+-- password mypass123
+INSERT INTO usuario (id, username, password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('4ae4ccda-1c4c-4b97-8eb3-32f3f54c43e5', 'isabel14', '{bcrypt}$2a$12$SPQ1DTajni24dMLD9iD44eG11sSAlGowkyON6HpQdFcWtYE9WxQPq', 'isabel14.jpg', 'Isabel Martínez', true, true, true, true, 'USER, PREMIUM', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+-- username alberto45
+-- password 123456789
+INSERT INTO usuario (id, username, password, avatar, full_name, account_non_expired, account_non_locked, credentials_non_expired, enabled, roles, fecha_creado, fecha_modificado, fecha_cambio_password) VALUES ('d8f60050-238e-4a47-9b1a-7b2e1743c2e8', 'alberto45', '{bcrypt}$2a$12$p/jPYSaZgvd0TImJyPUJYOsGinud.YwM8nRXKbfT2ihSwMzl5hKqK', 'alberto45.png', 'Alberto López', true, true, true, true, 'USER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+
 
 INSERT INTO categoria (id, nombre) VALUES ('24261a63-5dd3-4f81-a0a4-3dc929f74ebe', 'Carnicería');
 INSERT INTO categoria (id, nombre) VALUES ('0231a8be-af6a-487e-bd21-bd98c0caad39', 'Charcutería');
 INSERT INTO categoria (id, nombre) VALUES ('8c37d098-af20-4ec8-ba75-a697a48d48de', 'Consumibles');
 INSERT INTO categoria (id, nombre) VALUES ('8c28d654-eb8b-4e9d-a86d-a132662b143e', 'Lácteos');
 INSERT INTO categoria (id, nombre) VALUES ('a54b27e6-3208-40d0-b909-d282b4f0d58f', 'Pasta');
-INSERT INTO categoria (id, nombre) VALUES ('eefcf70d-5bbe-479a-a61b-1f5df283341d', 'Otros')
+INSERT INTO categoria (id, nombre) VALUES ('eefcf70d-5bbe-479a-a61b-1f5df283341d', 'Otros');
+INSERT INTO categoria (id, nombre) VALUES ('d59e2422-3890-47e5-90e9-9e1f2a733d2e', 'Congelados');
+INSERT INTO categoria (id, nombre) VALUES ('f5a3b91a-d57d-49ff-9eab-203cb3140c74', 'Panadería');
+INSERT INTO categoria (id, nombre) VALUES ('d18e42f4-eb42-4f26-8d60-412f0beab4e0', 'Frutas y Verduras');
+INSERT INTO categoria (id, nombre) VALUES ('86c119f6-0e02-486f-bdb0-8ce7f0c557f5', 'Pescadería');
+INSERT INTO categoria (id, nombre) VALUES ('a5b1d304-770c-4dca-a0f5-bb3c7b6b5d09', 'Snacks y Aperitivos');
+INSERT INTO categoria (id, nombre) VALUES ('3a2d3ac1-0b69-4fe5-b4fc-97726f71ae0c', 'Limpieza');
+INSERT INTO categoria (id, nombre) VALUES ('a9d19671-3a06-4e39-bc19-78706b019380', 'Aseo personal');
+INSERT INTO categoria (id, nombre) VALUES ('4fcce5e6-bd61-4de7-89e2-7d7cbbd6619d', 'Cereales');
+INSERT INTO categoria (id, nombre) VALUES ('39b0ee45-c8fb-49e3-b577-b32ce596649f', 'Conservas');
+
+
 
 INSERT INTO producto (id, generico, imagen, nombre, precio, autor_id, categoria_id) VALUES ('e0a31674-c439-4c1b-83b3-77236a762cf7', 'FiambrePavo', 'imagen_fiambrepavo.jpg', 'Pavo 200 gr ALDI', 1.99, '89a8725e-ebd8-40fa-9caa-105b742c4ea0', '0231a8be-af6a-487e-bd21-bd98c0caad39');
 INSERT INTO producto (id, generico, imagen, nombre, precio, autor_id, categoria_id) VALUES ('9b05f55a-7fb8-4f1f-ad5f-97f42bdd9032', 'FiambrePavo', 'imagen_fiambrepavo_456214.jpg', 'Pavo finas lonchas 200 gr Mercadona', 2.35, '89a8725e-ebd8-40fa-9caa-105b742c4ea0', '0231a8be-af6a-487e-bd21-bd98c0caad39');
@@ -29,6 +97,7 @@ INSERT INTO producto (id, generico, imagen, nombre, precio, autor_id, categoria_
 INSERT INTO producto (id, generico, imagen, nombre, precio, autor_id, categoria_id) VALUES ('995cef74-6ddb-4457-bbd7-ab735c774906', 'Chips', 'imagen_chips_451231.jpg', 'Ruffles Jamón 190 gr', 2.15, '89a8725e-ebd8-40fa-9caa-105b742c4ea0', '8c37d098-af20-4ec8-ba75-a697a48d48de');
 INSERT INTO producto (id, generico, imagen, nombre, precio, autor_id, categoria_id) VALUES ('412264be-ddb5-4b46-8f7a-c9139d0c423d', 'Chips', 'imagen_chips_651124.jpg', 'Pringles Sour cream & onion 190 gr', 2.90, '6f705ab2-6ff9-4068-87f8-4c4932c8d73f', '8c37d098-af20-4ec8-ba75-a697a48d48de');
 INSERT INTO producto (id, generico, imagen, nombre, precio, autor_id, categoria_id) VALUES ('92ccf1ad-131d-4993-ae16-50c5f52d6522', 'Macarrón', 'imagen_macarron.jpg', 'Macarrones Pasta Eliges 500 gr', 1.10, '89a8725e-ebd8-40fa-9caa-105b742c4ea0', 'a54b27e6-3208-40d0-b909-d282b4f0d58f');
+
 
 
 

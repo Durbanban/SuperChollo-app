@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GuardService {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
-  canActivate() {
-    if(localStorage.getItem("token") != null && localStorage.getItem("user_rol")) {
+  canActivate(): boolean {
+    if(localStorage.getItem("token") != null) {
       return true;
     }else {
+      this.router.navigate(["/login"]);
       return false;
     }
   }

@@ -8,3 +8,4 @@ export 'login_model.dart';
 export 'usuario_model.dart';
 export 'apierror_model.dart';
 export 'refresh_token_model.dart';
+export 'usuario_request_model.dart';

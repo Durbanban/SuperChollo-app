@@ -1,0 +1,26 @@
+<mat-list>
+    <div class="d-flex flex-row justify-content-around">
+        <span class="font-weight-bold display-6">Administración</span>
+    </div>
+    <mat-divider></mat-divider>
+    <div mat-subheader class="d-flex justify-content-around">
+        <mat-icon>home</mat-icon>
+        <button mat-button mat-outline-button color="warn" class="w-75" (click)="navegarAInicio()">Inicio</button>
+    </div>
+    <div mat-subheader class="d-flex justify-content-around">
+        <mat-icon>management</mat-icon>
+        <button mat-button mat-outline-button color="warn" class="w-75" (click)="navegar('usuarios')">Usuarios</button>
+    </div>
+    <div mat-subheader class="d-flex justify-content-around">
+        <mat-icon>shopping_cart</mat-icon>
+        <button mat-button mat-outline-button color="warn" class="w-75" (click)="navegar('productos')">Productos</button>
+    </div>
+    <div mat-subheader class="d-flex justify-content-around">
+        <mat-icon>store</mat-icon>
+        <button mat-button mat-outline-button color="warn" class="w-75" (click)="navegar('supermercados')">Supermercados</button>
+    </div>
+    <div mat-subheader class="d-flex justify-content-around">
+        <mat-icon>category</mat-icon>
+        <button mat-button mat-outline-button color="warn" class="w-75" (click)="navegar('categorias')">Categorias</button>
+    </div>
+</mat-list>

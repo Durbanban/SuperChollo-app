@@ -10,15 +10,13 @@ import 'package:client_super_chollo/pages/pages.dart';
 
 void main() async {
   setupAsyncDependencies();
-  //LocalStorageService s = LocalStorageService.getInstance();
-  //getIt.registerLazySingleton(s);
+
   configureDependencies();
 
   
     
     runApp(BlocProvider<AuthenticationBloc>(
         create: (context) {
-          //GlobalContext.ctx = context;
           final authService = getIt<JwtAuthenticationService>();
           return AuthenticationBloc(authService)..add(AppLoaded());
         },
@@ -36,7 +34,6 @@ class GlobalContext {
 
 class MyApp extends StatelessWidget {
 
-  //static late  AuthenticationBloc _authBloc;
 
   static late MyApp _instance;
 
@@ -54,7 +51,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //GlobalContext.ctx = context;
     return MaterialApp(
       title: 'Super Chollo',
       debugShowCheckedModeBanner: false,
@@ -66,13 +62,11 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           GlobalContext.ctx = context;
           if (state is AuthenticationAuthenticated) {
-            // show home page
             return BottomNavigation();
           }else if(state is AuthenticationNotAuthenticated) {
             print("NO ESTÁ AUTENTICADO");
             return LoginPage();
           }
-          // otherwise show login page
           return LoginPage();
         },
       ),

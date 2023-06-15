@@ -16,6 +16,7 @@ export class AuthService {
     }
 
     public doLogout() {
+        return this.http.get(`${environment.API_BASE_URL}/auth/logout/`);
     }
 
 

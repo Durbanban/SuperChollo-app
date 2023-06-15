@@ -1,21 +1,21 @@
 
 import 'dart:convert';
-//import 'dart:developer';
+import 'dart:io';
 
 import 'package:client_super_chollo/config/locator.dart';
 import 'package:client_super_chollo/services/localstorage_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-//import '../exceptions/exceptions.dart';
 import 'package:client_super_chollo/models/models.dart';
 import 'package:client_super_chollo/repositories/repositories.dart';
+
 
 abstract class AuthenticationService {
   Future<Usuario?> getCurrentUser();
   Future<Usuario> signInWithEmailAndPassword(String email, String password);
   Future<void> signOut();
-  // Future<void> signInWithRefreshToken(String refreshToken);
+  Future<dynamic> registrarUsuario(UsuarioRequest usuario, File file);
 }
 
 
@@ -48,19 +48,18 @@ class JwtAuthenticationService extends AuthenticationService {
     return Usuario.fromLoginResponse(response);
   }
   
-// @override
-// Future<void> signInWithRefreshToken(String refreshToken) async {
-//   RefreshTokenResponse respuesta = await _authenticationRepository.doRefreshToken(refreshToken);
-//   await _localStorageService.deleteFromDisk('user_token');
-//   await _localStorageService.deleteFromDisk('user_refresh_token');
-//   await _localStorageService.saveToDisk('user_token', respuesta.token);
-//   await _localStorageService.saveToDisk('user_refresh_token', respuesta.refreshToken);
-// }
 
   @override
   Future<void> signOut() async {
     await _localStorageService.deleteFromDisk("user_token");
     await _localStorageService.deleteFromDisk("user_refresh_token");
   }
+
+  Future<dynamic> registrarUsuario(UsuarioRequest usuario, File file) async {
+    return await _authenticationRepository.register(usuario, file);
+  }
+
+  
+  
 
 }

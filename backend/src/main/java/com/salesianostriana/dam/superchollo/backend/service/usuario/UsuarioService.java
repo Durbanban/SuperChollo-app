@@ -20,7 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.EnumSet;
@@ -60,6 +60,11 @@ public class UsuarioService {
 
     public Usuario crearUsuarioConRolUser(UsuarioDtoCreateRequest dto, MultipartFile file) {
         return crearUsuario(dto, EnumSet.of(UsuarioRole.USER), file);
+    }
+
+
+    public Usuario crearUsuarioconRolesUserAndPremium(UsuarioDtoCreateRequest dto, MultipartFile file) {
+        return crearUsuario(dto, EnumSet.of(UsuarioRole.USER, UsuarioRole.PREMIUM), file);
     }
 
     public Usuario crearUsuarioConRolAdmin(UsuarioDtoCreateRequest dto, MultipartFile file) {
@@ -147,6 +152,10 @@ public class UsuarioService {
 
     public Usuario add(Usuario usuario) {
         return usuarioRepository.save(usuario);
+    }
+
+    public boolean usuarioExists(String username) {
+        return usuarioRepository.existsByUsername(username);
     }
 
 

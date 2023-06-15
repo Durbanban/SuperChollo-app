@@ -12,6 +12,7 @@ class Usuario {
         this.avatar,
         this.fullName,
         this.fechaCreado,
+        this.roles,
     });
 
     String? id;
@@ -19,6 +20,7 @@ class Usuario {
     String? avatar;
     String? fullName;
     String? fechaCreado;
+    String? roles;
 
     Usuario.fromLoginResponse(LoginResponse response) {
 
@@ -27,6 +29,7 @@ class Usuario {
       this.avatar = response.avatar;
       this.fullName = response.fullName;
       this.fechaCreado = response.fechaCreado;
+      this.roles = response.roles;
 
     }
 
@@ -36,7 +39,7 @@ class Usuario {
 @JsonSerializable(disallowUnrecognizedKeys: true)
 class UsuarioResponse extends Usuario {
 
-  UsuarioResponse(id, username, avatar, fullName, fechaCreado) : super(id: id, username: username, avatar: avatar, fullName: fullName, fechaCreado: fechaCreado);
+  UsuarioResponse(id, username, avatar, fullName, fechaCreado, roles) : super(id: id, username: username, avatar: avatar, fullName: fullName, fechaCreado: fechaCreado, roles: roles);
 
   factory UsuarioResponse.fromJson(Map<String, dynamic> data) => _$UsuarioResponseFromJson(data);
 

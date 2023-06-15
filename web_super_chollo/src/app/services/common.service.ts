@@ -10,11 +10,21 @@ export class CommonService {
     private snackBar: MatSnackBar
   ) { }
 
-  mostrarAlerta(mensaje: string, cabecera: string) {
-    this.snackBar.open(mensaje, cabecera, {
+  mostrarError(mensaje: string,) {
+    this.snackBar.open(mensaje, undefined, {
       horizontalPosition: "center",
       verticalPosition: "top",
       duration: 2500,
+      panelClass: "snackbar-mostrar-error",
     });
+  }
+
+  mostrarSuccess(mensaje: string) {
+    this.snackBar.open(mensaje, undefined, {
+      horizontalPosition: "center",
+      verticalPosition: "top",
+      duration: 2500,
+      panelClass: "snackbar-mostrar-success"
+    })
   }
 }

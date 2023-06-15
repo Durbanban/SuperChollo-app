@@ -1,1 +1,37 @@
-<app-navbar></app-navbar>
+<app-navbar [estadoDrawer]="drawerAbierto" [usuario] = "usuarioLogueado" (abrirSidenav)="capturarEventoSidenav($event)"></app-navbar>
+<mat-drawer-container class="vh-100">
+
+  <div class="d-flex justify-content-center mt-5">
+    <p class="display-5">¡Bienvenido {{usuarioLogueado.fullName}}!</p>
+  </div>
+  <mat-grid-list cols="2" rowHeight="2:1" gutterSize="16px">
+      <mat-grid-tile>
+          <div class="d-flex flex-column align-items-center border-5">
+            <p class="display-6">Productos en la App</p>
+            <p class="display-3">{{totalProductos}}</p>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="d-flex flex-column align-items-center">
+            <p class="display-6">Supermercados en la App</p>
+            <p class="display-3">{{totalSupermercados}}</p>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="d-flex flex-column align-items-center">
+            <p class="display-6">Usuarios en la App</p>
+            <p class="display-3">{{totalUsuarios}}</p>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="d-flex flex-column align-items-center">
+            <p class="display-6">Usuarios premium en la App</p>
+            <p class="display-3">{{totalUsuariosPremium}}</p>
+          </div>
+        </mat-grid-tile>
+  </mat-grid-list>
+  <mat-drawer class="w-25 vh-100" mode="side" [opened]="drawerAbierto">
+    <app-sidenav></app-sidenav>
+  </mat-drawer>
+  
+</mat-drawer-container>

@@ -30,25 +30,26 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    var mensaje = "";
     this.authService.doLogin(new LoginRequest(this.loginForm.value.username, this.loginForm.value.password)).subscribe(respuesta => {
-      if(respuesta) {
+      if(respuesta && respuesta.roles.includes("ADMIN")) {
         localStorage.setItem("token", respuesta.token);
         localStorage.setItem("refresh_token", respuesta.refreshToken);
         localStorage.setItem("user_rol", respuesta.roles);
         this.router.navigate(["home"]);
+      }else if(respuesta && respuesta.roles.includes("USER")){
+        mensaje = "Esta aplicación es sólo para administradores. No tienes acceso";
+        this.commonService.mostrarError(mensaje);
       }
     },
     error => {
-      this.commonService.mostrarAlerta("Usuario y/o contraseña incorrectos", "Error");
+      this.commonService.mostrarError("Usuario y/o contraseña incorrectos");
+      
     });
   }
 
   changePasswordVisibility() {
-    if(this.visible) {
-      this.icono = "visibility_off";
-    }else {
-      this.icono = "visibility";
-    }
+    this.icono = this.icono === "visibility_off" ? "visibility" : "visibility_off";
     this.visible = !this.visible;
   }
 

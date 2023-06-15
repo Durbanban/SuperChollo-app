@@ -14,6 +14,7 @@ class LoginResponse {
         this.fechaCreado,
         this.token,
         this.refreshToken,
+        this.roles,
     });
 
     String? id;
@@ -23,6 +24,7 @@ class LoginResponse {
     String? fechaCreado;
     String? token;
     String? refreshToken;
+    String? roles;
 
     factory LoginResponse.fromJson(Map<String, dynamic> data) => _$LoginResponseFromJson(data);
 
