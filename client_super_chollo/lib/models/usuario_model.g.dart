@@ -9,7 +9,14 @@ part of 'usuario_model.dart';
 UsuarioResponse _$UsuarioResponseFromJson(Map<String, dynamic> json) {
   $checkKeys(
     json,
-    allowedKeys: const ['id', 'username', 'avatar', 'fullName', 'fechaCreado'],
+    allowedKeys: const [
+      'id',
+      'username',
+      'avatar',
+      'fullName',
+      'fechaCreado',
+      'roles'
+    ],
   );
   return UsuarioResponse(
     json['id'],
@@ -17,6 +24,7 @@ UsuarioResponse _$UsuarioResponseFromJson(Map<String, dynamic> json) {
     json['avatar'],
     json['fullName'],
     json['fechaCreado'],
+    json['roles'],
   );
 }
 
@@ -27,4 +35,5 @@ Map<String, dynamic> _$UsuarioResponseToJson(UsuarioResponse instance) =>
       'avatar': instance.avatar,
       'fullName': instance.fullName,
       'fechaCreado': instance.fechaCreado,
+      'roles': instance.roles,
     };

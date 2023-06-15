@@ -36,6 +36,8 @@ public class UsuarioDtoResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     protected LocalDateTime fechaCreado;
 
+    protected String roles;
+
     public static UsuarioDtoResponse of(Usuario usuario) {
         return UsuarioDtoResponse
                 .builder()
@@ -44,6 +46,7 @@ public class UsuarioDtoResponse {
                 .avatar(usuario.getAvatar())
                 .fullName(usuario.getFullName())
                 .fechaCreado(usuario.getFechaCreado())
+                .roles(usuario.getRoles().toString())
                 .build();
     }
 }

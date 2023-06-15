@@ -6,14 +6,16 @@ import com.salesianostriana.dam.superchollo.backend.security.jwt.refresh.Refresh
 import com.salesianostriana.dam.superchollo.backend.security.jwt.refresh.RefreshTokenException;
 import com.salesianostriana.dam.superchollo.backend.security.jwt.refresh.RefreshTokenNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
+@Log
 @Service
 @RequiredArgsConstructor
 public class RefreshTokenService {
@@ -23,11 +25,12 @@ public class RefreshTokenService {
     @Value("${jwt.refresh.duration}")
     private int durationInMinutes;
 
-
+    @Transactional(readOnly = true)
     public Optional<RefreshToken> findByToken(String token) {
         return refreshTokenRepository.findByToken(token);
     }
 
+    @Transactional
     public RefreshToken createRefreshToken(Usuario usuario) {
 
 
@@ -39,11 +42,13 @@ public class RefreshTokenService {
 
         refreshToken = refreshTokenRepository.save(refreshToken);
 
+        log.info("Se ha generado un nuevo token de refresco %s".formatted(refreshToken.toString()));
 
         return refreshToken;
     }
 
 
+    @Transactional
     public RefreshToken verify(RefreshToken refreshToken) {
 
         if (refreshToken.getExpiryDate().compareTo(Instant.now()) < 0) {

@@ -6,3 +6,4 @@ export 'supermercado/supermercado.dart';
 export 'login/login.dart';
 export 'home/home.dart';
 export 'detalles_producto/detalles_producto.dart';
+export 'register/register_bloc.dart';

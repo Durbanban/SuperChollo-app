@@ -16,7 +16,8 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) {
       'fullName',
       'fechaCreado',
       'token',
-      'refreshToken'
+      'refreshToken',
+      'roles'
     ],
   );
   return LoginResponse(
@@ -27,6 +28,7 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) {
     fechaCreado: json['fechaCreado'] as String?,
     token: json['token'] as String?,
     refreshToken: json['refreshToken'] as String?,
+    roles: json['roles'] as String?,
   );
 }
 
@@ -39,6 +41,7 @@ Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
       'fechaCreado': instance.fechaCreado,
       'token': instance.token,
       'refreshToken': instance.refreshToken,
+      'roles': instance.roles,
     };
 
 LoginRequest _$LoginRequestFromJson(Map<String, dynamic> json) {

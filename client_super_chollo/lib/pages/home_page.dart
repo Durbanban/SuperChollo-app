@@ -6,7 +6,10 @@ import 'package:client_super_chollo/models/models.dart';
 import 'package:client_super_chollo/widgets/widgets.dart';
 import 'package:client_super_chollo/blocs/blocs.dart';
 
+import '../rest/rest_client.dart';
+
 class HomeScreen extends StatelessWidget {
+
   const HomeScreen({super.key});
 
   @override
@@ -21,6 +24,8 @@ class HomeScreen extends StatelessWidget {
 class HomePage extends StatelessWidget {
 
   const HomePage({super.key});
+
+  static final baseUrl = ApiConstants.baseUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -45,15 +50,11 @@ class HomePage extends StatelessWidget {
                       fontSize: 24
                     ),
                   ),
-                  Image.network("http://localhost:6868/file/download/${state.usuario!.avatar}"),
+                  Image.network("$baseUrl/file/download/${state.usuario!.avatar}"),
                   const SizedBox(
                     height: 12,
                   ),
                   ElevatedButton(
-                    //textColor: Theme.of(context).primaryColor,
-                    /*style: TextButton.styleFrom(
-                      primary: Theme.of(context).primaryColor,
-                    ),*/
                     child: Text('Logout'),
                     onPressed: (){
                       context.read<AuthenticationBloc>().add(UserLoggedOut());

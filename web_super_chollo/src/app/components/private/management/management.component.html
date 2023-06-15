@@ -1,0 +1,113 @@
+<app-navbar [estadoDrawer]="drawerAbierto" [usuario] = "usuarioLogueado" (abrirSidenav)="capturarEventoSidenav($event)"></app-navbar>
+<mat-drawer-container class="vh-100">
+
+  <div class="d-flex flex-column align-items-center m-auto p-auto">
+    <div>
+      <p class="display-6">{{showTable}}</p>
+    </div>
+  
+    <div *ngIf="showTable == 'usuarios'">
+      <table mat-table [dataSource]="datos" matSort>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let usuario">{{usuario.id}}</td>
+        </ng-container>
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre de Usuario </th>
+          <td mat-cell *matCellDef="let usuario">{{usuario.username}}</td>
+        </ng-container>
+        <ng-container matColumnDef="fullName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre completo </th>
+          <td mat-cell *matCellDef="let usuario">{{usuario.fullName}}</td>
+        </ng-container>
+        <ng-container matColumnDef="fechaCreado">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha creación </th>
+          <td mat-cell *matCellDef="let usuario">{{usuario.fechaCreado}}</td>
+        </ng-container>
+        <ng-container matColumnDef="roles">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Roles </th>
+          <td mat-cell *matCellDef="let usuario">{{usuario.roles}}</td>
+        </ng-container>
+        <ng-container matColumnDef="avatar">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Avatar </th>
+          <td mat-cell *matCellDef="let usuario"><img class="foto" [src]="getFoto(usuario.avatar)" onerror="this.src='https://dinahosting.com/blog/cont/uploads/2021/03/error-404.jpg'"></td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let usuario; columns: displayedColumns"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[10, 25, 50]" aria-label="Select page"></mat-paginator>
+    </div>
+  
+    <div *ngIf="showTable == 'supermercados'">
+      <table mat-table [dataSource]="datos" matSort>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let supermercado">{{supermercado.id}}</td>
+        </ng-container>
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+          <td mat-cell *matCellDef="let supermercado">{{supermercado.nombre}}</td>
+        </ng-container>
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Dirección </th>
+          <td mat-cell *matCellDef="let supermercado">{{supermercado.address}}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let supermercado; columns: displayedColumns"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[10, 25, 50]" aria-label="Select page"></mat-paginator>
+    </div>
+  
+    <div *ngIf="showTable == 'productos'">
+      <table mat-table [dataSource]="datos" matSort>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let producto">{{producto.id}}</td>
+        </ng-container>
+        <ng-container matColumnDef="generico">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre genérico </th>
+          <td mat-cell *matCellDef="let producto">{{producto.generico}}</td>
+        </ng-container>
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre producto </th>
+          <td mat-cell *matCellDef="let producto">{{producto.nombre}}</td>
+        </ng-container>
+        <ng-container matColumnDef="precio">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+          <td mat-cell *matCellDef="let producto">{{producto.precio}}</td>
+        </ng-container>
+        <ng-container matColumnDef="imagen">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Imagen </th>
+          <td mat-cell *matCellDef="let producto"><img class="foto" [src]="getFoto(producto.imagen)" onerror="this.src='https://dinahosting.com/blog/cont/uploads/2021/03/error-404.jpg'"></td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let producto; columns: displayedColumns"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[10, 25, 50]" aria-label="Select page"></mat-paginator>
+    </div>
+    <button *ngIf="showTable == 'productos'" mat-raised-button color="warn" (click)="abrirDialogNuevoProducto()">Nuevo producto</button>
+  
+    <div *ngIf="showTable == 'categorias'">
+      <table mat-table [dataSource]="datos" matSort>
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let categoria">{{categoria.id}}</td>
+        </ng-container>
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+          <td mat-cell *matCellDef="let categoria">{{categoria.nombre}}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let categoria; columns: displayedColumns"></tr>
+      </table>
+      <mat-paginator [pageSizeOptions]="[10, 25, 50]" aria-label="Select page"></mat-paginator>
+    </div>
+  </div>
+
+  
+
+  <mat-drawer class="w-25 vh-100" mode="side" [opened]="drawerAbierto">
+    <app-sidenav (mandarTabla)="capturarDatosTabla($event)"></app-sidenav>
+  </mat-drawer>
+  
+</mat-drawer-container>
