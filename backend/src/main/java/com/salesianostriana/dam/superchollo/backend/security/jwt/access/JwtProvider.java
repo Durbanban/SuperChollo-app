@@ -8,6 +8,7 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.crypto.SecretKey;
@@ -54,6 +55,7 @@ public class JwtProvider {
 
     }
 
+    @Transactional
     public String generateToken(Usuario usuario) {
         Date tokenExpirationDateTime =
                 Date.from(

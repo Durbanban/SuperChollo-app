@@ -9,8 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,11 +25,12 @@ public class RefreshTokenService {
     @Value("${jwt.refresh.duration}")
     private int durationInMinutes;
 
-
+    @Transactional(readOnly = true)
     public Optional<RefreshToken> findByToken(String token) {
         return refreshTokenRepository.findByToken(token);
     }
 
+    @Transactional
     public RefreshToken createRefreshToken(Usuario usuario) {
 
 
@@ -47,6 +48,7 @@ public class RefreshTokenService {
     }
 
 
+    @Transactional
     public RefreshToken verify(RefreshToken refreshToken) {
 
         if (refreshToken.getExpiryDate().compareTo(Instant.now()) < 0) {

@@ -64,7 +64,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-                .cors(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults())
                 .csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
@@ -75,7 +75,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.DELETE, "/auth/user/**").authenticated()
-                .antMatchers("/h2-console/**", "/auth/register/", "/auth/login/", "/file/download/**", "/auth/refreshtoken/").permitAll()
+                .antMatchers("/h2-console/**", "/auth/register/", "/auth/register/premium/", "/auth/login/", "/file/download/**", "/auth/refreshtoken/").permitAll()
                 .antMatchers("/auth/register/admin/", "/auth/user/").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/categoria/", "/supermercado/").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/categoria/**", "/supermercado/**").hasRole("ADMIN")
@@ -92,10 +92,10 @@ public class SecurityConfig {
     }
 
 
-    @Bean
+    /*@Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web -> web.ignoring().antMatchers("/h2-console/**", "/auth/register/", "/auth/login/", "/file/download/**"));
-    }
+    }*/
 
 
 }

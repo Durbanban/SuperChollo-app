@@ -1,0 +1,22 @@
+<mat-toolbar color="warn" class="d-flex flex-row justify-content-between">
+    <button mat-icon-button (click)="emitEventoSideNav()">
+    <mat-icon>menu</mat-icon>
+    </button>
+    <span>Panel Admin Superchollo</span>
+    <div>
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="me-3">
+            <img [src]="getAvatar()" class="w-100">
+        </button>
+        <mat-menu #menu>
+            <button mat-menu-item>
+                <span>Ver perfil</span>
+              </button>
+              <button mat-menu-item (click)="logOut()">
+                <span>Cerrar sesión</span>
+              </button>
+        </mat-menu>
+    </div>
+</mat-toolbar>
+
+
+  

@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:client_super_chollo/pages/register_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:client_super_chollo/config/locator.dart';
@@ -8,12 +10,13 @@ import '../services/services.dart';
 import 'package:client_super_chollo/rest/rest.dart';
 
 class LoginPage extends StatelessWidget {
+
+  File? file;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login')
-      ),
+      appBar: AppBar(title: Text('Login')),
       body: SafeArea(
           minimum: const EdgeInsets.all(16),
           child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
@@ -22,7 +25,8 @@ class LoginPage extends StatelessWidget {
               if (state is AuthenticationNotAuthenticated) {
                 return _AuthForm();
               }
-              if (state is AuthenticationFailure || state is SessionExpiredState) {
+              if (state is AuthenticationFailure ||
+                  state is SessionExpiredState) {
                 var msg = (state as AuthenticationFailure).message;
                 return Center(
                     child: Column(
@@ -31,7 +35,6 @@ class LoginPage extends StatelessWidget {
                   children: <Widget>[
                     Text(msg),
                     TextButton(
-                      //textColor: Theme.of(context).primaryColor,
                       child: Text('Retry'),
                       onPressed: () {
                         authBloc.add(AppLoaded());
@@ -40,7 +43,6 @@ class LoginPage extends StatelessWidget {
                   ],
                 ));
               }
-              // return splash screen
               return Center(
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
@@ -55,7 +57,6 @@ class LoginPage extends StatelessWidget {
 class _AuthForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //final authService = RepositoryProvider.of<AuthenticationService>(context);
     final authService = getIt<JwtAuthenticationService>();
     final authBloc = BlocProvider.of<AuthenticationBloc>(context);
 
@@ -86,7 +87,8 @@ class __SignInFormState extends State<_SignInForm> {
 
     _onLoginButtonPressed() {
       if (_key.currentState!.validate()) {
-        _loginBloc.add(LoginInWithEmailButtonPressed(email: _emailController.text, password: _passwordController.text));
+        _loginBloc.add(LoginInWithEmailButtonPressed(
+            email: _emailController.text, password: _passwordController.text));
       } else {
         setState(() {
           _autoValidate = true;
@@ -109,7 +111,9 @@ class __SignInFormState extends State<_SignInForm> {
           }
           return Form(
             key: _key,
-            autovalidateMode: _autoValidate ? AutovalidateMode.always : AutovalidateMode.disabled,
+            autovalidateMode: _autoValidate
+                ? AutovalidateMode.always
+                : AutovalidateMode.disabled,
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -117,10 +121,10 @@ class __SignInFormState extends State<_SignInForm> {
                   SizedBox(
                     width: 250,
                     height: 250,
-                    child: Image.network( 
-                    "${ApiConstants.baseUrl}/file/download/logo_superchollo.png",
-                    fit: BoxFit.contain,
-                  ),
+                    child: Image.network(
+                      "${ApiConstants.baseUrl}/file/download/logo_superchollo.png",
+                      fit: BoxFit.contain,
+                    ),
                   ),
                   TextFormField(
                     decoration: InputDecoration(
@@ -159,15 +163,38 @@ class __SignInFormState extends State<_SignInForm> {
                   const SizedBox(
                     height: 16,
                   ),
-                  //RaisedButton(
-                  ElevatedButton(  
-                    //color: Theme.of(context).primaryColor,
-                    //textColor: Colors.white,
-                    //padding: const EdgeInsets.all(16),
-                    //shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(8.0)),
-                    child: Text('ENTRAR'),
-                    onPressed: state is LoginLoading ? () {} : _onLoginButtonPressed,
-                  )
+                  ElevatedButton(
+                    onPressed:
+                        state is LoginLoading ? () {} : _onLoginButtonPressed,
+                    child: const Text('ENTRAR'),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            transitionDuration:
+                                const Duration(milliseconds: 300),
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    const RegisterForm(),
+                            transitionsBuilder: (context, animation,
+                                secondaryAnimation, child) {
+                              return SlideTransition(
+                                position: Tween<Offset>(
+                                        begin: const Offset(1, 0),
+                                        end: Offset.zero)
+                                    .animate(animation),
+                                child: child,
+                              );
+                            },
+                          ),
+                        );
+                      },
+                      child: Text("¿No tienes cuenta? Regístrate"))
                 ],
               ),
             ),
@@ -184,7 +211,5 @@ class __SignInFormState extends State<_SignInForm> {
     ));*/
 
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error)));
-
-
   }
 }

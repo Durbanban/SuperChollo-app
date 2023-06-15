@@ -17,8 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -68,11 +69,23 @@ public class CategoriaService {
         return categoriaRepository.save(categoria);
     }
 
+    @Transactional
     public Categoria edit(UUID id, CategoriaDtoEditRequest dto) {
-        return categoriaRepository.findById(id).map(cat -> {
+
+        Optional<Categoria> categoria = categoriaRepository.findByIdConProductos(id);
+
+        if(categoria.isPresent()) {
+            productoRepository.getProductosConTodo();
+            productoRepository.findByIdConSupermercados(id);
+            supermercadoRepository.getSupermercadosConSeguidores();
+            supermercadoRepository.getSupermercadosConProductos();
+        }
+
+        return categoria.map(cat -> {
             cat.setNombre(dto.getNombre());
-            return categoriaRepository.save(cat);
+            return cat;
         }).orElseThrow(() -> new CategoriaNotFoundException(id));
+
     }
 
     @Transactional

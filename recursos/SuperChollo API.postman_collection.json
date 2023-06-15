@@ -30,12 +30,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8080/auth/register/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/auth/register/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"auth",
 								"register",
@@ -66,12 +64,10 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8080/auth/register/admin/",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/auth/register/admin/",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"auth",
 								"register",
@@ -185,12 +181,25 @@
 				},
 				{
 					"name": "refresh token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", json.token);\r",
+									"pm.collectionVariables.set(\"refresh_token\", json.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"refreshToken\": \"e5a1f4a3-b61d-4830-a32b-53e54954eaf6\"\r\n}",
+							"raw": "{\r\n    \"refreshToken\": \"{{refresh_token}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -205,6 +214,41 @@
 							"path": [
 								"auth",
 								"refreshtoken",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "nuevo usuario premium",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/Aniba/OneDrive/Escritorio/Locuelo.png"
+								},
+								{
+									"key": "usuario",
+									"type": "file",
+									"src": "/C:/Users/Aniba/OneDrive/Escritorio/nuevo_user_premium.json"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register/premium/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register",
+								"premium",
 								""
 							]
 						}
@@ -240,13 +284,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/categoria/0231a8be-af6a-487e-bd21-bd98c0caad39",
+							"raw": "{{baseUrl}}/categoria/24261a63-5dd3-4f81-a0a4-3dc929f74ebe",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"categoria",
-								"0231a8be-af6a-487e-bd21-bd98c0caad39"
+								"24261a63-5dd3-4f81-a0a4-3dc929f74ebe"
 							]
 						}
 					},
@@ -294,13 +338,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/categoria/c0a80186-8669-13b4-8186-69e51d750001",
+							"raw": "{{baseUrl}}/categoria/24261a63-5dd3-4f81-a0a4-3dc929f74ebe",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"categoria",
-								"c0a80186-8669-13b4-8186-69e51d750001"
+								"24261a63-5dd3-4f81-a0a4-3dc929f74ebe"
 							]
 						}
 					},
@@ -340,7 +384,7 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/C:/Users/durban.vicar22/Desktop/logo_superchollo.png"
+									"src": "/C:/Users/Aniba/OneDrive/Escritorio/logo_superchollo.png"
 								}
 							]
 						},
@@ -364,14 +408,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/file/download/logo_superchollo.png",
+							"raw": "{{baseUrl}}/file/download/user.png",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"file",
 								"download",
-								"logo_superchollo.png"
+								"user.png"
 							]
 						}
 					},
@@ -427,7 +471,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"oldPassword\": \"1234\",\r\n    \"newPassword\": \"lala\",\r\n    \"verifyPassword\": \"lala\"\r\n}",
+							"raw": "{\r\n    \"oldPassword\": \"5678\",\r\n    \"newPassword\": \"lala\",\r\n    \"verifyPassword\": \"lala\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -455,14 +499,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/auth/user/89a8725e-ebd8-40fa-9caa-105b742c4ea0",
+							"raw": "{{baseUrl}}/auth/user/6d3a1f2c-383a-4db0-8d7d-614eefcd7529",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"auth",
 								"user",
-								"89a8725e-ebd8-40fa-9caa-105b742c4ea0"
+								"6d3a1f2c-383a-4db0-8d7d-614eefcd7529"
 							]
 						}
 					},
@@ -479,7 +523,7 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/C:/Users/durban.vicar22/Desktop/administrador.png"
+									"src": "/C:/Users/Aniba/OneDrive/Escritorio/administrador.png"
 								}
 							]
 						},
@@ -527,13 +571,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/producto/e0a31674-c439-4c1b-83b3-77236a762cf7",
+							"raw": "{{baseUrl}}/producto/dfe188cc-4027-402c-b9e2-ae0eeba16255",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"producto",
-								"e0a31674-c439-4c1b-83b3-77236a762cf7"
+								"dfe188cc-4027-402c-b9e2-ae0eeba16255"
 							]
 						}
 					},
@@ -550,12 +594,12 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/C:/Users/durban.vicar22/Desktop/pechuga_de_pavo_reducida_en_sal_realvalle_lidl.jpg"
+									"src": "/C:/Users/Aniba/OneDrive/Escritorio/pechuga_de_pavo_reducida_en_sal_realvalle_lidl.jpg"
 								},
 								{
 									"key": "producto",
 									"type": "file",
-									"src": "/C:/Users/durban.vicar22/Desktop/nuevo_producto.json"
+									"src": "/C:/Users/Aniba/OneDrive/Escritorio/nuevo_producto.json"
 								}
 							]
 						},
@@ -616,13 +660,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/producto/e0a31674-c439-4c1b-83b3-77236a762cf7",
+							"raw": "{{baseUrl}}/producto/dfe188cc-4027-402c-b9e2-ae0eeba16255",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"producto",
-								"e0a31674-c439-4c1b-83b3-77236a762cf7"
+								"dfe188cc-4027-402c-b9e2-ae0eeba16255"
 							]
 						}
 					},
@@ -703,13 +747,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/supermercado/b7b86f11-ccec-46fd-b3d4-dd1cb3268e6a",
+							"raw": "{{baseUrl}}/supermercado/3ff87f82-177f-40fa-978c-8df7b41a757f",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"supermercado",
-								"b7b86f11-ccec-46fd-b3d4-dd1cb3268e6a"
+								"3ff87f82-177f-40fa-978c-8df7b41a757f"
 							]
 						}
 					},
@@ -835,7 +879,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "",
+				"value": "{{token}}",
 				"type": "string"
 			}
 		]

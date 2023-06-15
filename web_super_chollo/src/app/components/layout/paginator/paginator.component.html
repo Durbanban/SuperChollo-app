@@ -1,0 +1,11 @@
+<!-- <div>
+    <mat-button-toggle-group class="pagination" name="paginacionActores" aria-label="Paginación de actores">
+      <mat-button-toggle (click)="getPopular(1)" [disabled]="page == 1">&#60;&#60;</mat-button-toggle>
+      <mat-button-toggle (click)="getPopular(page - 1)" [disabled]="page == 1">&#60;</mat-button-toggle>
+      <ng-container *ngFor="let pagina of numPages(); let i = index">
+        <mat-button-toggle *ngIf="i <= page && i >= page - 2" [checked]="page == i + 1" (click)="getPopular(i + 1)">{{ i + 1 }}</mat-button-toggle>
+      </ng-container>
+      <mat-button-toggle (click)="getPopular(page + 1)" [disabled]="page == totalPages">&#62;</mat-button-toggle>
+      <mat-button-toggle (click)="getPopular(totalPages)" [disabled]="page == totalPages">&#62;&#62;</mat-button-toggle>
+    </mat-button-toggle-group>
+</div> -->
